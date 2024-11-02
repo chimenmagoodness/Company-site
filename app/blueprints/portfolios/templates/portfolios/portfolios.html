@@ -1,0 +1,90 @@
+{% extends "base.html" %} {% block head %} {% block title %} Portfolio Page
+{%endblock %} {% include "sweetalerts.html" %} {% include "others_header.html"
+%}
+<link rel="stylesheet" href="{{ url_for('static', filename='header.css') }}" />
+
+<!-- Code highlighter -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"
+/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>
+  hljs.highlightAll();
+</script>
+
+{% endblock %} {% block content %}
+
+<style>
+  .card {
+    background: var(--background-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding-bottom: 28px;
+  }
+
+  .view-container {
+    margin-top: 150px;
+  }
+</style>
+
+<section class="view-container">
+  <div class="container">
+    <h1 class="text-center">My Portfolios</h1>
+    <!-- Portfolio Container -->
+    <div class="all_portfolio-container row">
+      {% for item in portfolio %}
+      <!-- Portfolio Card -->
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <a
+          class="card portfolio_card h-100 p-0"
+          href="{{ url_for('portfolio.portfolio_details', project_name=item.project_name) }}"
+        >
+          <div class="card-body portfolio__container p-0">
+            <!-- Image -->
+            <div class="img__div">
+              {% if item.media and item.media|length > 0 %}
+              <img
+                class="card-img-top"
+                src="{{ url_for('static', filename='uploads/' ~ item.media[0].filename) }}"
+                alt="{{ item.project_name }}"
+              />
+              {% else %}
+              <img
+                src="{{ url_for('static', filename='default_image.png') }}"
+                alt="Default Image"
+              />
+              {% endif %}
+            </div>
+
+            <div class="card-body">
+              <!-- Details -->
+              <ul class="list-unstyled">
+                <li>
+                  <div class="location-div d-flex">
+                    <i class="bi bi-geo-alt text-primary"></i>
+                    <p class="card-text location ml-3 text-dark">
+                      {{ item.location }}
+                    </p>
+                  </div>
+                </li>
+              </ul>
+              <h3 class="card-title project__type">{{ item.project_name }}</h3>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %} {% block scripts %}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.1/tinymce.min.js"
+  integrity="sha512-SJh7xW/9SLzllt0PqjnYlomfUPi7UYF40TXU5m6kVXLFr1hdKe+L8Tqqoi1y9vlsMQBdGC2lZI0d6w04Nn6piQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+{% endblock %}

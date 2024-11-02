@@ -1,0 +1,61 @@
+{% extends "base.html" %} 
+{% block head %} 
+    {% block title %}
+        Partner Page 
+    {% endblock %} 
+    {% include "sweetalerts.html" %}
+    {% include "others_header.html" %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='header.css') }}" />
+    
+{% endblock %} 
+
+{% block content %} 
+
+    <style>
+        .partner .partner__container .img__card {
+            width: 180px;
+            height: 180px;
+            padding-top: 10px;
+            padding: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+    
+        .partner .partner__container .partner__img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    
+    <section class="partner mt-5" id="partner">
+        <div class="container">
+            <div class="partner_texts d-flex pb-4 justify-content-center">
+                <h1 class="partner__heading text-center">Our Partners</h1>
+            </div>
+    
+            <!-- Display Partners -->
+            <div class="partner__container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 col-sm-12">
+                            {% for partner in partners %}
+                            <div class="img__card">
+                                <img src="{{ url_for('static', filename='uploads/' ~ partner.logo_image_id) }}"
+                                    alt="{{ partner.name }}" class="partner__img" />
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.1/tinymce.min.js"
+    integrity="sha512-SJh7xW/9SLzllt0PqjnYlomfUPi7UYF40TXU5m6kVXLFr1hdKe+L8Tqqoi1y9vlsMQBdGC2lZI0d6w04Nn6piQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+{% endblock %}

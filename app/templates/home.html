@@ -1,0 +1,918 @@
+{% extends "base.html" %}
+{% block title %} 
+    Home Page
+{% endblock %}
+
+
+{% block content %} 
+
+    {% include "header.html" %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://upkg.com/swiper/swiper-bundle.min.css">
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500;600;700&family=Dancing+Script:wght@400..700&family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Roboto+Condensed:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sacramento&display=swap"
+        rel="stylesheet" />
+    <link href="https://db.onlinewebfonts.com/c/c2c53906d03ac20447dfd4da50900e82?family=Garamont+AMSTERDAM+Italic"
+        rel="stylesheet" />
+
+
+    <div class="hero" id="home">
+        <div class="container">
+            {% include "header.html" %}
+            <div class="container hero__container">
+                <div class="moto__div">
+                    <p class="hore__description">Engineering is not just about building, but about building something that
+                        lasts. Innovation is the blueprint for that
+                        legacy.</p>
+                    <h1 class="motto">Building </h1>
+                    <div class="div1 d-flex">
+                        <h1 class="beyond">Beyond</h1>
+                        <div class="button-container">
+                            <a href="#contact" class="connect__btn">contact us</a>
+                            <span class="icon"><i class="bi bi-chevron-right"></i></span>
+    
+                        </div>
+                    </div>
+    
+                </div>
+                <div class="extra__div">
+                    <h3 class="engr__quote">Engineers dream, design, and deliver</h3>
+                    <p class="engr__descr">
+                        We are the architects of progress, shaping the world with every solution.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!------------------------------- About Section ----------------------------->
+    <section class="about__section" id="about">
+        <div class="container">
+            <h3 class="partner__heading">Trusted by Worlds Best Companies</h3>
+            <div class="partner__section">
+                <img src="static\images\image5.jpg" alt="">
+                <img src="static\images\image6.jpg" alt="">
+                <img src="static\images\image7.jpg" alt="">
+                <img src="static\images\image5.jpg" alt="">
+                <img src="static\images\image6.jpg" alt="">
+                <img src="static\images\image7.jpg" alt="">
+            </div>
+        </div>
+        <div class="about container">
+            <div class="about__text">
+                <ul>
+                    <li>
+                        <p>About Us</p>
+                    </li>
+                </ul>
+            </div>
+    
+            <div class="about__us">
+                <h4>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, reprehenderit magnam aperiam vitae
+                    dolorum est
+                    libero ex perspiciatis excepturi deserunt sequi atque praesentium rem cupiditate fuga temporibus quasi
+                    dolor?
+                    Corrupti.
+                </h4>
+    
+                <div class="home__btn-box">
+                    <div class="button-container btn-box">
+                        <a href="" class="connect__btn">Read More</a>
+                        <span class="icon"><i class="bi bi-chevron-right"></i></span>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </section>
+    <!-------------------------------------------Show Of Section ---------------------------------->
+    <section class="show__off">
+        <div class="container">
+            <div class="showoff__container">
+                <div class="properties__built">
+                    <p class="title">PROPERTIES BUILT</p>
+                    <h3 class="counts">25+</h3>
+    
+                </div>
+    
+                <div class="awards">
+                    <p class="title">ACTIVE SITES</p>
+                    <h3 class="counts">3</h3>
+                </div>
+    
+                <div class="experience">
+                    <p class="title">YEARS OF EXPERIENCE</p>
+                    <h3 class="counts">10+</h3>
+                </div>
+    
+                <div class="team__experts">
+                    <p class="title">EXPERTS IN THE TEAM</p>
+                    <h3 class="counts">7+</h3>
+                </div>
+    
+                <div class="team__experts">
+                    <p class="title">COMPLIANCE RATE</p>
+                    <h3 class="counts">100<span class="percent">%</span></h3>
+                </div>
+            </div>
+        </div>
+    
+    </section>
+    
+    <!------------------------------------------------Services Section --------------------------------------------->
+    <section class="services__section" id="services">
+        <div class="container services">
+            <div class="services__text-container">
+                <p class="sub__header">Our Services</p>
+                <h1 class="services__heading">Steps that we do for <span>our customers</span></h1>
+                <p class="sub_descr">
+                    handling project of any king which includes schools,
+                    churches, houses, hospitals, and even suppling build materials
+                </p>
+            </div>
+    
+            <div class="service__container">
+                <!-- <div class="service"> -->
+                <div class="service__card">
+                    <img src="static\images\design_and_build.PNG" alt="" class="services__img">
+                    <div>
+                        <h3 class="service__header">Design & Build</h3>
+                        <p class="services__text">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Amet saepe, dolores odit consequuntur
+                            fuga vero cum
+                            exercitationem officia fugit quidem a optio
+                        </p>
+                    </div>
+                </div>
+                <!-- </div> -->
+    
+                <!-- <div class="service"> -->
+                <div class="service__card">
+                    <img src="static\images\renovation.PNG" alt="" class="services__img">
+                    <div>
+                        <h3 class="service__header">Well Constructed</h3>
+                        <p class="services__text">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Amet saepe, dolores odit consequuntur
+                            fuga vero cum
+                            exercitationem officia fugit quidem a option
+                        </p>
+                    </div>
+                </div>
+                <!-- </div> -->
+    
+                <!-- <div class="service"> -->
+                <div class="service__card">
+                    <img src="static\images\constructed.PNG" alt="" class="services__img">
+    
+                    <div>
+                        <h3 class="service__header">Renovation</h3>
+                        <p class="services__text">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Amet saepe, dolores odit consequuntur
+                            fuga vero cum
+                            exercitationem officia fugit quidem a optio
+                        </p>
+                    </div>
+                </div>
+                <!-- </div> -->
+    
+                <!-- <div class="service"> -->
+                <div class="service__card">
+                    <img src="static\images\maintainance.PNG" alt="" class="services__img">
+                    <div>
+                        <h3 class="service__header">Maintain Schedule</h3>
+                        <p class="services__text">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Amet saepe, dolores odit consequuntur
+                            fuga vero cum
+                            exercitationem officia fugit quidem a optio
+                        </p>
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+    
+    
+        </div>
+    </section>
+    
+    <!----------------------------  PortFolio Section ----------------------->
+    <section class="portfolio__section" id="portfolio">
+        <div class="container">
+            <hr>
+    
+            <div class="portfolio portfolio1">
+                <div class="project project1">
+                    <h1 class="text">Recent</h1>
+                    <h1 class="text1">Projects</h1>
+                </div>
+                <div class="project">
+                    <p class="text3">
+                        If you are looking for custom design and construction, lookingno further, visit now Astructs
+                    </p>
+                </div>
+                <div class="project3">
+                    <div class="button-container">
+                        <a href="" class="connect__btn">View all</a>
+                        <span class="icon"><i class="bi bi-chevron-right"></i></span>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="portfolio portfolio2">
+                <div class="projects">
+                    <div class="img__div">
+                        <img src="static\images\astructs_house_image1.jpg" alt="" class="project__img">
+                    </div>
+                    <ul>
+                        <li>
+                            <p class="location">Airport Road Lugbe, FCT</p>
+                        </li>
+                    </ul>
+                    <h3 class="project__type">River Park Estate</h3>
+                </div>
+    
+                <div class="projects">
+                    <div class="img__div">
+                        <img src="static\images\image1.jpeg" alt="" class="project__img">
+                    </div>
+                    <ul>
+                        <li>
+                            <p class="location">Airport Road Lugbe, FCT</p>
+                        </li>
+                    </ul>
+                    <h3 class="project__type">River Park Estate</h3>
+                </div>
+    
+                <div class="projects">
+                    <div class="img__div">
+                        <img src="static\images\astruck_building_image.jpeg" alt="" class="project__img">
+                    </div>
+                    <ul>
+                        <li>
+                            <p class="location">Airport Road Lugbe, FCT</p>
+                        </li>
+                    </ul>
+                    <h3 class="project__type">River Park Estate</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <!-------------------------------- How We Work Section ---------------------->
+    <section class="how__we-work" id="HowWeWork">
+        <div class="container">
+            <div class="heading__container pt-3">
+                <h1 class="heading pt-5">How Do We Work?</h1>
+            </div>
+    
+            <div class="what__we-do-container">
+                <div class="we__do-card">
+                    <h1>01</h1>
+                    <h3>CONCEPT & PLANNING</h3>
+                    <P>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                        Facere, autem corrupti aliquid natus error et consequatur eius veritatis,
+                        reprehenderit delectus commodi fuga, repudiandae debitis tempore maxime voluptate quam explicabo
+                        dolorum.</P>
+                </div>
+    
+                <div class="we__do-card">
+                    <h1>02</h1>
+                    <h3>CONCEPT & PLANNING</h3>
+                    <P>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                        Facere, autem corrupti aliquid natus error et consequatur eius veritatis,
+                        reprehenderit delectus commodi fuga, repudiandae debitis tempore maxime voluptate quam explicabo
+                        dolorum.</P>
+                </div>
+    
+                <div class="we__do-card">
+                    <h1>03</h1>
+                    <h3>CONCEPT & PLANNING</h3>
+                    <P>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                        Facere, autem corrupti aliquid natus error et consequatur eius veritatis,
+                        reprehenderit delectus commodi fuga, repudiandae debitis tempore maxime voluptate quam explicabo
+                        dolorum.</P>
+                </div>
+    
+                <div class="we__do-card">
+                    <h1>04</h1>
+                    <h3>CONCEPT & PLANNING</h3>
+                    <P>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                        Facere, autem corrupti aliquid natus error et consequatur eius veritatis,
+                        reprehenderit delectus commodi fuga, repudiandae debitis tempore maxime voluptate quam explicabo
+                        dolorum.</P>
+                </div>
+            </div>
+    
+        </div>
+    </section>
+    
+    <!------------------------------- Project Section ---------------------------->
+    <section class="projects__cate" id="gallery">
+        <h1 class="project__title">
+            Astructs Group Project Gallery
+        </h1>
+    
+        <p class="project__subtitle">
+            The Oasis proximity found docuses on care and nursing facilities.
+            the group has strong representation by long-standing tenants, significant demand, Andextended leases.
+        </p>
+        <div class="project__category">
+    
+            <!----------------------------- First projects section ---------------------------->
+    
+            <div class="projects__text-and-img__container">
+    
+                <div class="projects__text_container">
+                    <h1 class="project__text__title">
+                        One of the best, low-cost ways to refresh or remodel your kitchen is with a new coat paint.
+                    </h1>
+    
+                    <p class="projects__text-subtitle">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum aperiam hic rem veritatis ipsum unde
+                        tempore molestias
+                        perspiciatis cupiditate iusto officiis, quasi sequi aliquid maiores! Temporibus facere architecto
+                        consequatur atque!
+                    </p>
+    
+                    <div class="project__button p-btn">
+                        <button>
+                            Read More
+                        </button>
+                        <!-- <i class="bi bi-arrow-up-right-square-fill"></i> -->
+                        <div class="btn__icon">
+                            <i class="bi bi-arrow-up-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="projecst__img-container">
+                <img src="static\images\astruck_building_image.jpeg" alt="">
+            </div>
+        </div>
+        <!-------------------------- Video Section --------------------------->
+    
+    
+        <div class="container" id="video">
+            <div class="video__category">
+                <hr>
+                <h1 class="category__heading">
+                    Top Projects <span>Estates in Abuja</span>
+                </h1>
+                <p class="category__subheading">
+                    watch one of our wonderfull creations in the heart of abuja, nigeria.
+                    our video show cases our experties.
+                </p>
+                <div class="space">
+                    <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                    </iframe>
+                </div>
+    
+            </div>
+        </div>
+    
+        <!------------------------- Case Studies ------------------->
+        <div class="container other__categories" id="casestudies">
+            <ul>
+                <li>
+                    <p class="case">Recent case studies</p>
+                </li>
+            </ul>
+            <hr>
+            <div class="other__categories-container">
+                <div class="categories__text">
+                    <h1 class="project__heading">Fulham Town Hall extension</h1>
+                    <p class="project__descr text-dark">Improvement on the floor plan and layout of a loft
+                        apartment in paris to maximise the use of space and additional.
+                    </p>
+    
+                    <div class="button-container project-btn">
+                        <a href="" class="connect__btn">View all</a>
+                        <span class="icon"><i class="bi bi-chevron-right"></i></span>
+                    </div>
+                </div>
+    
+                <div class="categories__images">
+                    <img src="static\images\astruck_building_image.jpeg" alt="">
+                </div>
+    
+            </div>
+    
+            <hr>
+            <div class="other__categories-container">
+                <div class="categories__text">
+                    <h1 class="project__heading">Fulham Town Hall extension</h1>
+                    <p class="project__descr text-dark">Improvement on the floor plan and layout of a loft
+                        apartment in paris to maximise the use of space and additional.
+                    </p>
+    
+                    <div class="button-container project-btn">
+                        <a href="" class="connect__btn">View all</a>
+                        <span class="icon"><i class="bi bi-chevron-right"></i></span>
+                    </div>
+    
+                </div>
+    
+                <div class="categories__images">
+                    <img src="static\images\image2.jpeg" alt="">
+                </div>
+    
+            </div>
+    
+            <hr>
+            <div class="other__categories-container">
+                <div class="categories__text">
+                    <h1 class="project__heading">Fulham Town Hall extension</h1>
+                    <p class="project__descr text-dark">Improvement on the floor plan and layout of a loft
+                        apartment in paris to maximise the use of space and additional.
+                    </p>
+                    <div class="button-container project-btn">
+                        <a href="" class="connect__btn">View all</a>
+                        <span class="icon"><i class="bi bi-chevron-right"></i></span>
+                    </div>
+                </div>
+    
+                <div class="categories__images">
+                    <img src="static\images\image1.jpeg" alt="">
+                </div>
+    
+            </div>
+    
+            <hr>
+            <div class="other__categories-container">
+                <div class="categories__text">
+                    <h1 class="project__heading">Fulham Town Hall extension</h1>
+                    <p class="project__descr text-dark">Improvement on the floor plan and layout of a loft
+                        apartment in paris to maximise the use of space and additional.
+                    </p>
+                    <div class="button-container project-btn">
+                        <a href="" class="connect__btn">View all</a>
+                        <span class="icon"><i class="bi bi-chevron-right"></i></span>
+                    </div>
+                </div>
+    
+                <div class="categories__images">
+                    <img src="static\images\astructs_house_image1.jpg" alt="">
+                </div>
+    
+            </div>
+        </div>
+    </section>
+    
+    
+    <!-------------------------------------------- Why choose Us --------------------------------------->
+    <section class="why__choose-section" id="whychoose">
+        <div class="container">
+            <div class="choose__grid">
+                <div class="choose__text">
+                    <p class="little__text">Why Choose Us?</p>
+                    <h2 class="heading">
+                        Your Trustworthy Construction Safety Partner
+                    </h2>
+                </div>
+    
+                <div class="choose__cards">
+                    <div class="choose__card">
+                        <div class="img__choose">
+                            <img src="static\images\install.PNG" alt="">
+                        </div>
+                        <div class="choose__card-text">
+                            <h4 class="heading">Seamless Installation</h4>
+                            <p class="subheading">Our experienced team handles all installation & preventive maintenance for
+                                stree free
+                                experience</p>
+                        </div>
+                    </div>
+    
+                    <div class="choose__card">
+                        <div class="img__choose">
+                            <img src="static\images\notify.PNG" alt="">
+                        </div>
+                        <div class="choose__card-text">
+                            <h4 class="heading">On-site Installation</h4>
+                            <p class="subheading">Our experienced team handles all installation & preventive maintenance for
+                                stree free
+                                experience</p>
+                        </div>
+                    </div>
+    
+                    <div class="choose__card">
+                        <div class="img__choose">
+                            <img src="static\images\rate.PNG" alt="">
+                        </div>
+                        <div class="choose__card-text">
+                            <h4 class="heading">Seamless Installation</h4>
+                            <p class="subheading">Our experienced team handles all installation & preventive maintenance for
+                                stree free
+                                experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </section>
+    <!-- <i class="bi bi-caret-down"></i>
+            <i class="bi bi-arrow-up-right-square-fill"></i> -->
+    
+    <!-------------------------------------------- FAQ Section ------------------------------>
+    <section class="FAQ">
+        <div class="container">
+            <!--------------------------------- This is the connect with us Card ------------------------------------>
+            <div class="connect__card">
+                <div class="connect__text">
+                    <h1>Are You Prepared To Secure Your Building Site?</h1>
+                </div>
+    
+                <div class="connectus__btn">
+                    <button>Let's connect</button>
+                </div>
+            </div>
+    
+    
+            <div class="wrapper" id="FAQs">
+                <h1 class="faq__heading">
+                    Frequently Asked Questions
+                </h1>
+                <div class="faq">
+                    <button class="accordion">
+                        How much does it cost to carry out a project with us?
+                        <i class="bi bi-caret-down-fill"></i>
+                        <!-- <i class="bi bi-chevron-down"></i> -->
+                    </button>
+                    <div class="panel">
+                        <p>
+                            Our experienced team handles all installation & preventive maintenance for stree free
+                            experience
+                            Our experienced team handles all installation & preventive maintenance for stree free
+                            experience
+                            Our experienced team handles all installation & preventive maintenance for stree free
+                            experience
+    
+                        </p>
+                    </div>
+                </div>
+    
+                <div class="faq">
+                    <button class="accordion">
+                        How much does it cost to carry out a project with us?
+                        <!-- <i class="bi bi-chevron-down"></i> -->
+                        <i class="bi bi-caret-down-fill"></i>
+                    </button>
+                    <div class="panel">
+                        <p>
+                            Our experienced team handles all installation & preventive maintenance for stree free
+                            experience
+                            Our experienced team handles all installation & preventive maintenance for stree free
+                            experience
+                            Our experienced team handles all installation & preventive maintenance for stree free
+                            experience
+    
+                        </p>
+                    </div>
+                </div>
+    
+                <div class="faq">
+                    <button class="accordion">
+                        How much does it cost to carry out a project with us?
+                        <!-- <i class="bi bi-chevron-down"></i> -->
+                        <i class="bi bi-caret-down-fill"></i>
+                    </button>
+                    <div class="panel">
+                        <p>
+                            Our experienced team handles all installation & preventive maintenance for stree free
+                            experience
+                            Our experienced team handles all installation & preventive maintenance for stree free
+                            experience
+                            Our experienced team handles all installation & preventive maintenance for stree free
+                            experience
+    
+                        </p>
+                    </div>
+                </div>
+    
+                <div class="faq">
+                    <button class="accordion">
+                        How much does it cost to carry out a project with us?
+                        <!-- <i class="bi bi-chevron-down"></i> -->
+                        <i class="bi bi-caret-down-fill"></i>
+                    </button>
+                    <div class="panel">
+                        <p>
+                            Our experienced team handles all installation & preventive maintenance for stree free
+                            experience
+                            Our experienced team handles all installation & preventive maintenance for stree free
+                            experience
+                            Our experienced team handles all installation & preventive maintenance for stree free
+                            experience
+    
+                        </p>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </section>
+    
+    
+    <!---------------------------------------------- Blog Section --------------------------------->
+    <section class="blog__section" id="blog">
+        <div class="section__container">
+            <div class="blog__container">
+                <div class="blog__card">
+                    <img src="static\images\image2.jpeg" alt="">
+                    <div class="text-box">
+                        <h3>What is the right amount of cement for 1,000 blocks?</h3>
+                    </div>
+    
+                </div>
+    
+                <div class="blog__card">
+                    <img src="static\images\image1.jpeg" alt="">
+                    <div class="text-box">
+                        <h3>What is the right amount of cement for 1,000 blocks?</h3>
+                    </div>
+                </div>
+    
+                <div class="blog__card">
+                    <img src="static\images\astruck_building_image.jpeg" alt="">
+                    <div class="text-box">
+                        <h3>What is the right amount of cement for 1,000 blocks?</h3>
+                    </div>
+                </div>
+    
+                <div class="blog__blank">
+                    <h3>Our Recommended Blog</h3>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                        Corrupti quam harum, veritatis perspiciatis iste ducimus tenetur ex error possimus recusandae
+                        molestiae itaque
+                        accusamus quae reiciendis cupiditate.
+                        Beatae dolorem quia quaerat.
+                    </p>
+                    <div class="blog__button">
+                        <button>
+                            Read More
+                        </button>
+                        <!-- <i class="bi bi-arrow-up-right-square-fill"></i> -->
+                        <div class="btn__icon">
+                            <i class="bi bi-arrow-up-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    
+    <!------------------------------------------ Testimonial Section ------------------------------>
+    
+    <section class="testimonials" id="reviews">
+        <h1 class="testimonials__header">Client Reviews</h1>
+        <p class="testimonials__subheading">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+            Dolore exercitationem fugiat aut omnis similique adipisci ullam.
+            Rerum totam minus laudantium atque distinctio perferendis magnam aut, ex optio sint quaerat quae?
+        </p>
+        <div class="testimonial__section">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    {% for testimonial in testimonials %}
+                    <div class="swiper-slide">
+                        <div class="testimonialBox">
+                            <img src="{{ url_for('static', filename='images/quotes.PNG') }}" alt="" class="quote">
+                            <div class="content">
+                                <p>{{ testimonial.content }}</p>
+                                <div class="details">
+                                    <div class="imgBx">
+                                        {% if testimonial.image_id %}
+                                        <img src="{{ url_for('static', filename=testimonial.image_id) }}"
+                                            alt="{{ testimonial.name }}">
+                                        {% else %}
+                                        <img src="{{ url_for('static', filename='images/default_image.jpg') }}"
+                                            alt="Default Image">
+                                        {% endif %}
+                                    </div>
+                                    <h3>
+                                        {{ testimonial.name }}<br><span>{{ testimonial.title }}</span>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        <!-- <div class="testimonial__section">
+                <div class="swiper-container">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <div class="testimonialBox">
+                        <img src="static\images\quotes.PNG" alt="" class="quote">
+                        <div class="content">
+                          <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Impedit, ducimus illum vel, modi harum id magnam aliquam praesentium,
+                            facere totam quisquam dolore! Commodi, tenetur ducimus!
+                          </p>
+                          <div class="details">
+                            <div class="imgBx">
+                              <img src="static\images\IMG-20240805-WA0005.jpg" alt="">
+                            </div>
+                            <h3>
+                              Someone Famous<br><span>architect</span>
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                
+                    <div class="swiper-slide">
+                      <div class="testimonialBox">
+                        <img src="static\images\quotes.PNG" alt="" class="quote">
+                        <div class="content">
+                          <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Impedit, ducimus illum vel, modi harum id magnam aliquam praesentium,
+                            facere totam quisquam dolore! Commodi, tenetur ducimus!
+                          </p>
+                          <div class="details">
+                            <div class="imgBx">
+                              <img src="static\images\IMG-20240805-WA0005.jpg" alt="">
+                            </div>
+                            <h3>
+                              Someone Famous <br><span>architect 3.5</span>
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                
+                    <div class="swiper-slide">
+                      <div class="testimonialBox">
+                        <img src="static\images\quotes.PNG" alt="" class="quote">
+                        <div class="content">
+                          <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Impedit, ducimus illum vel, modi harum id magnam aliquam praesentium,
+                            facere totam quisquam dolore! Commodi, tenetur ducimus!
+                          </p>
+                          <div class="details">
+                            <div class="imgBx">
+                              <img src="static\images\IMG-20240805-WA0005.jpg" alt="">
+                            </div>
+                            <h3>
+                              Someone inFamous <br><span>architect</span>
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                
+                
+                  </div>
+                  <div class="swiper-pagination"></div>
+                </div>
+                </div>
+              </div> -->
+    </section>
+    
+    <!------------------------------------------- Contact Setion ---------------------------->
+    <section class="contact" id="contact">
+        <h1 class="heading">
+            Contact Us
+        </h1>
+    
+        <div class="contact__container">
+            <div class="img__section">
+                <img src="static/images/IMG-20240805-WA0029.jpg" alt="">
+            </div>
+    
+            <div class="text__section">
+                <h1 class="contact__title">
+                    Contact Us Now for A Free Consultation
+                </h1>
+                <p class="subheading">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Pariatur esse consequatur quaerat quod rerum doloremque
+                    animi quam aut obcaecati, optio quos debitis dolor incidunt totam ipsum qui suscipit. Recusandae, harum!
+                </p>
+    
+                <div class="form__section">
+                    <form class="form1">
+                        <div class="form-group">
+                            <label for="fname">Full Name</label>
+                            <input type="text" id="fname" name="fname">
+                        </div>
+                        <div class="form-group">
+                            <label for="lname">Last Name</label>
+                            <input type="text" id="lname" name="lname">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="text" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="question">Are You a New Client?</label>
+                            <input type="text" id="question" name="question">
+                        </div>
+                    </form>
+                </div>
+    
+                <div class="contact__button">
+                    <button>
+                        Submit
+                    </button>
+                    <!-- <i class="bi bi-arrow-up-right-square-fill"></i> -->
+                    <div class="btn__icon">
+                        <i class="bi bi-arrow-up-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!----------------------------------------------- Footer Section ------------------------->
+    <footer class="footer w-100">
+        <div class="footer-container w-100">
+            <div class="footer-section section1">
+                <a href="#" class="footer-brand">AST<span>RUCT.</span></a>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+                    rem
+                    aperiam,</p>
+            </div>
+            <div class="footer-section section2">
+                <h3>Learn</h3>
+                <ul>
+                    <li><a href="#blog">Our Blog</a></li>
+                    <li><a href="#">Product</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Schedule a Demo</a></li>
+                </ul>
+            </div>
+            <div class="footer-section section3">
+                <h3>Our Company</h3>
+                <ul>
+                    <li><a href="#about">About us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">User Terms</a></li>
+                    <li><a href="#">Help Centre</a></li>
+                </ul>
+            </div>
+            <div class="footer-section section4">
+                <h3>Get In Touch</h3>
+                <p>USA: +0123456789</p>
+                <p>UK: +0123456789</p>
+                <p>Email: <a class="email" href="mailto:info@tararossalon.com">info@tararossalon.com</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>©Copyright 2024 By Eze.Com</p>
+            <div class="social-icons">
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-twitter"></i></a>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+                <a href="#"><i class="bi bi-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script integrity="sha384-MrcW6ZMFYlXZ
+                    *zcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}
+

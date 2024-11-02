@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+    {% include "sweetalerts.html" %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/others_header.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+
+    {% endblock %}
+
+
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid pl-2 pb-0 pt-0">
+    <a class="navbar-brand" href="#">ASTRUCT</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon text-primary"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ url_for('home.index') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#services">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#portfolio">Portfolio</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#reviews">Testimonials</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#blog">Blog</a>
+        </li>
+        <li class="nav-item">
+          <div class="admin">
+            {% if current_user.is_authenticated %} {% if current_user.is_admin
+            %}
+            <a
+              href="{{ url_for('admin.dashboard') }}"
+              class="nav-link admin__btn"
+              >Dashboard</a
+            >
+            {% else %}
+            <a href="{{ url_for('logout') }}" class="nav-link admin__btn"
+              >Logout</a
+            >
+            {% endif %} {% else %}
+            <a href="{{ url_for('users.login') }}" class="nav-link admin__btn"
+              >LogIn / <span class="text-warning">signUp</span></a
+            >
+            {% endif %}
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+{% endblock %}
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.1/tinymce.min.js"
+        integrity="sha512-SJh7xW/9SLzllt0PqjnYlomfUPi7UYF40TXU5m6kVXLFr1hdKe+L8Tqqoi1y9vlsMQBdGC2lZI0d6w04Nn6piQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+{% endblock %}

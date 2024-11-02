@@ -1,0 +1,144 @@
+{% extends "base.html" %} {% block content %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/header.css') }}"
+/>
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>
+<!-- Bootstrap Icons -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+/>
+
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://upkg.com/swiper/swiper-bundle.min.css" />
+<!-- Google fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500;600;700&family=Dancing+Script:wght@400..700&family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Roboto+Condensed:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sacramento&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://db.onlinewebfonts.com/c/c2c53906d03ac20447dfd4da50900e82?family=Garamont+AMSTERDAM+Italic"
+  rel="stylesheet"
+/>
+
+<!-- JQuery Link -->
+<script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"
+></script>
+
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">ASTRUCT</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon text-primary"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#services">Services</a>
+        </li>
+        <li
+          class="nav-item dropdown nav-dropdown-link"
+          aria-labelledby="navbarDropdown"
+        >
+          <a
+            class="dropdown-toggle text-color"
+            id="dropdownMenu"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            others
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#HowWeWork">How we work</a></li>
+            <li><a class="dropdown-item" href="#gallery">Gallery</a></li>
+            <li><a class="dropdown-item" href="#video">Video showcase</a></li>
+            <li>
+              <a class="dropdown-item" href="#casestudies">Case studies</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#whychoose">why choose Us?</a>
+            </li>
+            <li><a class="dropdown-item" href="#reviews">Testimonials</a></li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li><a class="dropdown-item" href="#FAQs">FAQS</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#portfolio">Portfolio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#blog">Blog</a>
+        </li>
+        <li class="nav-item">
+          <div class="admin">
+            {% if current_user.is_authenticated %} {% if current_user.is_admin
+            %}
+            <a
+              href="{{ url_for('admin.dashboard') }}"
+              class="nav-link admin__btn"
+              >Dashboard</a
+            >
+            {% else %}
+            <a href="{{ url_for('users.logout') }}" class="nav-link admin__btn"
+              >Logout</a
+            >
+            {% endif %} {% else %}
+            <a href="{{ url_for('users.login') }}" class="nav-link admin__btn"
+              >LogIn / <span class="text-warning">signUp</span></a
+            >
+            {% endif %}
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Use jQuery to handle dropdown events
+  $(document).ready(function () {
+    const dropdownToggle = $("#dropdownMenu");
+
+    // Add event listener for dropdown show event
+    $(".dropdown").on("show.bs.dropdown", function () {
+      dropdownToggle.css("color", "#3498db"); // Set active color (e.g., blue) when the dropdown is opened
+    });
+
+    // Add event listener for dropdown hide event
+    $(".dropdown").on("hide.bs.dropdown", function () {
+      dropdownToggle.css("color", "black"); // Reset color to gray when the dropdown is closed
+    });
+  });
+</script>
+
+{% endblock %}

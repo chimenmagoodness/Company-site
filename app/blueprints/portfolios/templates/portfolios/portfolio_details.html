@@ -1,0 +1,141 @@
+{% extends "base.html" %} 
+{% block head %} 
+    {% block title %} 
+        Portfolio Page 
+    {%endblock %} 
+    {% include "sweetalerts.html" %} 
+    {% include "others_header.html" %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='header.css') }}" />
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Code highlighter -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+{% endblock %}
+
+{% block content %}
+    <style>
+        .markdown-content img {
+            width: 80%;
+            display: block;
+        }
+
+        .view-container {
+            margin-top: 150px;
+        }
+    
+        .carousel-inner {
+            background: var(--background-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+                0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+    
+        .carousel-control-prev,
+        .carousel-control-next {
+            text-decoration: none;
+            margin-top: 400px;
+            width: 80px;
+            height: 80px;
+            border-radius: 10%;
+            background-color: #333333;
+            color: #fff;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+    
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            opacity: 1;
+        }
+    
+        .carousel-control-prev i,
+        .carousel-control-next i {
+            font-size: 15px;
+        }
+    
+        p {
+            color: #000 !important;
+            font-size: 20px !important;
+        }
+
+        .admin__btn {
+            color: #fff !important;
+        }
+
+    </style>
+
+    <section class="view-container">
+        <!-- portfolio_details.html -->
+    
+        <!-- Portfolio Details -->
+        <div class="container">
+            <!-- Carousel for images -->
+            <div id="portfolio-images" class="carousel slide" data-ride="carousel" data-interval="false">
+                <div class="carousel-inner">
+                    {% if portfolio.media and portfolio.media|length > 0 %} 
+                    {% for media in portfolio.media %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <img src="{{ url_for('static', filename='uploads/' ~ media.filename) }}" alt="Portfolio Image"
+                            class="port-img d-block w-100" />
+                    </div>
+                    {% endfor %} {% else %}
+                    <div class="carousel-item active">
+                        <img src="{{ url_for('static', filename='default_image.png') }}" alt="Default Image"
+                            class="port-img d-block w-100" />
+                    </div>
+                    {% endif %}
+                </div>
+                <a class="carousel-control-prev" href="#portfolio-images" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only"></span>
+                </a>
+                <a class="carousel-control-next" href="#portfolio-images" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only"></span>
+                </a>
+            </div>
+    
+            <!-- Portfolio content -->
+            <div class="row mb-5">
+                <div class="col-lg-12">
+                    <h1>{{ portfolio.project_name }}</h1>
+                    <h3 class="text-dark">Location: {{ portfolio.location }}</h3>
+                    
+                    <p class="text-dark">
+                        <div class="markdown-content descr-text">
+                            {{ portfolio.description | markdown | safe }}
+                        </div>
+                        
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+
+{% block scripts %}
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+    <!-- Highlight.js initialization -->
+    <script>hljs.highlightAll();</script>
+
+    <!-- Open links in new tab -->
+    <script>
+        document.querySelectorAll('.markdown-content a').forEach(function (anchor) {
+            anchor.setAttribute('target', '_blank');
+        });
+    </script>
+{% endblock %}

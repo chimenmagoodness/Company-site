@@ -1,0 +1,743 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --background-color: #FFFFFF;
+    --background-secondary-color: #fbf9f5;
+    --secondary-background-color: #76b5c5;
+    --dark-text: black;
+    --text-color: #333;
+    --button-bg-color: #e74c3c;
+    --primary-text-color: #FFFFFF;
+    --card-bg: #f5f5f5;
+    --faq-bg: #f1f7f5;
+}
+
+
+.icon {
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.bi-plus {
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 5em !important;
+}
+
+.alert-container {
+    top: 150px;
+    left: 50%;
+    width: 40%;
+    position: fixed;
+    transform: translateX(-50%);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.alert {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.alert-success {
+    background-color: var(--secondary-color) !important;
+    color: #d4edda  !important;
+}
+
+.alert-danger {
+    background-color: red !important;
+    color: #ffffff  !important;
+}
+
+/* ---------------------------------------> NavBar Section <-----------------------------*/
+.navbar {
+    background-color: var(--background-color);
+    padding: 10px 0;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px) !important;
+    background: var(--background-color) !important;
+    background: rgba(255, 253, 253, 0.03) !important;
+    backdrop-filter: saturate(180%) blur(10px) !important;
+}
+
+.nav-item .nav-link {
+    color: #000;
+    font-size: 1.2em;
+}
+
+.navbar .admin__btn {
+    background: red;
+    color: #FFFFFF;
+    padding: 5px 25px !important;
+    border-radius: 20px;
+    font-size: .8em !important;
+    margin: 10px 0 0 5px;
+}
+
+.navbar .container-fluid {
+    margin: 0 auto;
+    padding: 1% 10%;
+}
+
+.navbar .navbar-nav {
+    margin-left: auto;
+}
+
+/* < !------------------------------------------------ Partner Section ---------------------------------------> */
+#editPartnerModal .form-label{
+    text-align: left !important;
+    justify-content: left !important;
+    align-items: left !important;
+}
+
+.partner {
+    margin-top: 100px;
+}
+
+.partner .view_all {
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.partner .partner_texts {
+    justify-content: space-between;
+}
+
+.partner .partner__container {
+    display: grid;
+    column-gap: 10px;
+    row-gap: 15px;
+    grid-template-columns: repeat(5, 1fr);
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.partner .partner__container .img__card {
+    background: var(--background-color);
+    padding-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.partner .partner__container .partner__img {
+    width: 100px;
+    height: 100px;
+}
+
+.partner .partner__container .edit_or_delete {
+    display: flex;
+    margin: 8px 0 10px 0;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.partner .partner__container .edit_or_delete .edit {
+    background: var(--primary-color);
+    padding: 5px 9px;
+    border-radius: 50%;
+    color: var(--background-color);
+    cursor: pointer;
+}
+
+
+.partner .partner__container .edit_or_delete .delete {
+    color: var(--background-color);
+    padding: 5px 9px;
+    border-radius: 50%;
+    background: rgb(112, 4, 4);
+    cursor: pointer;
+}
+
+
+/* < !------------------------------------------------ Portfolio Section ---------------------------------------> */
+.portfolio__section {
+    margin-top: 5%;
+}
+
+.portfolio__section .view_all {
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.portfolio__section .portfolio_texts {
+    justify-content: space-between;
+}
+
+.portfolio__section .portfolio__heading {
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 3%;
+}
+
+.portfolio__section .portfolio__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 3%;
+}
+
+.portfolio__section .portfolio__container .portfolio {
+    background: var(--background-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding-bottom: 28px;
+}
+
+.portfolio_card {
+    text-decoration: none;
+}
+
+.portfolio__container .portfolio img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 3% 3% 0 0;
+}
+
+.portfolio__container .portfolio .location {
+    color: var(--dark-text);
+    margin-top: 5%;
+    height: 20px;
+    font-family: "Roboto", sans-serif;
+}
+
+.portfolio__container .portfolio ul {
+    height: 10px;
+}
+
+.portfolio__container .portfolio .project__type {
+    color: var(--dark-text);
+    font-family: "Oswald", sans-serif;
+    height: 30px;
+    margin-left: 29px;
+    font-size: 1.3em;
+    text-decoration: none;
+}
+
+.portfolio__container .edit_or_delete {
+    display: flex;
+    margin-top: 3%;
+    margin-left: 8%;
+    gap: 10px;
+}
+
+.portfolio__container .edit_or_delete .edit {
+    background: var(--primary-color);
+    padding: 5px 9px;
+    border-radius: 50%;
+    color: var(--background-color);
+    cursor: pointer;
+}
+
+
+.portfolio__container .edit_or_delete .delete {
+    color: var(--background-color);
+    padding: 5px 9px;
+    border-radius: 50%;
+    background: rgb(112, 4, 4);
+    cursor: pointer;
+}
+
+
+
+/* < !------------------------------------------------ Change Video URL Section ---------------------------------------> */
+.video .video__heading {
+    text-align: center;
+    margin: 6% auto auto auto;
+}
+
+.video__category {
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.category__heading {
+    color: var(--primary-color);
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    margin-top: 3%;
+    font-size: 2em;
+}
+
+.category__heading span {
+    color: var(--dark-text);
+}
+
+.heading__container .heading {
+    margin-top: 3%;
+}
+
+.category__subheading {
+    color: var(--dark-text);
+    width: 40%;
+    margin: 2% 0 0 30%;
+}
+
+.space {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 15px;
+    background: var(--background-color);
+    margin: 2% 0 0 29%;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 600px;
+    height: 360px;
+}
+
+iframe {
+    width: 588px;
+    height: 348px;
+    margin-top: 5px;
+    border-radius: 15px;
+}
+
+.other__categories {
+    margin: 8% 0;
+}
+
+.case {
+    color: var(--dark-text);
+    font-size: 1.2em;
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+}
+
+.modal-image {
+    width: 800px;
+    height: 600px;
+}
+
+
+
+/* < !------------------------------------------------ Case Studies Section ---------------------------------------> */
+/* .case_stdies .case__heading{
+    margin: 4% auto;
+} */
+
+.case_stdies .view_all {
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.case_stdies .case_texts {
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.other__categories-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 50px;
+}
+
+.project__heading {
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.other__categories .button-container {
+    background: var(--dark-text);
+}
+
+.other__categories .button-container .connect__btn {
+    background: var(--background-color);
+    color: var(--dark-text);
+}
+
+.other__categories .button-container .icon {
+    color: var(--background-color);
+}
+
+.case_stdies .case__studies-section .categories__images img {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 15px;
+    /* margin-left: 25%; */
+}
+
+.categories__images {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 15px;
+    background: var(--background-color);
+    margin-left: 25%;
+    width: 300px;
+    height: 300px;
+}
+
+
+.markdown-content img {
+    display: none;
+    /* max-width: 100% !important; */
+    /* width: 100% !important; */
+    /* Scale down to fit within the parent container */
+    /* height: 230px !important; */
+    /* Maintain aspect ratio */
+}
+
+.case_stdies .categories__text .button-container {
+    width: 140px;
+    height: 38px;
+    display: flex;
+    background-color: var(--dark-text);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 35px;
+
+}
+
+.case_stdies .categories__text .button-container .icon{
+    font-size: 14px;
+    width: 4px;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s;
+    color: var(--background-color);
+    margin-left: 4%;
+}
+
+.case_stdies .categories__text .button-container .connect__btn {
+    background: var(--background-color);
+    padding: 3%;
+    text-decoration: none;
+    width: 110px;
+    border-radius: 20px;
+    margin-left: 0;
+}
+
+.case_stdies .edit_or_delete {
+    display: flex;
+    margin-top: 3%;
+    margin-left: 2%;
+    gap: 10px;
+}
+
+.case_stdies .edit_or_delete .edit {
+    background: var(--primary-color);
+    padding: 5px 9px;
+    border-radius: 50%;
+    color: var(--background-color);
+    cursor: pointer;
+}
+
+
+.case_stdies .edit_or_delete .delete {
+    color: var(--background-color);
+    padding: 5px 9px;
+    border-radius: 50%;
+    background: rgb(112, 4, 4);
+    cursor: pointer;
+}
+
+/* < !------------------------------------------ Blog Section ------------------------------> */
+.blog__heading {
+    text-align: center;
+}
+
+.blog__section .view_all {
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.blog__section .blog_texts {
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.blog__container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 10px;
+    position: relative;
+}
+
+.blog__card {
+    /* background: var(--dark-text); */
+    width: 280px;
+    height: 330px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.section__container {
+    padding: 5%;
+}
+
+.blog__card img {
+    width: 280px;
+    height: 330px;
+    display: inline-block;
+    background-size: contain;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.text-box {
+    position: relative;
+    bottom: 60%;
+    padding: 3%;
+    font-size: 1.5rem;
+    width: 100%;
+}
+
+.blog__card .blog_title {
+    position: absolute;
+    font-size: 1.1rem;
+    width: 94%;
+    color: var(--background-color);
+    padding: 0 3%;
+    background: var(--dark-text);
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.blog__card .blog_title:hover,
+.blog__card .blog_title.active {
+    color: var(--primary-color);
+}
+
+.blog__blank {
+    width: 300px;
+    height: 400px;
+}
+
+.blog__blank h3 {
+    color: var(--dark-text);
+}
+
+.blog__blank p {
+    color: var(--dark-text)
+}
+
+
+
+.blog__section .section__container .blog__button {
+    border-radius: 4px;
+    display: flex;
+    gap: 6px;
+    height: 50px;
+}
+
+.blog__section .section__container .blog__button button {
+    padding: 6px;
+    border: 2px solid var(--dark-text);
+    background: var(--background-color);
+    border-radius: 4px;
+}
+
+.blog__section .section__container .blog__button .btn__icon {
+    background: var(--dark-text);
+    border-radius: 5px;
+    margin-top: 0;
+    height: 50px;
+    width: 48px;
+}
+
+.blog__section .section__container .blog__button .btn__icon i {
+    font-size: 1.4rem;
+    color: var(--background-color);
+}
+
+
+.blog__section .blog__card .edit_or_delete {
+    display: flex;
+    margin-top: 37%;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.blog__section .blog__blank .edit_or_delete .edit {
+    background: var(--primary-color);
+    padding: 5px 9px;
+    border-radius: 50%;
+    color: var(--background-color);
+    cursor: pointer;
+}
+
+.blog__section .blog__blank .edit_or_delete {
+    display: flex;
+    margin-top: 7%;
+    gap: 15px;
+}
+
+.blog__section .blog__card .edit_or_delete .edit {
+    background: var(--primary-color);
+    padding: 5px 9px;
+    border-radius: 50%;
+    color: var(--background-color);
+    cursor: pointer;
+}
+
+.blog__section .blog__card .edit_or_delete .delete {
+    color: var(--background-color);
+    padding: 5px 9px;
+    border-radius: 50%;
+    background: rgb(112, 4, 4);
+    cursor: pointer;
+}
+
+.blog__section .blog__blank .edit_or_delete .delete {
+    color: var(--background-color);
+    padding: 5px 9px;
+    border-radius: 50%;
+    background: rgb(112, 4, 4);
+    cursor: pointer;
+}
+
+.img_del_btn {
+    height: 30px !important;
+}
+
+
+
+
+/* < !------------------------------------------ Testimonial Section ------------------------------> */
+.testimonials {
+    margin-bottom: 5%;
+}
+
+
+.testimonials .view_all {
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.testimonials .testimonial_texts {
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.testimonials .testimonial__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2%;
+}
+
+
+.testimonialBox {
+    position: relative;
+    /* Add this line */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--background-color);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    justify-content: center;
+    width: 100%;
+    padding: 40px;
+    padding-top: 90px;
+    color: #999;
+    border-radius: 10px;
+    margin: 4% 0 6% 0;
+}
+
+.testimonials .testimonialBox .quote {
+    position: absolute;
+    top: 5%;
+    right: 48%;
+    width: 40px;
+    height: 40px;
+}
+
+
+.testimonialBox .content {
+    margin-left: 15px;
+}
+
+.testimonialBox .content p {
+    width: 90%;
+    color: var(--dark-text);
+    /* text-align: center; */
+    font-size: 1.2em;
+    font-family: "Roboto", sans-serif;
+}
+
+.testimonialBox .details {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.testimonialBox .details .imgBx {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.testimonialBox .details .imgBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.testimonialBox .details h3 {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: var(--primary-color);
+    line-height: 1.1em;
+}
+
+.testimonialBox .details h3 span {
+    font-size: 12px;
+    color: #666;
+}
+
+.testimonials .edit_or_delete {
+    display: flex;
+    margin-top: 7%;
+    gap: 150px;
+}
+
+.testimonials .edit_or_delete .edit {
+    background: var(--primary-color);
+    padding: 4px 11px;
+    border-radius: 50%;
+    color: var(--background-color);
+    cursor: pointer;
+}
+
+
+.testimonials .edit_or_delete .delete {
+    color: var(--background-color);
+    padding: 5px 9px;
+    border-radius: 50%;
+    background: rgb(112, 4, 4);
+    cursor: pointer;
+}
+
+
+/* ----------------------------------------------------------> Manage Users <--------------------------------------------------------*/
+.manageusers {
+    margin-top: 0;
+    margin-bottom: 60px;
+}
+
