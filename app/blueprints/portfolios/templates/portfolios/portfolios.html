@@ -1,19 +1,36 @@
-{% extends "base.html" %} {% block head %} {% block title %} Portfolio Page
-{%endblock %} {% include "sweetalerts.html" %} {% include "others_header.html"
-%}
-<link rel="stylesheet" href="{{ url_for('static', filename='header.css') }}" />
+{% extends "base.html" %} 
+{% block head %} 
+  {% block title %} 
+    Portfolio Page
+  {%endblock %} 
+  {% include "sweetalerts.html" %} 
+  {% include "others_header.html"%}
+  <link rel="stylesheet" href="{{ url_for('static', filename='header.css') }}" />
 
-<!-- Code highlighter -->
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"
-/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-<script>
-  hljs.highlightAll();
-</script>
+  <!-- Sweet alert Js -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Bootstrap Links -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  
+  <!-- SimpleMDE CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+  <!-- SimpleMDE JS -->
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 
-{% endblock %} {% block content %}
+  <!-- JQuery Link -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>
+    hljs.highlightAll();
+  </script>
+
+{% endblock %} 
+{% block content %}
 
 <style>
   .card {
@@ -26,20 +43,45 @@
   .view-container {
     margin-top: 150px;
   }
+
+  .portfolio__container .edit_or_delete {
+    display: flex;
+    margin-top: 3%;
+    margin-left: 8%;
+    gap: 10px;
+    margin-bottom: 11px !important;
+  }
+
+  .portfolio__container .edit_or_delete .edit {
+    background: var(--primary-color);
+    padding: 5px 20px;
+    border-radius: 50%;
+    color: var(--background-color);
+    cursor: pointer;
+  }
+
+
+  .portfolio__container .edit_or_delete .delete {
+    color: var(--background-color);
+    padding: 5px 20px;
+    border-radius: 50%;
+    background: rgb(112, 4, 4);
+    cursor: pointer;
+  }
 </style>
 
 <section class="view-container">
   <div class="container">
+    
+
     <h1 class="text-center">My Portfolios</h1>
     <!-- Portfolio Container -->
     <div class="all_portfolio-container row">
       {% for item in portfolio %}
       <!-- Portfolio Card -->
       <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-        <a
-          class="card portfolio_card h-100 p-0"
-          href="{{ url_for('portfolio.portfolio_details', project_name=item.project_name) }}"
-        >
+        <div
+          class="card portfolio_card h-100 p-0">
           <div class="card-body portfolio__container p-0">
             <!-- Image -->
             <div class="img__div">
@@ -69,22 +111,155 @@
                   </div>
                 </li>
               </ul>
-              <h3 class="card-title project__type">{{ item.project_name }}</h3>
+              <a class="text-decoration-none" href="{{ url_for('portfolio.portfolio_details', project_name=item.project_name) }}">
+                <h3 class="card-title project__type">{{ item.project_name }}</h3>
+              </a>
+              
             </div>
+              {% if current_user.is_admin%}
+              <div class="edit_or_delete">
+                <!-- Edit button -->
+                <span class="icon edit" data-bs-toggle="modal"
+                    data-bs-target="#editPortfolioModal-{{ item.portfolio_id }}">
+                    <i class="bi bi-pen"></i>
+                </span>
+
+                <!-- Delete button with SweetAlert confirmation -->
+                <form id="deletePortfolioForm-{{ item.portfolio_id }}"
+                    action="{{ url_for('portfolio.delete_portfolio', portfolio_id=item.portfolio_id) }}" method="POST"
+                    style="display:inline;">
+                    <button type="button" class="icon delete"
+                        onclick="confirmDeletePortfolio('{{ item.portfolio_id }}')">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </form>
+              </div>
+              {% endif %}
           </div>
-        </a>
+        </div>
       </div>
       {% endfor %}
     </div>
   </div>
+
+  {% if portfolio %}
+    {% for item in portfolio %}
+      <!-- Edit Portfolio Modal -->
+      <div class="modal fade" id="editPortfolioModal-{{ item.portfolio_id }}" tabindex="-1"
+        aria-labelledby="editPortfolioModalLabel-{{ item.portfolio_id }}" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editPortfolioModalLabel-{{ item.portfolio_id }}">Edit Portfolio</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="{{ url_for('portfolio.edit_portfolio', portfolio_id=item.portfolio_id) }}" method="POST"
+                enctype="multipart/form-data">
+                <div class="mb-3">
+                  <label for="portfolioLocation" class="form-label">Location</label>
+                  <input type="text" class="form-control" id="portfolioLocation" name="location" value="{{ item.location }}"
+                    required>
+                </div>
+                <div class="mb-3">
+                  <label for="portfolioType" class="form-label">Project Name</label>
+                  <input type="text" class="form-control" id="portfolioType" name="project_name"
+                    value="{{ item.project_name }}" required>
+                </div>
+                <div class="mb-3">
+                  <label for="portfolioDescription" class="form-label">Description</label>
+                  <textarea class="form-control markdown-editor" id="editportfolioDescription" name="description" rows="4"
+                    required>{{ item.description }}</textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="portfolioImageInput" class="form-label">Upload New Images</label>
+                  <input type="file" class="form-control" id="portfolioImageInput" name="image_ids[]" accept="image/*"
+                    multiple>
+                </div>
+                <div class="mb-3">
+                  <label for="existingImages" class="form-label">Existing Images</label>
+                  <div id="existingImages">
+                    {% for media in item.media %}
+                    <div class="existing-image" data-media-id="{{ media.media_id }}">
+                      <img src="{{ url_for('static', filename='uploads/' ~ media.filename) }}" alt="Existing Image"
+                        class="img-thumbnail" style="max-width: 100px;">
+                      <button type="button" class="btn btn-danger btn-sm"
+                        onclick="confirmDeletePortfolioImage('{{ item.portfolio_id }}', '{{ media.media_id }}')">Delete</button>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      {% endfor %}
+      {% else %}
+      <p class="text-center text-danger fs-5">No PortFolio available.</p>
+    {% endif %}
 </section>
 {% endblock %} {% block scripts %}
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.1/tinymce.min.js"
-  integrity="sha512-SJh7xW/9SLzllt0PqjnYlomfUPi7UYF40TXU5m6kVXLFr1hdKe+L8Tqqoi1y9vlsMQBdGC2lZI0d6w04Nn6piQ=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer"
-></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
-<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+<!-- BOOTSTRAP CDN LINK -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+<script integrity="sha384-MrcW6ZMFYlXZ
+          *zcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+
 {% endblock %}
+
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  
+  <!-- BOOTSTRAP CDN LINK -->
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  
+  
+  
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  
+  <script integrity="sha384-MrcW6ZMFYlXZ
+            *zcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>

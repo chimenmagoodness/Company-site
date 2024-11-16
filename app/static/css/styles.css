@@ -208,6 +208,7 @@ body {
 
 .portfolio .projects {
     margin-top: 7%;
+    margin-bottom: 7%;
 }
 
 .portfolio .projects img {
@@ -410,7 +411,7 @@ body {
 
 /*---------------------------------------> Projects Section <---------------------------------*/
 .projects {
-    height: 330px;
+    /* height: 350px; */
     width: 300px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 10px;
@@ -573,7 +574,8 @@ iframe {
 }
 
 .other__categories {
-    margin: 8% 0;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 .case {
     color: var(--dark-text);
@@ -631,7 +633,13 @@ iframe {
     height: 300px;
 }
 
+.markdown-content img {
+    display: none;
+}
 
+.markdown-content p{
+    color: #000;
+}
 /*-------------------------------------- Why choose Section -----------------------------------  */
 .choose__grid {
     display: grid;
@@ -843,7 +851,7 @@ iframe {
     width: 100%;
 }
 
-.blog__card h3 {
+.blog__card a {
     position: absolute;
     top: 15%;
     font-size: 1.3rem;
@@ -3716,6 +3724,7 @@ input:focus {
     margin-top: 3%;
     margin-left: 8%;
     gap: 10px;
+    margin-bottom: 11px;
 }
 
 .portfolio__container .edit_or_delete .edit {

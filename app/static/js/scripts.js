@@ -1,43 +1,43 @@
  // this is the menu dropdown -->
 
 document.addEventListener("DOMContentLoaded", function () {
-// Close the navbar when a dropdown item is clicked
-var dropdownItems = document.querySelectorAll('.dropdown-item');
+    // Close the navbar when a dropdown item is clicked
+    var dropdownItems = document.querySelectorAll('.dropdown-item');
 
-dropdownItems.forEach(function (item) {
-    item.addEventListener('click', function () {
-    // Close the navbar
-    var navbarToggler = document.querySelector('.navbar-toggler');
-    var navbarCollapse = document.querySelector('.navbar-collapse');
+    dropdownItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+        // Close the navbar
+        var navbarToggler = document.querySelector('.navbar-toggler');
+        var navbarCollapse = document.querySelector('.navbar-collapse');
 
-    if (navbarCollapse.classList.contains('show')) {
-        navbarToggler.click(); // Trigger the toggler to close the navbar
-    }
+        if (navbarCollapse.classList.contains('show')) {
+            navbarToggler.click(); // Trigger the toggler to close the navbar
+        }
 
-    // Remove active class from all dropdown items
-    dropdownItems.forEach(function (el) {
-        el.classList.remove('active');
-    });
+        // Remove active class from all dropdown items
+        dropdownItems.forEach(function (el) {
+            el.classList.remove('active');
+        });
 
-    // Add active class to the clicked dropdown item
-    this.classList.add('active');
+        // Add active class to the clicked dropdown item
+        this.classList.add('active');
     });
 });
 
 // Change color of dropdown-toggle when dropdown is active
 var dropdownToggles = document.querySelectorAll('.dropdown-toggle');
 
-dropdownToggles.forEach(function (toggle) {
-    toggle.addEventListener('click', function () {
-    // Remove active class from all dropdown toggles
-    dropdownToggles.forEach(function (el) {
-        el.classList.remove('active');
-    });
+    dropdownToggles.forEach(function (toggle) {
+        toggle.addEventListener('click', function () {
+        // Remove active class from all dropdown toggles
+        dropdownToggles.forEach(function (el) {
+            el.classList.remove('active');
+        });
 
-    // Add active class to the clicked dropdown toggle
-    this.classList.add('active');
+        // Add active class to the clicked dropdown toggle
+        this.classList.add('active');
+        });
     });
-});
 });
 
 
@@ -356,31 +356,6 @@ function confirmDeleteTestimonial(form, testimonial_id) {
     })
 }
 
-// document.addEventListener('DOMContentLoaded', function() {
-//     // Initialize SimpleMDE on the Add Blog modal textarea only once
-//     const addBlogTextarea = document.getElementById("blogContent");
-//     if (addBlogTextarea && !addBlogTextarea.classList.contains('simplemde-initialized')) {
-//         new SimpleMDE({ element: addBlogTextarea });
-//         addBlogTextarea.classList.add('simplemde-initialized'); // Mark as initialized
-//     }
-
-//     // Initialize SimpleMDE on each Edit Blog modal textarea when the modal is opened
-//     document.querySelectorAll('.modal').forEach(modal => {
-//         modal.addEventListener('shown.bs.modal', function() {
-//             const editTextarea = modal.querySelector('.markdown-editor');
-
-//             // Only initialize if not already initialized for this specific modal's textarea
-//             if (editTextarea && !editTextarea.classList.contains('simplemde-initialized')) {
-//                 new SimpleMDE({ element: editTextarea });
-//                 editTextarea.classList.add('simplemde-initialized'); // Mark as initialized
-//             }
-//         });
-//     });
-// });
-
-
-
-
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize SimpleMDE on the Add Blog modal textarea only once
@@ -555,12 +530,98 @@ document.querySelectorAll('.markdown-content a').forEach(function (anchor) {
     anchor.setAttribute('target', '_blank');
 });
 
+var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            /* Toggle between adding and removing the "active" class,
+            to highlight the button that controls the panel */
+            this.classList.toggle("active");
+
+            /* Toggle between hiding and showing the active panel */
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+        }
+    });
+}
 
 
+var swiper = new Swiper('.swiper-container', {
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    //slidesPerView: 3, // Shows 3 slides
+    spaceBetween: 30, // Adds space between slides
+    slidesPerView: 'auto',
+    initialSlide: 2,
+    coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 100,
+        modifier: 2,
+        slideShadows: false,
+    },
+    loop: true,
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true, // Allows pagination dots to be clickable
+    },
+});
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Manage all modals cleanup
+    document.querySelectorAll('.modal').forEach(modalElement => {
+        modalElement.addEventListener('hidden.bs.modal', function () {
+            document.body.classList.remove('modal-open');
+            const backdrop = document.querySelector('.modal-backdrop');
+            if (backdrop) backdrop.remove();
+        });
+    });
+
+    // Testimonial modal handler
+    const testimonialLinks = document.querySelectorAll('.testimonial-link');
+    const testimonialModalElement = document.getElementById('testimonialModal');
+    const testimonialModal = new bootstrap.Modal(testimonialModalElement);
+
+    testimonialLinks.forEach(link => {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            const name = link.getAttribute('data-name');
+            const title = link.getAttribute('data-title');
+            const content = link.getAttribute('data-content');
+            const imageUrl = link.getAttribute('data-image-url');
+
+            document.getElementById('testimonialModalLabel').innerText = `${name} - ${title}`;
+            document.getElementById('testimonialContent').innerText = content;
+            document.getElementById('testimonialImage').src = imageUrl;
+
+            testimonialModal.show();
+        });
+    });
+});
 
 
+$('#editTestimonialModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('id');
+    var name = button.data('name');
+    var title = button.data('title');
+    var content = button.data('content');
+    var imageUrl = button.data('image-url'); // Get the image URL from data attribute
+
+    var modal = $(this);
+    modal.find('#testimonialName').val(name);
+    modal.find('#testimonialTitle').val(title);
+    modal.find('#testimonialContent').val(content);
+    modal.find('#testimonialImage').attr('src', imageUrl); // Set image dynamically
+    modal.find('#testimonialId').val(id); // Hidden input for the ID if needed
+});
 
 
 

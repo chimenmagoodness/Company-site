@@ -629,44 +629,112 @@ iframe {
     margin-bottom: 20px;
 }
 
-.testimonials .testimonial__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 2%;
+
+
+.testimonials .edit_or_delete {
+    display: flex;
+    margin-top: 7%;
+    gap: 150px;
+}
+
+.testimonials .edit_or_delete .edit {
+    background: var(--primary-color);
+    padding: 4px 11px;
+    border-radius: 50%;
+    color: var(--background-color);
+    cursor: pointer;
 }
 
 
+.testimonials .edit_or_delete .delete {
+    color: var(--background-color);
+    padding: 5px 9px;
+    border-radius: 50%;
+    background: rgb(112, 4, 4);
+    cursor: pointer;
+}
+
+
+.swiper-container {
+    /* width: 100%; */
+    width: 50%;
+    /* Adjust as needed for your design */
+    max-width: 200px;
+    /* Optional: to restrict maximum width */
+    /* padding-top: 50px; */
+    padding-bottom: 50px;
+}
+
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 200px;
+    /* background: var(--background-color); */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); */
+    filter: blur(4px);
+    background: var(--background-color);
+    border-radius: 10px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    /* Smooth transition */
+}
+
+.swiper-slide-active {
+    filter: blur(0px);
+    background: var(--background-color);
+    transform: scale(1);
+    /* Scale up the active slide */
+}
+
+
+.swiper-slide-prev,
+.swiper-slide-next {
+    transform: scale(0.8);
+    /* Scale down non-active slides */
+    filter: blur(4px);
+    /* Apply blur to non-active slides */
+}
+
+.testimonials .swiper-container {
+    width: 100%;
+    margin-left: 400px;
+}
+
+.testimonials .swiper-wrapper {
+    width: 100%;
+    margin-left: 100px;
+}
+
+.testimonials .swiper-slide {
+    width: 400px;
+}
+
 .testimonialBox {
-    position: relative;
-    /* Add this line */
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: var(--background-color);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* Center content horizontally */
     justify-content: center;
+    /* Center content vertically */
     width: 100%;
     padding: 40px;
     padding-top: 90px;
     color: #999;
-    border-radius: 10px;
-    margin: 4% 0 6% 0;
 }
 
-.testimonials .testimonialBox .quote {
+.testimonialBox .quote {
     position: absolute;
-    top: 5%;
+    top: 20px;
     right: 48%;
     width: 40px;
     height: 40px;
 }
 
-
-.testimonialBox .content {
+.swiper-slide .content {
     margin-left: 15px;
 }
 
-.testimonialBox .content p {
+.swiper-slide .content p {
     width: 90%;
     color: var(--dark-text);
     /* text-align: center; */
@@ -711,30 +779,14 @@ iframe {
     color: #666;
 }
 
-.testimonials .edit_or_delete {
-    display: flex;
-    margin-top: 7%;
-    gap: 150px;
+.swiper-container-3d .swiper-slide-shadow-left,
+.swiper-container-3d .swiper-slide-shadow-right {
+    background-image: none;
 }
 
-.testimonials .edit_or_delete .edit {
-    background: var(--primary-color);
-    padding: 4px 11px;
-    border-radius: 50%;
-    color: var(--background-color);
-    cursor: pointer;
+.swiper-pagination {
+    margin-left: 100px !important;
 }
-
-
-.testimonials .edit_or_delete .delete {
-    color: var(--background-color);
-    padding: 5px 9px;
-    border-radius: 50%;
-    background: rgb(112, 4, 4);
-    cursor: pointer;
-}
-
-
 /* ----------------------------------------------------------> Manage Users <--------------------------------------------------------*/
 .manageusers {
     margin-top: 0;

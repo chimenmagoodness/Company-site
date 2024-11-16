@@ -16,4 +16,4 @@ def index():
     blogs = Blog.query.all()
 
     testimonials = Testimonial.query.all()
-    return render_template('home/index.html')
+    return render_template('home/index.html', partners=partners, portfolio=portfolio_items, video=video, case_studies=case_studies, blogs=blogs, testimonials=testimonials)

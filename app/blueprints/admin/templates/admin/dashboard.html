@@ -10,8 +10,12 @@
     {% include "sweetalerts.html" %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+        <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
 
     <!-- Code highlighter -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
@@ -22,6 +26,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     <!-- SimpleMDE JS -->
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+
 
 
 {% endblock %}
@@ -75,7 +81,7 @@
         
         <!-- Display Partners -->
         <div class="partner__container">
-            {% for partner in partners %}
+            {% for partner in partners[:4] %}
             <div class="img__card">
                 <!-- Update the image source to use 'partner.logo_image_id' directly -->
                 <img src="{{ url_for('static', filename='uploads/' ~ partner.logo_image_id) }}" alt="{{ partner.name }}"
@@ -197,7 +203,7 @@
             <!-- Display Portfolio -->
             <div class="portfolio_card">
                 <div class="portfolio__container">
-                    {% for item in portfolio %}
+                    {% for item in portfolio[:3] %}
                     <div class="portfolio">
                         <div class="img__div">
                             {% if item.media and item.media|length > 0 %}
@@ -428,7 +434,7 @@
     
     
             <!-- Display Case Studies -->
-            {% for case_study in case_studies %}
+            {% for case_study in case_studies[:3] %}
             <div class="case__studies-section mb-5">
                 <div class="other__categories-container">
                     <div class="categories__text">
@@ -641,7 +647,7 @@
     
             <div class="section__container">
                 <div class="blog__container">
-                    {% for blog in blogs %}
+                    {% for blog in blogs[:3] %}
                     <div class="blog__card">
                         <img src="{{ url_for('static', filename='uploads/' ~ blog.first_image_path) if blog.first_image_path else 'static/images/default-image.jpg' }}"
                             alt="{{ blog.title }}">
@@ -767,9 +773,9 @@
                 <!-- <a class="view_all">View All
                         <i class="bi bi-chevron-right" data-bs-toggle="modal" data-bs-target="#addCompanyModal"></i>
                     </a> -->
-                <a class="view_all" href="{{ url_for('testimonials.testimonials') }}">View All
+                <!-- <a class="view_all" href="{{ url_for('testimonials.testimonials') }}">View All
                     <i class="bi bi-chevron-right"></i>
-                </a>
+                </a> -->
             </div>
     
     
@@ -832,112 +838,124 @@
                 </div>
             </div>
     
-            {% for testimonial in testimonials %}
-            <!-- Display Testimonials -->
-            <div class="testimonial__grid">
-                <div class="testimonialBox">
-                    <img src="{{ url_for('static', filename='images/quotes.PNG') }}" alt="" class="quote">
-                    <div class="content">
-                        <p>{{ testimonial.content }}</p>
-                        <div class="details">
-                            <div class="imgBx">
-                                <!-- Load the image from the database or a default image if not available -->
-                                {% if testimonial.image_id %}
-                                <img src="{{ url_for('static', filename='uploads/' + testimonial.image.filename) }}"
-                                    alt="{{ testimonial.name }}">
-                                {% else %}
-                                <img src="{{ url_for('static', filename='images/default-image.jpg') }}"
-                                    alt="Astructs Default Image">
-                                {% endif %}
-    
+            <div class="testimonial__section">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        {% for testimonial in testimonials %}
+                        <div class="swiper-slide">
+                            <div class="testimonialBox">
+                                <img src="{{ url_for('static', filename='images/quotes.PNG') }}" alt="" class="quote">
+                                <div class="content">
+                                    <!-- Link with data attributes for modal content -->
+                                    <a href="#" class="testimonial-link text-decoration-none" data-name="{{ testimonial.name }}"
+                                        data-title="{{ testimonial.title }}" data-content="{{ testimonial.content }}"
+                                        data-image-url="{{ url_for('static', filename='uploads/' ~ testimonial.image.filename) if testimonial.image_id else url_for('static', filename='images/default-image.jpg') }}">
+                                        <p>{{ testimonial.content[:180] }}.....</p>
+                                    </a>
+            
+                                    <div class="details">
+                                        <div class="imgBx">
+                                            {% if testimonial.image_id %}
+                                            <img src="{{ url_for('static', filename='uploads/' ~ testimonial.image.filename) }}"
+                                                alt="{{ testimonial.name }}">
+                                            {% else %}
+                                            <img src="{{ url_for('static', filename='images/default-image.jpg') }}"
+                                                alt="Default Image">
+                                            {% endif %}
+                                        </div>
+                                        <h3>{{ testimonial.name }}<br><span>{{ testimonial.title }}</span></h3>
+                                    </div>
+                                </div>
+                                <!-- Edit and Delete Options -->
+                                <div class="edit_or_delete">
+                                    <span class="icon edit">
+                                        <a href="#" class="edit-testimonial-btn" data-bs-toggle="modal" data-bs-target="#editTestimonialModal"
+                                            data-id="{{ testimonial.testimonial_id }}" data-name="{{ testimonial.name }}"
+                                            data-title="{{ testimonial.title }}" data-content="{{ testimonial.content }}"
+                                            data-image-url="{% if testimonial.image_id %}{{ url_for('static', filename='uploads/' ~ testimonial.image.filename) }}{% else %}{{ url_for('static', filename='images/default-image.jpg') }}{% endif %}">
+                                            <i class="bi bi-pen text-light"></i>
+                                        </a>
+                                    </span>  
+
+                                    <form method="POST"
+                                        action="{{ url_for('testimonials.delete_testimonial', testimonial_id=testimonial.testimonial_id) }}"
+                                        style="display:inline;">
+                                        <button type="button" class="icon delete"
+                                            onclick="confirmDeleteTestimonial(this.form, '{{ testimonial.testimonial_id }}')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                            <h3 class="name">{{ testimonial.name }}<br><span class="title">{{ testimonial.title }}</span>
-                            </h3>
                         </div>
-                    </div>
-                    <div class="edit_or_delete">
-                        <!-- Edit button (triggers modal) -->
-                        <!-- Trigger Edit Testimonial Modal -->
-    
-                        <span class="icon edit">
-                            <a href="/edit-testimonial/{{ testimonial.testimonial_id }}" data-bs-toggle="modal"
-                                data-bs-target="#editTestimonialModal"><i class="bi bi-pen text-light"></i></a>
-                        </span>
-    
-                        <form method="POST"
-                            action="{{ url_for('testimonials.delete_testimonial', testimonial_id=testimonial.testimonial_id) }}"
-                            style="display:inline;">
-                            <button type="button" class="icon delete"
-                                onclick="confirmDeleteTestimonial(this.form, '{{ testimonial.testimonial_id }}')">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </form>
-    
+                        {% endfor %}
                     </div>
                 </div>
-    
             </div>
-            {% endfor %}
-    
-            {% for testimonial in testimonials %}
-            <!-- Edit Testimonial Modal -->
-            <div class="modal fade" id="editTestimonialModal" tabindex="-1" aria-labelledby="editTestimonialModalLabel"
-                aria-hidden="true">
+            
+            <!-- Single Modal for displaying testimonial details -->
+            <div class="modal fade" id="testimonialModal" tabindex="-1" aria-labelledby="testimonialModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editTestimonialModalLabel">Edit Testimonial</h5>
+                            <h5 class="modal-title" id="testimonialModalLabel"></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="editTestimonialForm" enctype="multipart/form-data" action="{{ url_for('testimonials.update_testimonial', testimonial_id=testimonial.testimonial_id) }}"
-                                method="post">
-                                <input type="hidden" id="editTestimonialId" name="testimonial_id"
-                                    value="{{ testimonial.testimonial_id }}">
-                                <div class="form-group">
-                                    <label for="editTestifierName">Name</label>
-                                    <input type="text" class="form-control" id="editTestifierName" name="name"
-                                        value="{{ testimonial.name }}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="editTestifierTitle">Title</label>
-                                    <input type="text" class="form-control" id="editTestifierTitle" name="title"
-                                        value="{{ testimonial.title }}">
-                                </div>
-                                <label for="editTestimonialText">Content</label>
-                                <textarea class="form-control testimnialcontent" id="editTestimonialText" rows="6"
-                                    name="content">{{ testimonial.content }}</textarea>
-                                <div class="form-group d-block p-3">
-                                    <label for="editSelectedImage">Current Image</label>
-                                    <div class="img-container d-flex pt-3">
-                                        {% if testimonial.image and testimonial.image.filename %}
-                                        <img src="{{ url_for('static', filename='uploads/' + testimonial.image.filename) }}" class="rounded"
-                                            id="editSelectedImage" alt="Testimonial Image" style="height: 150px; width: 150px;">
-                                        {% else %}
-                                        <p>You have no current image</p>
-                                        {% endif %}
-                                    </div>
-    
-                                </div>
-                                <div class="form-group">
-                                    <label for="editImageInput">Update Image</label>
-                                    <input type="file" class="form-control" id="editImageInput" name="image">
-                                </div>
-                                <div id="editImagePreview">
-    
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </div>
-                            </form>
+                            <div class="imgBx">
+                                <img id="testimonialImage" src="" alt="Testimonial Image" class="img-fluid">
+                            </div>
+                            <p id="testimonialContent"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+           
+        <!-- Single Edit Testimonial Modal -->
+        <div class="modal fade" id="editTestimonialModal" tabindex="-1" aria-labelledby="editTestimonialModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editTestimonialModalLabel">Edit Testimonial</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <input type="hidden" id="testimonialId" name="testimonial_id">
+                            <div class="mb-3">
+                                <label for="testimonialName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="testimonialName" name="name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="testimonialTitle" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="testimonialTitle" name="title">
+                            </div>
+                            <div class="mb-3">
+                                <label for="testimonialContent" class="form-label">Content</label>
+                                <textarea class="form-control" id="testimonialContent" name="content" rows="9"></textarea>
+                            </div>
+                            <div class="mb-3 text-center d-flex">
+                                <img id="testimonialImage" src="" alt="Testimonial Image" class="img-fluid rounded" style="height: 150px; width: 150px;">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     
     
+            
+
         </div>
     </section>
     
@@ -997,13 +1015,17 @@
     <script integrity="sha384-MrcW6ZMFYlXZ
                         *zcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- SWIPER JS CODE -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     
     <!-- BOOTSTRAP CDN LINK -->
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
     
