@@ -1,3 +1,5 @@
+ 
+ hljs.highlightAll();
  // this is the menu dropdown -->
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -554,23 +556,39 @@ var swiper = new Swiper('.swiper-container', {
     effect: 'coverflow',
     grabCursor: true,
     centeredSlides: true,
-    //slidesPerView: 3, // Shows 3 slides
-    spaceBetween: 30, // Adds space between slides
-    slidesPerView: 'auto',
-    initialSlide: 2,
+    slidesPerView: 3, // Default: 3 slides for larger screens
+    spaceBetween: 30,
+    initialSlide: 2, // Set the starting slide
     coverflowEffect: {
         rotate: 0,
         stretch: 0,
-        depth: 100,
-        modifier: 2,
+        depth: 300,
+        modifier: 1.5, // Adjust modifier for smoother scaling
         slideShadows: false,
     },
     loop: true,
     pagination: {
         el: '.swiper-pagination',
-        clickable: true, // Allows pagination dots to be clickable
+        clickable: true,
+    },
+    breakpoints: {
+        1024: {
+            slidesPerView: 3, // 3 slides for desktops
+            spaceBetween: 30,
+        },
+        768: {
+            slidesPerView: 2, // 2 slides for tablets
+            spaceBetween: 20,
+        },
+        480: {
+            slidesPerView: 1, // 1 slide for mobile
+            spaceBetween: 10,
+        },
     },
 });
+
+
+
 
 
 document.addEventListener("DOMContentLoaded", function () {

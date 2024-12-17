@@ -3,51 +3,20 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/header.css') }}"
 />
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-/>
-<!-- Bootstrap Icons -->
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-/>
-
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-<link rel="stylesheet" href="https://upkg.com/swiper/swiper-bundle.min.css" />
-<!-- Google fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500;600;700&family=Dancing+Script:wght@400..700&family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Roboto+Condensed:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sacramento&display=swap"
-  rel="stylesheet"
-/>
-<link
-  href="https://db.onlinewebfonts.com/c/c2c53906d03ac20447dfd4da50900e82?family=Garamont+AMSTERDAM+Italic"
-  rel="stylesheet"
-/>
-
-<!-- JQuery Link -->
-<script
-  src="https://code.jquery.com/jquery-3.7.1.js"
-  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"
-></script>
 
 <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">ASTRUCT</a>
     <button
-      class="navbar-toggler"
+      class="navbar-toggler collapsed"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
+      aria-controls="navbarContent"
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon text-primary"></span>
+      <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -55,7 +24,7 @@
           <a class="nav-link active" aria-current="page" href="#home">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#about">About Us</a>
+          <a class="nav-link about-link" href="#about">About Us</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#services">Services</a>
@@ -122,100 +91,4 @@
     </div>
   </div>
 </nav>
-{% endblock %} {% block scripts %}
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Handle navbar toggle click
-    document
-      .getElementById("navbarToggle")
-      .addEventListener("click", function () {
-        document.getElementById("mobileNav").classList.toggle("active");
-      });
-
-    // Handle nav-link clicks to activate the link and close the drawer
-    const navLinks = document.querySelectorAll(".nav-link");
-    const navbarCollapse = document.querySelector("#navbarSupportedContent");
-
-    navLinks.forEach((link) => {
-      link.addEventListener("click", function () {
-        // Remove active class from all links
-        navLinks.forEach((link) => link.classList.remove("active"));
-
-        // Add active class to the clicked link
-        this.classList.add("active");
-
-        // Close the navbar drawer
-        new bootstrap.Collapse(navbarCollapse).toggle();
-      });
-    });
-
-    // Highlight the link if the section is already in view on scroll
-    const sections = document.querySelectorAll("section");
-    window.addEventListener("scroll", function () {
-      let currentSection;
-
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop - 50;
-        if (pageYOffset >= sectionTop) {
-          currentSection = section.getAttribute("id");
-        }
-      });
-
-      navLinks.forEach((link) => {
-        link.classList.remove("active");
-        if (link.getAttribute("href").includes(currentSection)) {
-          link.classList.add("active");
-        }
-      });
-    });
-  });
-</script>
-
-// this is the menu dropdown
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Close the navbar when a dropdown item is clicked
-    var dropdownItems = document.querySelectorAll(".dropdown-item");
-
-    dropdownItems.forEach(function (item) {
-      item.addEventListener("click", function () {
-        // Close the navbar
-        var navbarToggler = document.querySelector(".navbar-toggler");
-        var navbarCollapse = document.querySelector(".navbar-collapse");
-
-        if (navbarCollapse.classList.contains("show")) {
-          navbarToggler.click(); // Trigger the toggler to close the navbar
-        }
-
-        // Remove active class from all dropdown items
-        dropdownItems.forEach(function (el) {
-          el.classList.remove("active");
-        });
-
-        // Add active class to the clicked dropdown item
-        this.classList.add("active");
-      });
-    });
-
-    // Change color of dropdown-toggle when dropdown is active
-    var dropdownToggles = document.querySelectorAll(".dropdown-toggle");
-
-    dropdownToggles.forEach(function (toggle) {
-      toggle.addEventListener("click", function () {
-        // Remove active class from all dropdown toggles
-        dropdownToggles.forEach(function (el) {
-          el.classList.remove("active");
-        });
-
-        // Add active class to the clicked dropdown toggle
-        this.classList.add("active");
-      });
-    });
-  });
-</script>
-
 {% endblock %}

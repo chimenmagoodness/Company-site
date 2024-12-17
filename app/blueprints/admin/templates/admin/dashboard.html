@@ -5,37 +5,15 @@
         Admin Page
         
     {% endblock %}
-
-    {% include "adminheader.html" %}
-    {% include "sweetalerts.html" %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
     
-        <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!-- Code highlighter -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
-
-     <!-- SimpleMDE CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-    <!-- SimpleMDE JS -->
-    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
-
-
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
 {% endblock %}
 
 
 
 {% block content %}
-
+    {% include "adminheader.html" %}
+    {% include "sweetalerts.html" %}
     <section class="partner pt-5" id="partner">
         <div class="container">
             <div class="partner_texts d-flex pb-3">
@@ -46,94 +24,102 @@
                 </a>
             </div>
 
-        <!-- Add New Partner Modal -->
-        <div class="modal fade" id="addCompanyModal" tabindex="-1" aria-labelledby="addCompanyModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addCompanyModalLabel">Add New Company</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="addPartnerForm" action="{{ url_for('partners.add_partner') }}" method="POST"
-                            enctype="multipart/form-data">
-                            <div class="mb-3">
-                                <label for="newPartnerName" class="form-label">Partner Name</label>
-                                <input type="text" class="form-control" id="newPartnerName" name="name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="newPartnerImage" class="form-label">Upload Image</label>
-                                <input type="file" class="form-control" id="newPartnerImage" name="logo_image" accept="image/*"
-                                    required>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Add Now</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        
-        
-        
-        <!-- Display Partners -->
-        <div class="partner__container">
-            {% for partner in partners[:4] %}
-            <div class="img__card">
-                <!-- Update the image source to use 'partner.logo_image_id' directly -->
-                <img src="{{ url_for('static', filename='uploads/' ~ partner.logo_image_id) }}" alt="{{ partner.name }}"
-                    class="partner__img">
-            
-                <div class="edit_or_delete">
-                    <span class="icon edit" data-bs-toggle="modal" data-bs-target="#editPartnerModal-{{ partner.partner_id }}">
-                        <i class="bi bi-pen"></i>
-                    </span>
-                    <form id="deletePartnerForm-{{ partner.partner_id }}"
-                        action="{{ url_for('partners.delete_partner', partner_id=partner.partner_id) }}" method="POST"
-                        style="display:inline;">
-                        <button type="button" class="icon delete" onclick="confirmPartnerDelete('{{ partner.partner_id }}')">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-            <!-- Edit Partner Modal -->
-            <div class="modal fade" id="editPartnerModal-{{ partner.partner_id }}" tabindex="-1"
-                aria-labelledby="editPartnerModalLabel-{{ partner.partner_id }}" aria-hidden="true">
+            <!-- Add New Partner Modal -->
+            <div class="modal fade" id="addCompanyModal" tabindex="-1" aria-labelledby="addCompanyModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editPartnerModalLabel-{{ partner.partner_id }}">Edit Company</h5>
+                            <h5 class="modal-title" id="addCompanyModalLabel">Add New Company</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="editPartnerForm-{{ partner.partner_id }}"
-                                action="{{ url_for('partners.edit_partner', partner_id=partner.partner_id) }}" method="POST"
+                            <form id="addPartnerForm" action="{{ url_for('partners.add_partner') }}" method="POST"
                                 enctype="multipart/form-data">
-
                                 <div class="mb-3">
-                                    <label for="editPartnerName-{{ partner.partner_id }}" class="form-label">Partner Name</label>
-                                    <input type="text" class="form-control" id="editPartnerName-{{ partner.partner_id }}" name="name" value="{{ partner.name }}" required>
+                                    <label for="newPartnerName" class="form-label">Partner Name</label>
+                                    <input type="text" class="form-control" id="newPartnerName" name="name" required>
                                 </div>
-
                                 <div class="mb-3">
-                                    <label for="editPartnerImage-{{ partner.partner_id }}" class="form-label">Upload Image</label>
-                                    <input type="file" class="form-control" id="editPartnerImage-{{ partner.partner_id }}" name="logo_image" accept="image/*">
+                                    <label for="newPartnerImage" class="form-label">Upload Image</label>
+                                    <input type="file" class="form-control" id="newPartnerImage" name="logo_image" accept="image/*"
+                                        required>
                                 </div>
-
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    <button type="submit" class="btn btn-primary">Add Now</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+        
+        
+        
+        
+            <!-- Display Partners -->
+            <div class="row">
+                <div class="partner__container">
+                    {% for partner in partners[:4] %}
+                    <div class="img__card">
+                        <!-- Update the image source to use 'partner.logo_image_id' directly -->
+                        <img src="{{ url_for('static', filename='uploads/' ~ partner.logo_image_id) }}" alt="{{ partner.name }}"
+                            class="partner__img">
+                
+                        <div class="edit_or_delete">
+                            <span class="icon edit" data-bs-toggle="modal" data-bs-target="#editPartnerModal-{{ partner.partner_id }}">
+                                <i class="bi bi-pen"></i>
+                            </span>
+                            <form id="deletePartnerForm-{{ partner.partner_id }}"
+                                action="{{ url_for('partners.delete_partner', partner_id=partner.partner_id) }}" method="POST"
+                                style="display:inline;">
+                                <button type="button" class="icon delete" onclick="confirmPartnerDelete('{{ partner.partner_id }}')">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Edit Partner Modal -->
+                    <div class="modal fade" id="editPartnerModal-{{ partner.partner_id }}" tabindex="-1"
+                        aria-labelledby="editPartnerModalLabel-{{ partner.partner_id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editPartnerModalLabel-{{ partner.partner_id }}">Edit Company</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="editPartnerForm-{{ partner.partner_id }}"
+                                        action="{{ url_for('partners.edit_partner', partner_id=partner.partner_id) }}" method="POST"
+                                        enctype="multipart/form-data">
+                
+                                        <div class="mb-3">
+                                            <label for="editPartnerName-{{ partner.partner_id }}" class="form-label">Partner
+                                                Name</label>
+                                            <input type="text" class="form-control" id="editPartnerName-{{ partner.partner_id }}"
+                                                name="name" value="{{ partner.name }}" required>
+                                        </div>
+                
+                                        <div class="mb-3">
+                                            <label for="editPartnerImage-{{ partner.partner_id }}" class="form-label">Upload
+                                                Image</label>
+                                            <input type="file" class="form-control" id="editPartnerImage-{{ partner.partner_id }}"
+                                                name="logo_image" accept="image/*">
+                                        </div>
+                
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
         </div>
 
     </section>
@@ -681,21 +667,6 @@
     
                 </div>
     
-                <div class="blog__blank">
-                    <h3>Our Recommended Blog</h3>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                        Corrupti quam harum, veritatis perspiciatis iste ducimus tenetur ex error possimus recusandae
-                        molestiae itaque
-                        accusamus quae reiciendis cupiditate.
-                        Beatae dolorem quia quaerat.
-                    </p>
-                    <div class="edit_or_delete">
-                        <span class="icon edit"><i class="bi bi-pen"></i></span>
-    
-                        <span class="icon delete"><i class="bi bi-trash"></i></span>
-                    </div>
-                </div>
-    
     
     
                 <!-- Edit Blog Modal -->
@@ -890,6 +861,8 @@
                         </div>
                         {% endfor %}
                     </div>
+                    <!-- Swiper pagination -->
+                    <div class="swiper-pagination pt-5 mt-4"></div>
                 </div>
             </div>
             
@@ -951,12 +924,6 @@
             </div>
         </div>
 
-
-    
-    
-            
-
-        </div>
     </section>
     
     
@@ -984,17 +951,17 @@
                         <td>{{ 'Yes' if user.is_admin else 'No' }}</td>
                         <td>
                             {% if user.is_admin %}
-                            <button class="btn btn-warning btn-sm"
+                            <button class="btn btn-warning btn-sm remove__btn"
                                 onclick="confirmRemoveAdmin('{{ url_for('admin.remove_admin', user_id=user.id) }}')">
                                 Remove Admin
                             </button>
 
                             {% else %}
-                            <button class="btn btn-primary btn-sm" onclick="confirmMakeAdmin('{{ url_for('admin.make_admin', user_id=user.id) }}')">
+                            <button class="btn btn-primary btn-sm make-admin__btn" onclick="confirmMakeAdmin('{{ url_for('admin.make_admin', user_id=user.id) }}')">
                                 Make Admin
                             </button>
                             {% endif %}
-                            <button class="btn btn-danger btn-sm"
+                            <button class="btn btn-danger btn-sm delete__btn"
                                 onclick="confirmDeleteUser('{{ url_for('admin.delete_user', user_id=user.id) }}')">
                                 Delete User
                             </button>
@@ -1010,27 +977,6 @@
 {% endblock %}
 
 {% block scripts %}
-
-
-    <script integrity="sha384-MrcW6ZMFYlXZ
-                        *zcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <!-- SWIPER JS CODE -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    
-    <!-- BOOTSTRAP CDN LINK -->
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-    
-    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
     
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 
