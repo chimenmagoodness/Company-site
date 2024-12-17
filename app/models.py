@@ -1,18 +1,59 @@
 from datetime import datetime
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_login import UserMixin
 from app.app import db
 
 
 
+# class User(db.Model, UserMixin):
+#     id = db.Column(db.Integer, primary_key=True)
+#     username = db.Column(db.String(150), unique=True, nullable=False)
+#     email = db.Column(db.String(150), nullable=False, unique=True)
+#     password = db.Column(db.String(150), nullable=False)
+#     is_admin = db.Column(db.Boolean, default=False)
+#     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+#     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    
+# class User(db.Model, UserMixin):
+#     id = db.Column(db.Integer, primary_key=True)
+#     username = db.Column(db.String(150), unique=True, nullable=False)
+#     email = db.Column(db.String(150), nullable=False, unique=True)
+#     password = db.Column(db.String(150), nullable=False)
+#     role = db.Column(db.String(50), default='user')  # Values: 'user', 'admin', 'main_admin'
+#     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+#     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), unique=True, nullable=False)
+    username = db.Column(db.String(150), nullable=False, unique=True)
     email = db.Column(db.String(150), nullable=False, unique=True)
-    password = db.Column(db.String(150), nullable=False)
+    position = db.Column(db.String(70), default='user')
+    password = db.Column(db.String(200), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
+    role = db.Column(db.String(50), default='user')  # 'main_admin' or 'normal_admin'
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
+    is_active = db.Column(db.Boolean, default=True)
+
+    def is_active(self):
+        return self.is_active  # This ensures Flask-Login uses the is_active field
+
+class AdminCode(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    code_name = db.Column(db.String(50), nullable=False, unique=True)  # 'main_admin_code' or 'normal_admin_code'
+    code_value = db.Column(db.String(200), nullable=False)  # Store the hashed code
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    
+class History(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    performed_by = db.Column(db.String(150), nullable=False)  # Username of the admin
+    action = db.Column(db.String(255), nullable=False)        # Description of the action
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
 
 class Partner(db.Model):
     partner_id = db.Column(db.Integer, primary_key=True)

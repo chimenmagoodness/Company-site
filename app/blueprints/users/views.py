@@ -49,14 +49,38 @@ def register():
          
         else:      
             # Assuming you have a way to determine if the user should be an admin
-            is_admin = True if username == 'Engineer Alison' or email == 'engralison@admin.com' else False
-            user = User(username=username, email=email, password=password, is_admin=is_admin)
+            # is_admin = True if username == 'Engineer Alison' or email == 'engralison@admin.com' else False
+            user = User(username=username, email=email, password=password)
             db.session.add(user)
             db.session.commit()
             flash('Registration successful! Please log in.', 'success')
             return redirect(url_for('users.login'))
     return render_template('users/register.html')
 
+
+# @user_blueprint.route('/register', methods=['GET', 'POST'])
+# def register():
+#     if request.method == 'POST':
+#         username = request.form.get('username')
+#         email = request.form.get('email')
+#         password = generate_password_hash(request.form.get('password'))
+        
+#         email_found = User.query.filter_by(email=email).first()
+#         username_found = User.query.filter_by(username=username).first()
+        
+#         if email_found:
+#             flash("Sorry, email already exists. Try another email.", "warning")
+#         elif username_found:
+#             flash("Sorry, username already exists. Try another username.", "warning")
+#         else:
+#             # Assign role
+#             role = 'main_admin' if username in ['CEO Name', 'Manager Name'] or email in ['ceo@company.com', 'manager@company.com'] else 'admin'
+#             user = User(username=username, email=email, password=password, role=role)
+#             db.session.add(user)
+#             db.session.commit()
+#             flash('Registration successful! Please log in.', 'success')
+#             return redirect(url_for('users.login'))
+#     return render_template('users/register.html')
 
 
 @user_blueprint.route('/login', methods=['GET', 'POST'])
@@ -90,18 +114,3 @@ def login():
 
 
 
-@user_blueprint.route('/dashboard')
-@login_required
-def admin():
-    if not current_user.is_admin:
-        return redirect(url_for('home_page'))
-    
-    partner = Partner.query.all()
-    portfolio_items = Portfolio.query.all()
-    video = VideoURL.query.first()
-    case_studies = CaseStudy.query.all()
-    blogs = Blog.query.all()
-
-    testimonials = Testimonial.query.all()
-    users = User.query.all()
-    return render_template('admin/dashboard.html', partner=partner, portfolio=portfolio_items, video=video, case_studies=case_studies, blogs=blogs, testimonials=testimonials, users=users, user=current_user)
