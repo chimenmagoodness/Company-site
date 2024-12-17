@@ -4,26 +4,6 @@ from app.app import db
 
 
 
-# class User(db.Model, UserMixin):
-#     id = db.Column(db.Integer, primary_key=True)
-#     username = db.Column(db.String(150), unique=True, nullable=False)
-#     email = db.Column(db.String(150), nullable=False, unique=True)
-#     password = db.Column(db.String(150), nullable=False)
-#     is_admin = db.Column(db.Boolean, default=False)
-#     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-#     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    
-    
-# class User(db.Model, UserMixin):
-#     id = db.Column(db.Integer, primary_key=True)
-#     username = db.Column(db.String(150), unique=True, nullable=False)
-#     email = db.Column(db.String(150), nullable=False, unique=True)
-#     password = db.Column(db.String(150), nullable=False)
-#     role = db.Column(db.String(50), default='user')  # Values: 'user', 'admin', 'main_admin'
-#     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-#     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-
-
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), nullable=False, unique=True)
@@ -40,12 +20,12 @@ class User(db.Model, UserMixin):
     def is_active(self):
         return self.is_active  # This ensures Flask-Login uses the is_active field
 
-class AdminCode(db.Model):
+class Code(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    code_name = db.Column(db.String(50), nullable=False, unique=True)  # 'main_admin_code' or 'normal_admin_code'
-    code_value = db.Column(db.String(200), nullable=False)  # Store the hashed code
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    main_admin_code = db.Column(db.String(100), nullable=False, default="DEFAULT_MAIN_CODE")
+    normal_admin_code = db.Column(db.String(100), nullable=False, default="DEFAULT_NORMAL_CODE")
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
 
     
 class History(db.Model):

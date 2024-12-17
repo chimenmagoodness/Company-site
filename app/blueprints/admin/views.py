@@ -1,20 +1,29 @@
 from flask import render_template, request, url_for, redirect, jsonify, flash, Blueprint
 from flask_login import login_required, current_user, login_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.models import User, Testimonial, Partner ,Portfolio, VideoURL, CaseStudy, Blog, History
-from app.app import db
+from app.models import User, Testimonial, Partner, Portfolio, VideoURL, CaseStudy, Blog, History, Code
+from app.app import db, app
 import os
 
 
 admin_blueprint = Blueprint("admin", __name__, template_folder='templates')
 
+with app.app_context():
+    db.create_all()
+
+    # Create default codes if they don't exist
+    if not Code.query.first():
+        default_codes = Code(main_admin_code="DEFAULT345480", normal_admin_code="DEFAULT12345678")
+        db.session.add(default_codes)
+        db.session.commit()
 
 # --------------------------------------> Register User Admin <-----------------------------------
 @admin_blueprint.route('/register', methods=['GET', 'POST'])
 def admin_register():
-    # Retrieve secure admin codes from environment variables
-    main_admin_code = "60587102"  # Replace with actual environment variable
-    normal_admin_code = "12345678"  # Replace with actual environment variable
+    # Retrieve secure admin codes from the database
+    default_codes = Code(main_admin_code="DEFAULT345480", normal_admin_code="DEFAULT12345678")
+    main_admin_code = check_password_hash(default_codes.main_admin_code)  
+    normal_admin_code = check_password_hash(default_codes.normal_admin_code)  
 
     if request.method == 'POST':
         entered_code = request.form.get('admin_code')
@@ -179,6 +188,7 @@ def dashboard():
     testimonials = Testimonial.query.all()
     users = User.query.all()
     history = History.query.all()
+    codes = Code.query.all()
 
     return render_template(
         'admin/dashboard.html',
@@ -190,7 +200,8 @@ def dashboard():
         testimonials=testimonials,
         users=users,
         user=current_user,
-        history=history
+        history=history,
+        codes=codes
     )
 
 @admin_blueprint.route('/users')
@@ -361,4 +372,121 @@ def delete_user(user_id):
     return redirect(url_for('admin.dashboard') + "#users")
 
 
+# @admin_blueprint.route('/update_code', methods=['GET', 'POST'])
+# @login_required
+# def update_code():
+#     # Ensure only admins can access
+#     if current_user.role not in ['normal_admin', 'main_admin']:
+#         flash("Unauthorized access", "danger")
+#         return redirect(url_for('admin.dashboard') + '#users')
 
+#     # Fetch the codes
+#     code_entry = Code.query.first()
+#     if not code_entry:
+#         code_entry = Code(main_admin_code="DEFAULT_MAIN_CODE", normal_admin_code="DEFAULT_NORMAL_CODE")
+#         db.session.add(code_entry)
+#         db.session.commit()
+
+#     if request.method == 'POST':
+#         username = request.form.get('username')
+#         previous_code = request.form.get('previous_code')
+#         new_code = request.form.get('new_code')
+#         password = request.form.get('password')
+#         code_type = request.form.get('code_type')  # 'main' or 'normal'
+
+#         # Validate user credentials
+#         user = User.query.filter_by(username=username).first()
+#         if not user:
+#             flash("Invalid username", "danger")
+#             return redirect(url_for('admin.dashboard') + "#users")
+
+#         if not check_password_hash(user.password, password):
+#             flash("Invalid password", "danger")
+#             return redirect(url_for('admin.dashboard') + "#users")
+
+#         # Check user permissions and previous code
+#         if code_type == 'main' and user.role == 'main_admin':
+#             if previous_code != code_entry.main_admin_code:
+#                 flash("Previous main admin code is incorrect", "danger")
+#                 return redirect(url_for('admin.dashboard') + "#users")
+#             code_entry.main_admin_code = new_code
+#             log_action(user.username, f"Updated the main admin code.")
+#         elif code_type == 'normal':
+#             if previous_code != code_entry.normal_admin_code:
+#                 flash("Previous normal admin code is incorrect", "danger")
+#                 return redirect(url_for('admin.dashboard') + "#users")
+#             code_entry.normal_admin_code = new_code
+#             log_action(user.username, f"Updated the normal admin code.")
+#         else:
+#             flash("You do not have permission to update this code", "danger")
+#             return redirect(url_for('admin.dashboard') + "#users")
+
+#         db.session.commit()
+#         flash("Code updated successfully!", "success")
+#         return redirect(url_for('admin.dashboard') + "#users")
+
+#     return render_template('admin/dashboard.html', code_entry=code_entry)
+
+@admin_blueprint.route('/update_code', methods=['GET', 'POST'])
+@login_required
+def update_code():
+    # Ensure only admins can access
+    if current_user.role not in ['normal_admin', 'main_admin']:
+        flash("Unauthorized access", "danger")
+        return redirect(url_for('admin.dashboard') + '#users')
+
+    # Fetch the codes
+    code_entry = Code.query.first()
+    if not code_entry:
+        code_entry = Code(
+            main_admin_code=generate_password_hash("DEFAULT_MAIN_CODE"),
+            normal_admin_code=generate_password_hash("DEFAULT_NORMAL_CODE")
+        )
+        db.session.add(code_entry)
+        db.session.commit()
+
+    if request.method == 'POST':
+        username = request.form.get('username')
+        previous_code = request.form.get('previous_code')
+        new_code = request.form.get('new_code')
+        password = request.form.get('password')
+        code_type = request.form.get('code_type')  # 'main' or 'normal'
+
+        # Validate user credentials
+        user = User.query.filter_by(username=username).first()
+        if not user:
+            flash("Invalid username", "danger")
+            return redirect(url_for('admin.dashboard') + "#users")
+
+        if not check_password_hash(user.password, password):
+            flash("Invalid password", "danger")
+            return redirect(url_for('admin.dashboard') + "#users")
+
+        # Check user permissions and validate previous code
+        if code_type == 'main' and user.role == 'main_admin':
+            if not check_password_hash(code_entry.main_admin_code, previous_code):
+                flash("Previous main admin code is incorrect", "danger")
+                return redirect(url_for('admin.dashboard') + "#users")
+            code_entry.main_admin_code = generate_password_hash(new_code)
+            log_action(user.username, f"Updated the main admin code.")
+        elif code_type == 'normal':
+            if not check_password_hash(code_entry.normal_admin_code, previous_code):
+                flash("Previous normal admin code is incorrect", "danger")
+                return redirect(url_for('admin.dashboard') + "#users")
+            code_entry.normal_admin_code = generate_password_hash(new_code)
+            log_action(user.username, f"Updated the normal admin code.")
+        else:
+            flash("You do not have permission to update this code", "danger")
+            return redirect(url_for('admin.dashboard') + "#users")
+
+        db.session.commit()
+        flash("Code updated successfully!", "success")
+        return redirect(url_for('admin.dashboard') + "#users")
+
+    return render_template('admin/dashboard.html', code_entry=code_entry)
+
+def log_action(username, action):
+    """ Helper function to log actions in the History table. """
+    history_entry = History(performed_by=username, action=action)
+    db.session.add(history_entry)
+    db.session.commit()
