@@ -7,6 +7,8 @@ from datetime import datetime
 from flask_migrate import Migrate
 import os
 from werkzeug.utils import secure_filename
+from flask_mail import Message
+from flask_mail import Mail  # Import Mail from flask_mail
 import logging
 from urllib.parse import quote_plus
 import bleach
@@ -18,6 +20,7 @@ from markupsafe import Markup
 import markdown as md
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
+from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 load_dotenv()
 
 
@@ -42,7 +45,75 @@ import os
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
+# Load the environment variable into Flask configuration
+app.config['SECURITY_PASSWORD_SALT'] = os.getenv('SECURITY_PASSWORD_SALT')
 
+
+salt_key = app.config.get("SECURITY_PASSWORD_SALT")
+# Mail Settings
+
+app.config['MAIL_DEFAULT_SENDER'] = "noreply@flask.com"
+app.config['MAIL_SERVER'] = "smtp.gmail.com"
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_DEBUG'] = False
+app.config['MAIL_USERNAME'] = "1stpassabite@gmail.com" # os.environ.get('EMAIL_USER')  # Use [] to access environment variables
+app.config['MAIL_PASSWORD'] = "pjwa fkzm uhud ycfp" # os.environ.get('EMAIL_PASSWORD')
+mail = Mail(app)
+
+from itsdangerous import URLSafeTimedSerializer
+
+def generate_token(email):
+    serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
+    return serializer.dumps(email, salt=salt_key)
+
+
+# def confirm_token(token, expiration=3600):
+#     serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
+#     try:
+#         email = serializer.loads(
+#             token, salt=salt_key, max_age=expiration
+#         )
+#         return email
+#     except Exception:
+#         return False
+
+def confirm_token(token, salt_key, expiration=3600):
+    serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
+    try:
+        email = serializer.loads(
+            token, salt=salt_key, max_age=expiration
+        )
+        return email
+    except SignatureExpired:
+        # Token is valid but expired
+        return {"status": "expired", "message": "Token has expired, please request a new one."}
+    except BadSignature:
+        # Token is invalid
+        return {"status": "invalid", "message": "Invalid token, please check the link."}
+    except Exception as e:
+        # Other exceptions
+        return {"status": "error", "message": f"An error occurred: {str(e)}"}
+    
+
+def send_email(to, subject, template):
+    """
+    Send an email with optional embedded images.
+
+    :param to: Recipient email address
+    :param subject: Subject of the email
+    :param template: HTML email content
+    :param image_paths: List of image file paths to embed in the email
+    """
+    msg = Message(
+        subject,
+        recipients=[to],
+        html=template,
+        sender=app.config["MAIL_DEFAULT_SENDER"],
+    )
+    mail.send(msg)
+    
 # Initialize extensions
 db.init_app(app)
 login_manager.init_app(app)
@@ -57,12 +128,14 @@ from .blueprints.partners.views import partners_blueprint
 from .blueprints.portfolios.views import portfolio_blueprint
 from .blueprints.testimonials.views import testimonial_blueprint
 from .blueprints.videos.views import videos_blueprint
+from .blueprints.accounts.views import accounts_blueprint
 
 # @app.route('/')  
 # def index():
 #     return "This is the index route."
 
 app.register_blueprint(home_blueprint, url_prefix='/')
+app.register_blueprint(accounts_blueprint, url_prefix="/accounts")
 app.register_blueprint(user_blueprint, url_prefix="/users")
 app.register_blueprint(admin_blueprint, url_prefix="/admin")
 app.register_blueprint(blog_blueprint, url_prefix="/blogs")
@@ -92,6 +165,8 @@ with app.app_context():
         os.makedirs(app.config['UPLOAD_FOLDER'])
 
     db.create_all()
+    
+    
     
 allowed_tags = [
     'a', 'abbr', 'acronym', 'b', 'blockquote', 'br',
@@ -147,4 +222,66 @@ def slugify_filter(s):
     return re.sub(r'[^a-zA-Z0-9]+', '-', s).lower().strip('-')
 
 
+# User model
+# class User(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     email = db.Column(db.String(150), unique=True, nullable=False)
+#     name = db.Column(db.String(150), nullable=False)
+#     profile_pic = db.Column(db.String(300))
 
+# # Initialize OAuth
+# oauth = OAuth(app)
+
+# # Configure Google OAuth
+# app.config['GOOGLE_CLIENT_ID'] = 'your_google_client_id'
+# app.config['GOOGLE_CLIENT_SECRET'] = 'your_google_client_secret'
+
+# google = oauth.register(
+#     name='google',
+#     client_id=app.config['GOOGLE_CLIENT_ID'],
+#     client_secret=app.config['GOOGLE_CLIENT_SECRET'],
+#     access_token_url='https://oauth2.googleapis.com/token',
+#     authorize_url='https://accounts.google.com/o/oauth2/auth',
+#     api_base_url='https://www.googleapis.com/oauth2/v2/',
+#     client_kwargs={
+#         'scope': 'openid email profile'
+#     }
+# )
+
+# @app.route('/')
+# def index():
+#     user = session.get('user')
+#     if user:
+#         return f"Hello, {user['name']}! <a href='/logout'>Logout</a>"
+#     return '<a href="/login">Login with Google</a>'
+
+# @app.route('/login')
+# def login():
+#     redirect_uri = url_for('authorize', _external=True)
+#     return google.authorize_redirect(redirect_uri)
+
+# @app.route('/authorize')
+# def authorize():
+#     token = google.authorize_access_token()
+#     user_info = google.get('userinfo').json()
+
+#     # Check if user exists in the database
+#     user = User.query.filter_by(email=user_info['email']).first()
+#     if not user:
+#         # Create new user
+#         user = User(
+#             email=user_info['email'],
+#             name=user_info['name'],
+#             profile_pic=user_info['picture']
+#         )
+#         db.session.add(user)
+#         db.session.commit()
+
+#     # Store user info in session
+#     session['user'] = {
+#         'email': user.email,
+#         'name': user.name,
+#         'profile_pic': user.profile_pic
+#     }
+
+#     return redirect('/')

@@ -12,14 +12,21 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(200), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
     role = db.Column(db.String(50), default='user')  # 'main_admin' or 'normal_admin'
+    is_verified = db.Column(db.Boolean, default=False)  # New field
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    
     is_active = db.Column(db.Boolean, default=True)
-
+    is_confirmed = db.Column(db.Boolean, nullable=False, default=False)
+    confirmed_on = db.Column(db.DateTime, nullable=True)
+    
+    
     def is_active(self):
         return self.is_active  # This ensures Flask-Login uses the is_active field
-
+    
+    def __repr__(self):
+        return f"<email {self.email}>"
+    
+    
 class Code(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     main_admin_code = db.Column(db.String(100), nullable=False, default="DEFAULT_MAIN_CODE")
@@ -82,6 +89,7 @@ class CaseStudyImage(db.Model):
     
     
 class Blog(db.Model):
+    __tablename__ = 'blog'
     blog_id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150), nullable=False)
     slug = db.Column(db.String(100), nullable=False, unique=True)  # Slug for SEO-friendly URLs
@@ -89,8 +97,10 @@ class Blog(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
-    images = db.relationship('BlogMedia', backref='media_blog', lazy=True, cascade='all, delete-orphan')
+    images = db.relationship('BlogMedia', overlaps="images,media_blog", lazy=True, cascade='all, delete-orphan')
+    # images = db.relationship('BlogMedia', backref='media_blog', overlaps="images,media_blog", lazy=True, cascade='all, delete-orphan')
 
+    # images = db.relationship('BlogMedia', overlaps="blog", lazy=True, cascade='all, delete-orphan')
     @property
     def first_image_path(self):
         if self.images:
@@ -99,12 +109,13 @@ class Blog(db.Model):
 
 
 class BlogMedia(db.Model):
+    __tablename__ = 'blog_media'
     blog_media_id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(150), nullable=False)
     uploaded_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     blog_id = db.Column(db.Integer, db.ForeignKey('blog.blog_id', ondelete='CASCADE'), nullable=False)
-    blog = db.relationship('Blog', backref='blog_images', lazy=True)
-
+    blog = db.relationship('Blog', overlaps="images,media_blog", lazy=True)
+    # blog = db.relationship('Blog', backref='blog_images', overlaps="images,media_blog", lazy=True)
 
     
 class Testimonial(db.Model):

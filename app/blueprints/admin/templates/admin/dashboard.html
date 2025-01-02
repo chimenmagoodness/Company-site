@@ -168,6 +168,7 @@
                                     <label for="portfolioDescription" class="form-label">Description</label>
                                     <textarea class="form-control markdown-editor" id="portfolioDescription" name="description"
                                         placeholder="Enter project description" rows="3"></textarea>
+                                    <a href="https://froala.com/blog/editor/10-quick-tips-about-a-great-markdown-editor/" target="_blank" class="text-decoration-none">Click here to learn how to use this form</a>
                                 </div>
                                 <div class="mb-3">
                                     <label for="portfolioImageInput" class="form-label">Upload Images</label>
@@ -259,6 +260,9 @@
                                             <label for="portfolioDescription" class="form-label">Description</label>
                                             <textarea class="form-control markdown-editor" id="editportfolioDescription" name="description" rows="4"
                                                 required>{{ item.description }}</textarea>
+                                            <a href="https://froala.com/blog/editor/10-quick-tips-about-a-great-markdown-editor/" target="_blank"
+                                                class="text-decoration-none">Click here to learn how to use this form</a>
+
                                         </div>
                                         <div class="mb-3">
                                             <label for="portfolioImageInput" class="form-label">Upload New Images</label>
@@ -405,6 +409,9 @@
                                     <label for="description" class="form-label">Description</label>
                                     <!-- MDEditor textarea -->
                                     <textarea class="form-control markdown-editor" id="casedescription" name="casedescription" rows="3" required></textarea>
+                                    <a href="https://froala.com/blog/editor/10-quick-tips-about-a-great-markdown-editor/" target="_blank"
+                                        class="text-decoration-none">Click here to learn how to use this form</a>
+
                                 </div>
                                 <div class="mb-3">
                                     <label for="images" class="form-label">Upload Images</label>
@@ -496,6 +503,9 @@
                                         rows="6" placeholder="Enter description"
                                         required>{{ case_study.description }}
                                     </textarea>
+                                    <a href="https://froala.com/blog/editor/10-quick-tips-about-a-great-markdown-editor/" target="_blank"
+                                        class="text-decoration-none">Click here to learn how to use this form</a>
+
                                     
                                 </div>
                                 <div class="mb-3">
@@ -614,6 +624,9 @@
                                 <div class="mb-3">
                                     <label for="blogContent" class="form-label">Blog Content</label>
                                     <textarea class="form-control markdown-editor" id="blogContent" name="content" rows="5"></textarea>
+                                    <a href="https://froala.com/blog/editor/10-quick-tips-about-a-great-markdown-editor/" target="_blank"
+                                        class="text-decoration-none">Click here to learn how to use this form</a>
+
                                 </div>
 
                                 <!-- Image Picker -->
@@ -694,6 +707,9 @@
                                         <label for="editBlogContent-{{ blog.blog_id }}" class="form-label markdown-editor">Content</label>
                                         <textarea class="form-control markdown-editor" id="editBlogContent" name="content"
                                             rows="10">{{ blog.content }}</textarea>
+                                        <a href="https://froala.com/blog/editor/10-quick-tips-about-a-great-markdown-editor/" target="_blank"
+                                            class="text-decoration-none">Click here to learn how to use this form</a>
+
                                     </div>
     
                                     <div class="mb-3">
@@ -926,120 +942,6 @@
 
     </section>
     
-    
-    
-    <!-- <section class="manageusers" id="users">
-    
-        <div class="container mt-5">
-            <h1>Manage Users</h1>
-            <table class="table table-striped mt-4">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Admin</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for user in users %}
-                    <tr>
-                        <td>{{ user.id }}</td>
-                        <td>{{ user.username }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ 'Yes' if user.is_admin else 'No' }}</td>
-                        <td>
-                            {% if user.is_admin %}
-                            <button class="btn btn-warning btn-sm remove__btn"
-                                onclick="confirmRemoveAdmin('{{ url_for('admin.remove_admin', user_id=user.id) }}')">
-                                Remove Admin
-                            </button>
-
-                            {% else %}
-                            <button class="btn btn-primary btn-sm make-admin__btn" onclick="confirmMakeAdmin('{{ url_for('admin.make_admin', user_id=user.id) }}')">
-                                Make Admin
-                            </button>
-                            {% endif %}
-                            <button class="btn btn-danger btn-sm delete__btn"
-                                onclick="confirmDeleteUser('{{ url_for('admin.delete_user', user_id=user.id) }}')">
-                                Delete User
-                            </button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </section> -->
-
-    <!-- <section class="manageusers" id="users">
-        <div class="container mt-5">
-            <h1>Manage Users</h1>
-            <table class="table table-striped mt-4">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for user in users %}
-                    <tr>
-                        <td>{{ user.id }}</td>
-                        <td>{{ user.username }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.role }}</td>
-                        <td>
-                            {% if current_user.role == 'main_admin' %}
-                            {% if user.role != 'main_admin' %}
-                            <button class="btn btn-success btn-sm"
-                                onclick="confirmPromote('{{ url_for('admin.promote_to_main_admin', user_id=user.id) }}')">
-                                Promote to Main Admin
-                            </button>
-                            <button class="btn btn-warning btn-sm"
-                                onclick="confirmDemote('{{ url_for('admin.demote_to_normal', user_id=user.id) }}')">
-                                Demote to Normal Admin/User
-                            </button>
-                            <button class="btn btn-danger btn-sm" onclick="confirmDelete('{{ url_for('admin.delete_user', user_id=user.id) }}')">
-                                Delete User
-                            </button>
-                            {% endif %}
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    
-        <div class="mt-5">
-            <h2 class="text-center">Action History</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Performed By</th>
-                        <th>Action</th>
-                        <th>Timestamp</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for entry in history %}
-                    <tr>
-                        <td>{{ entry.id }}</td>
-                        <td>{{ entry.performed_by }}</td>
-                        <td>{{ entry.action }}</td>
-                        <td>{{ entry.timestamp }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </section> -->
 
     <section class="manageusers" id="users">
         <div class="container mt-5">
@@ -1065,21 +967,16 @@
                         <td>{{ user.email }}</td>
                         <td>{{ 'Yes' if user.is_admin else 'No' }}</td>
                         <td>
+                            <button class="btn btn-success btn-sm" onclick="openSendEmailModal('{{ user.email }}', '{{ user.username }}')">
+                                Send Email
+                            </button>
                             {% if user.is_admin %}
-                            <!-- <button class="btn btn-warning btn-sm remove__btn"
-                                onclick="confirmRemoveAdmin('{{ url_for('admin.remove_admin', user_id=user.id) }}')">
-                                Remove Admin
-                            </button> -->
                             <!-- Remove Admin -->
                             <button class="btn btn-warning btn-sm"
                                 onclick="showAuthorizationModal('{{ user.username }}', '{{ url_for('admin.remove_admin', user_id=user.id) }}')">
                                 Remove Admin
                             </button>
                             {% else %}
-                            <!-- <button class="btn btn-primary btn-sm make-admin__btn"
-                                onclick="confirmMakeAdmin('{{ url_for('admin.make_admin', user_id=user.id) }}')">
-                                Make Admin
-                            </button> -->
                             <!-- Make Admin -->
                             <button class="btn btn-primary btn-sm"
                                 onclick="showAuthorizationModal('{{ user.username }}', '{{ url_for('admin.make_admin', user_id=user.id) }}')">
@@ -1091,10 +988,7 @@
                                 onclick="showAuthorizationModal('{{ user.username }}', '{{ url_for('admin.delete_user', user_id=user.id) }}')">
                                 Delete User
                             </button>
-                            <!-- <button class="btn btn-danger btn-sm delete__btn"
-                                onclick="confirmDeleteUser('{{ url_for('admin.delete_user', user_id=user.id) }}')">
-                                Delete User
-                            </button> -->
+                            
                         </td>
                     </tr>
                     {% endfor %}
@@ -1127,6 +1021,13 @@
                                 onclick="confirmPromote('{{ url_for('admin.promote_to_main_admin', user_id=user.id) }}')">
                                 Promote to Main Admin
                             </button> -->
+                            <!-- <button class="btn btn-success btn-sm" onclick="openSendEmailModal('{{ user.email }}')">
+                                Send Email
+                            </button> -->
+                            <button class="btn btn-success btn-sm" onclick="openSendEmailModal('{{ user.email }}', '{{ user.username }}')">
+                                Send Email
+                            </button>
+
                             <!-- Promote to Main Admin -->
                             <button class="btn btn-success btn-sm"
                                 onclick="showAuthorizationModal('{{ user.username }}', '{{ url_for('admin.promote_to_main_admin', user_id=user.id) }}')">
@@ -1180,6 +1081,9 @@
                                 Demote to Normal Admin
                             </button> -->
 
+                            <button class="btn btn-success btn-sm" onclick="openSendEmailModal('{{ user.email }}', '{{ user.username }}')">
+                                Send Email
+                            </button>
                             <!-- Demote to Normal -->
                             <button class="btn btn-warning btn-sm"
                                 onclick="showAuthorizationModal('{{ user.username }}', '{{ url_for('admin.demote_to_normal', user_id=user.id) }}')">
@@ -1223,9 +1127,6 @@
             </table>
         </div>
 
-        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateCodeModal">
-            Update Code
-        </button> -->
 
         <div class="container mt-4 pt-4">
             <h2 class="text-center pb-3">Manage Admin Codes</h2>
@@ -1235,8 +1136,8 @@
                         <!-- Main Admin Code Section -->
                         <div class="col-md-6 d-flex align-items-center justify-content-between">
                             <div>
-                                <strong><h4>Main Admin Code: </h4></strong>
-                                <span id="mainAdminCode">{{ code.main_admin_code }}</span>
+                                <strong><h3>Main Admin Code </h3></strong>
+                                <!-- <span id="mainAdminCode">{{ code.main_admin_code }}</span> -->
                             </div>
                             
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateCodeModal">
@@ -1254,8 +1155,8 @@
                     <!-- Normal Admin Code Section -->
                     <div class="col-md-6 d-flex align-items-center justify-content-between">
                         <div>
-                            <strong><h4>Normal Admin Code: </h4></strong>
-                            <span id="normalAdminCode">{{ code.normal_admin_code }}</span>
+                            <strong><h3>Normal Admin Code </h3></strong>
+                            <!-- <span id="normalAdminCode">{{ code.normal_admin_code }}</span> -->
                         </div>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateCodeModal">
                             Update Code
@@ -1356,7 +1257,136 @@
                 </div>
             </div>
         </div>
+        <h2 class="text-center mt-5">Send Emails</h2>
+        <div class="container d-flex mt-3" style="column-gap: 10px; text-align: center; justify-content: center;">
+            <a class="btn btn-primary" href="{{ url_for('accounts.send_new_email', group='admins') }}">
+                Send Mail to all Admins
+            </a>
+            <a class="btn btn-warning" href="{{ url_for('accounts.send_new_email', group='normal_users') }}">
+                Send Mail to Normal Users
+            </a>
+            <a class="btn btn-primary" href="{{ url_for('accounts.send_new_email', group='all') }}">
+                Send Mail to all Accounts
+            </a>
+        </div>
 
+        
+        <!-- <div id="sendEmailModal" class="modal fade" tabindex="-1" aria-labelledby="sendEmailModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="POST" action="{{ url_for('accounts.send_individual_email') }}">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="sendEmailModalLabel">Send Email</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="recipient_email" id="recipientEmail">
+                            <div class="mb-3">
+                                <label for="emailSubject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="emailSubject" name="subject" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="emailContent" class="form-label">Email Content</label>
+                                <textarea id="email_content" name="email_content" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Send Email</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> -->
+
+        
+        <div class="modal fade" id="sendEmailModal" tabindex="-1" aria-labelledby="sendEmailModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="sendEmailModalLabel">Send Email</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ url_for('accounts.send_individual_email') }}">
+                            <input type="hidden" name="recipient_email" id="recipient_email" />
+                            <label for="subject">Subject:</label>
+                            <input type="text" name="subject" id="subject" class="form-control" required />
+        
+                            <label for="email_content">Email Content:</label>
+                            <textarea id="email_content" name="email_content" class="form-control"></textarea>
+        
+                            <!-- <button type="submit" class="btn btn-primary mt-3">Send Email</button> -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Send Email</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="container" role="status">
+                        <div id="loadingSpinner" class="d-none text-center mt-3">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p>Sending emails, please wait...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <script>
+            const form = document.querySelector('form');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            form.addEventListener('submit', function (event) {
+                // Show the spinner
+                loadingSpinner.classList.remove('d-none');
+
+                // Optionally disable the submit button to prevent multiple submissions
+                const submitButton = form.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+            });
+        </script>
+        <!-- SimpleMDE JavaScript -->
+        <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+        <script>
+            // Initialize SimpleMDE editor
+            var simplemde = new SimpleMDE({
+                element: document.getElementById("email_content"),
+                autosave: true,
+                placeholder: "Compose your email using Markdown...",
+                spellChecker: true,
+                toolbar: ["bold", "italic", "heading", "|", "quote", "unordered-list", "ordered-list", "|", "link", "image", "|", "preview", "side-by-side", "fullscreen"]
+            });
+
+            function previewEmail() {
+                const content = simplemde.value(); // Get Markdown content
+                const previewDiv = document.getElementById('emailPreviewContent');
+
+                // Use a Markdown parser in JavaScript to preview (e.g., marked.js)
+                previewDiv.innerHTML = marked(content); // You need to include marked.js for this
+                document.getElementById('previewModal').style.display = 'block';
+            }
+        </script>
+        <script>
+            function openSendEmailModal(email, username) {
+                console.log('Opening modal for:', email, username);
+
+                const emailField = document.querySelector('#recipient_email');
+                emailField.value = email;
+
+                const usernameField = document.querySelector('#username_placeholder');
+                if (usernameField) {
+                    usernameField.textContent = username;
+                }
+
+                const modal = new bootstrap.Modal(document.querySelector('#sendEmailModal'));
+                modal.show();
+            }
+
+        </script>
 
 
         <script>
@@ -1381,10 +1411,6 @@
                 $('#authorizationModal').modal('show');
             }
         </script>
-
-
-
-
 
 
     </section>

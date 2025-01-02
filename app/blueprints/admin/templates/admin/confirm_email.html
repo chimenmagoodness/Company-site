@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container">
+    <img src="{{ url_for('static', filename='images/emailimg.png') }}" style="height: 150px; width: 150px">
+    <h2>Email Confirmation</h2>
+    <img src="{{ url_for('static', filename='images/astructs_house_image1.jpg') }}">
+    <h2>Verrify your Email with <img src="{{ url_for('static', filename='images/emailimg.png') }}"
+        style="height: 50px; width: 50px"></h2>
+    <h2>Hi {{ username }} </h2>
+    <p>
+      Welcome! Thanks for signing up. but your account is not yet activated. so to get
+      activated click on the button bellow.
+    </p>
+    <p><a class="btn btn-secondary" href="{{ confirm_url }}">{{ confirm_url }}</a></p>
+    <p>
+      if the button does not work, copy and paste the link below into the browser.
+    </p>
+    <p><a href="{{ confirm_url }}">{{ confirm_url }}</a></p>
+    <br />
+    <p>Cheers!</p>
+    <footer>
+      <div class="footer-bottom">
+        <p>©Copyright 2024 By Eze.Com</p>
+        <div class="social-icons">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-twitter"></i></a>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+        </div>
+      </div>
+    </footer>
+    <style>
+      .social-icons {
+          margin-top: 3%;
+          text-align: center;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .social-icons a {
+          color: #00aaff;
+          margin-left: 10px;
+          text-decoration: none;
+          background-color: rgba(255, 255, 255, .15);
+          backdrop-filter: blur(5px);
+          border-radius: 50%;
+          padding: 13px 10px 10px 10px;
+      }
+
+      .social-icons a:hover {
+          color: white;
+          background: #00aaff;
+      }
+
+      .bi {
+          font-size: 20px;
+      }
+
+    </style>
+  </div>
+{% endblock %}
+

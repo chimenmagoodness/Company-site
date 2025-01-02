@@ -1,0 +1,106 @@
+{% extends "base.html" %} {% block content %}
+<html>
+  <head>
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+  </head>
+  <div style="text-align: center; background-color: #007bff; height: 120px; width: 98%; margin-left: 0; border-radius: 10px;">
+    <h2 style="text-align: center; background-color: #007bff; height: 120px; color: white; padding: 10px; padding-top: 50px; width: 100%; margin-left: 0; margin-top: 5px !important; border-radius: 10px;">ASTRUCTS</h2>
+  </div>
+  <div style="font-family: Arial, sans-serif; max-width: 100%; margin-left: 10px !important; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;"
+  >
+    <h2 style="color: #333; text-align: center">Verify Your Email</h2>
+    <p style="color: #555; text-align: center">
+      Hi <strong>{{ username }}</strong>,
+    </p>
+    <p style="color: #555; text-align: center">
+      Welcome! Thank you for signing up. Your account is almost ready to use,
+      but we need you to confirm your email address first.
+    </p>
+    <div style="text-align: center; margin: 20px 0">
+      <a
+        href="{{ confirm_url }}"
+        style="
+          text-decoration: none;
+          color: white;
+          background-color: #007bff;
+          padding: 10px 20px;
+          border-radius: 5px;
+          font-size: 16px;
+          display: inline-block;
+        "
+      >
+        Confirm Email
+      </a>
+    </div>
+    <p style="color: #555; text-align: center">
+      If the button above does not work, copy and paste the following link into
+      your browser:
+    </p>
+    <p style="word-break: break-word; text-align: center">
+      <a href="{{ confirm_url }}" style="color: #007bff">{{ confirm_url }}</a>
+    </p>
+    <br />
+    <p style="color: #555; text-align: center">Cheers!</p>
+    <footer
+      style="
+        border-top: 1px solid #ddd;
+        padding-top: 20px;
+        margin-top: 20px;
+        text-align: center;
+      "
+    >
+      <p style="color: #777">&copy; 2024 By Astruct</p>
+      <div class="social-icons">
+        <a
+          href="#"
+          style="
+            margin: 0 10px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 20px;
+          "
+          ><i class="bi bi-facebook"></i
+        ></a>
+        <a
+          href="#"
+          style="
+            margin: 0 10px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 20px;
+          "
+          ><i class="bi bi-twitter"></i
+        ></a>
+        <a
+          href="#"
+          style="
+            margin: 0 10px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 20px;
+          "
+          ><i class="bi bi-linkedin"></i
+        ></a>
+        <a
+          href="#"
+          style="
+            margin: 0 10px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 20px;
+          "
+          ><i class="bi bi-instagram"></i
+        ></a>
+      </div>
+    </footer>
+  </div>
+  {% endblock %}
+</html>

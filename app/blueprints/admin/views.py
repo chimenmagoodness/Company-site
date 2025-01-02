@@ -1,74 +1,106 @@
+from datetime import datetime
+from functools import wraps
+from flask_mail import Mail, Message
+from itsdangerous import URLSafeTimedSerializer
 from flask import render_template, request, url_for, redirect, jsonify, flash, Blueprint
-from flask_login import login_required, current_user, login_user
+from flask_login import login_required, current_user, login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.models import User, Testimonial, Partner, Portfolio, VideoURL, CaseStudy, Blog, History, Code
-from app.app import db, app
+from app.app import db, app, generate_token, confirm_token, send_email
 import os
 
 
 admin_blueprint = Blueprint("admin", __name__, template_folder='templates')
+
+# app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # Example with Gmail
+# app.config['MAIL_PORT'] = 587
+# app.config['MAIL_USE_TLS'] = True
+# app.config['MAIL_USERNAME'] = 'switnextra@gmail.com'
+# app.config['MAIL_PASSWORD'] = "Switnex6058'"
+# app.config['MAIL_DEFAULT_SENDER'] = 'switnexxtra@gmail.com'
+# app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', '56b6f22c15e02bf842f660bb490d1d5e442e726926ee87153768c425f76dd505')
+# app.config['SECURITY_PASSWORD_SALT'] = os.getenv("SECURITY_PASSWORD_SALT", default="very-important")
+
+
+# mail = Mail(app)
+serializer = URLSafeTimedSerializer("56b6f22c15e02bf842f660bb490d1d5e442e726926ee87153768c425f76dd505")
 
 with app.app_context():
     db.create_all()
 
     # Create default codes if they don't exist
     if not Code.query.first():
-        default_codes = Code(main_admin_code="DEFAULT345480", normal_admin_code="DEFAULT12345678")
+        default_codes = Code(main_admin_code=generate_password_hash("DEFAULT34548071"), normal_admin_code=generate_password_hash("DEFAULT1234567891"))
         db.session.add(default_codes)
         db.session.commit()
 
+
 # --------------------------------------> Register User Admin <-----------------------------------
+# a37d7eaaa4af_
 @admin_blueprint.route('/register', methods=['GET', 'POST'])
 def admin_register():
-    # Retrieve secure admin codes from the database
-    default_codes = Code(main_admin_code="DEFAULT345480", normal_admin_code="DEFAULT12345678")
-    main_admin_code = check_password_hash(default_codes.main_admin_code)  
-    normal_admin_code = check_password_hash(default_codes.normal_admin_code)  
-
+    # DEFAULT34548071
+    # gm @Switnex605871'
     if request.method == 'POST':
-        entered_code = request.form.get('admin_code')
-
-        # Determine the role based on the entered admin code
-        if entered_code == main_admin_code:
-            role = 'main_admin'
-        elif entered_code == normal_admin_code:
-            role = 'normal_admin'
-        else:
-            flash("Invalid admin code. Access denied.", "danger")
-            return redirect(url_for('admin.admin_register'))
-
-        # Collect other form data
         username = request.form.get('username')
         email = request.form.get('email')
-        position = request.form.get('position')
         password = request.form.get('password')
+        admin_code = request.form.get('admin_code')
 
-        # Validate the input
+        # Validate inputs
         if not username or not email or not password:
             flash("All fields are required.", "warning")
             return redirect(url_for('admin.admin_register'))
+        # Check admin code
+        code_entry = Code.query.first()
+        if check_password_hash(code_entry.main_admin_code, admin_code):
+            role = 'main_admin'
+        elif check_password_hash(code_entry.normal_admin_code, admin_code):
+            role = 'normal_admin'
+        else:
+            flash("Invalid admin code.", "danger")
+            return redirect(url_for('admin.admin_register'))
 
-        # Hash the password
+        # Check if email already exists
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            flash("Email already registered.", "danger")
+            return redirect(url_for('admin.admin_register'))
+
+        # Create the user (unverified)
         hashed_password = generate_password_hash(password)
-
-        # Create the admin user
-        new_admin = User(username=username, email=email, position=position, password=hashed_password, role=role, is_admin=True)
-        db.session.add(new_admin)
+        new_user = User(username=username, email=email, password=hashed_password, role=role, is_admin=True)
+        db.session.add(new_user)
         db.session.commit()
 
-        flash(f"{role.capitalize()} account created successfully!", "success")
-        return redirect(url_for('admin.login'))  # Redirect to login page
+        # Generate verification token
+        token = generate_token(new_user.email)
+        # token = serializer.dumps(email, salt="email-verification")
+        # verification_link = url_for('admin.verify_email', token=token, _external=True)
+
+        # # Send verification email
+        confirm_url = url_for("accounts.confirm_email", token=token, _external=True)
+        html = render_template("accounts/confirm_email.html", new_user=new_user, confirm_url=confirm_url)
+        subject = "Please confirm your email"
+        send_email(new_user.email, subject, html)
+        # send_verification_email(email, verification_link)
+
+        flash("A verification email has been sent. Please check your email.", "info")
+        return redirect(url_for('admin.inactive'))
 
     return render_template('admin/register.html')
+
+# SECURITY_PASSWORD_SALT=1c80d180bdb2a48cbc2f689b38b234befbff9a35128403a1616344916610e2a0
+# EMAIL_USER=bernard02@gmail.com
+# EMAIL_PASSWORD="Switnex6058'"
 
 
 @admin_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        login_credential = request.form.get('username')  # This field will accept both username and email
+        login_credential = request.form.get('username')  # Accept both username and email
         password = request.form.get('password')
-        username = request.form.get('username') 
-        
+
         # Query the user by username or email
         user = User.query.filter(
             (User.username == login_credential) | (User.email == login_credential)
@@ -76,13 +108,19 @@ def login():
 
         if user and check_password_hash(user.password, password):
             if user.is_active:  # Ensure user is active
+                login_user(user)  # Log the user in regardless of confirmation status
+                
+                if not user.is_confirmed:  # Redirect unconfirmed users to the inactive page
+                    flash("Please confirm your account.", "warning")
+                    return redirect(url_for('accounts.inactive'))
+
+                # Confirmed users
                 if user.is_admin:
-                    login_user(user)
-                    #  {user.role.capitalize()}
-                    flash(f"Welcome Admin {username}!", "success")
-                    return redirect(url_for('admin.dashboard') + "#users")  # Redirect to admin dashboard
+                    flash(f"Welcome Admin {user.username}!", "success")
+                    return redirect(url_for('admin.dashboard') + "#users")
                 else:
                     flash("Access denied: Not an admin user.", "danger")
+                    logout_user()
             else:
                 flash("Your account is inactive. Please contact support.", "danger")
         else:
@@ -90,6 +128,17 @@ def login():
 
     return render_template('admin/login.html')
 
+
+
+@admin_blueprint.route("/resend")
+@login_required
+def admin_resend_confirmation():
+    return redirect(url_for("accounts.resend_confirmation"))
+
+
+@admin_blueprint.route('/verify_email/<token>')
+def admin_verify_email(token):
+    return redirect(url_for("accounts.verify_email", token=token))
 
 # --------------------------------------> Make User Admin <-----------------------------------
 @admin_blueprint.route('/make_admin/<int:user_id>', methods=['GET', 'POST'])
@@ -345,10 +394,10 @@ def delete_user(user_id):
 
     user = User.query.get(user_id)
     if user:
-        # Prevent deleting another main admin
+        # deleting another main admin
         if user.role == 'main_admin':
             db.session.delete(user)
-            flash("Cannot delete a Main Admin", "danger")
+            flash(f"{admin.username} deleted a Main Admin", "success")
             action = f"{admin.username} Deleted user {user.username} from the database"
             history_entry = History(performed_by=current_user.username, action=action)
             db.session.add(history_entry)
@@ -372,61 +421,6 @@ def delete_user(user_id):
     return redirect(url_for('admin.dashboard') + "#users")
 
 
-# @admin_blueprint.route('/update_code', methods=['GET', 'POST'])
-# @login_required
-# def update_code():
-#     # Ensure only admins can access
-#     if current_user.role not in ['normal_admin', 'main_admin']:
-#         flash("Unauthorized access", "danger")
-#         return redirect(url_for('admin.dashboard') + '#users')
-
-#     # Fetch the codes
-#     code_entry = Code.query.first()
-#     if not code_entry:
-#         code_entry = Code(main_admin_code="DEFAULT_MAIN_CODE", normal_admin_code="DEFAULT_NORMAL_CODE")
-#         db.session.add(code_entry)
-#         db.session.commit()
-
-#     if request.method == 'POST':
-#         username = request.form.get('username')
-#         previous_code = request.form.get('previous_code')
-#         new_code = request.form.get('new_code')
-#         password = request.form.get('password')
-#         code_type = request.form.get('code_type')  # 'main' or 'normal'
-
-#         # Validate user credentials
-#         user = User.query.filter_by(username=username).first()
-#         if not user:
-#             flash("Invalid username", "danger")
-#             return redirect(url_for('admin.dashboard') + "#users")
-
-#         if not check_password_hash(user.password, password):
-#             flash("Invalid password", "danger")
-#             return redirect(url_for('admin.dashboard') + "#users")
-
-#         # Check user permissions and previous code
-#         if code_type == 'main' and user.role == 'main_admin':
-#             if previous_code != code_entry.main_admin_code:
-#                 flash("Previous main admin code is incorrect", "danger")
-#                 return redirect(url_for('admin.dashboard') + "#users")
-#             code_entry.main_admin_code = new_code
-#             log_action(user.username, f"Updated the main admin code.")
-#         elif code_type == 'normal':
-#             if previous_code != code_entry.normal_admin_code:
-#                 flash("Previous normal admin code is incorrect", "danger")
-#                 return redirect(url_for('admin.dashboard') + "#users")
-#             code_entry.normal_admin_code = new_code
-#             log_action(user.username, f"Updated the normal admin code.")
-#         else:
-#             flash("You do not have permission to update this code", "danger")
-#             return redirect(url_for('admin.dashboard') + "#users")
-
-#         db.session.commit()
-#         flash("Code updated successfully!", "success")
-#         return redirect(url_for('admin.dashboard') + "#users")
-
-#     return render_template('admin/dashboard.html', code_entry=code_entry)
-
 @admin_blueprint.route('/update_code', methods=['GET', 'POST'])
 @login_required
 def update_code():
@@ -435,15 +429,8 @@ def update_code():
         flash("Unauthorized access", "danger")
         return redirect(url_for('admin.dashboard') + '#users')
 
-    # Fetch the codes
+    # Fetch or initialize the codes
     code_entry = Code.query.first()
-    if not code_entry:
-        code_entry = Code(
-            main_admin_code=generate_password_hash("DEFAULT_MAIN_CODE"),
-            normal_admin_code=generate_password_hash("DEFAULT_NORMAL_CODE")
-        )
-        db.session.add(code_entry)
-        db.session.commit()
 
     if request.method == 'POST':
         username = request.form.get('username')
@@ -464,12 +451,15 @@ def update_code():
 
         # Check user permissions and validate previous code
         if code_type == 'main' and user.role == 'main_admin':
+            print(check_password_hash(code_entry.main_admin_code, previous_code))
+            print(code_entry.main_admin_code)
+            print(previous_code)
             if not check_password_hash(code_entry.main_admin_code, previous_code):
                 flash("Previous main admin code is incorrect", "danger")
                 return redirect(url_for('admin.dashboard') + "#users")
             code_entry.main_admin_code = generate_password_hash(new_code)
             log_action(user.username, f"Updated the main admin code.")
-        elif code_type == 'normal':
+        elif code_type == 'normal' and user.role in ['normal_admin', 'main_admin']:
             if not check_password_hash(code_entry.normal_admin_code, previous_code):
                 flash("Previous normal admin code is incorrect", "danger")
                 return redirect(url_for('admin.dashboard') + "#users")
@@ -484,6 +474,7 @@ def update_code():
         return redirect(url_for('admin.dashboard') + "#users")
 
     return render_template('admin/dashboard.html', code_entry=code_entry)
+
 
 def log_action(username, action):
     """ Helper function to log actions in the History table. """

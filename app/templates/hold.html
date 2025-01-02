@@ -1,0 +1,285 @@
+<section class="manageusers" id="users">
+  <div class="container mt-5">
+    <h1 class="text-center">Manage Users</h1>
+
+    <!-- Table for Normal Users -->
+    <h3 class="mt-4">Normal Users</h3>
+    <table class="table table-striped mt-4 mb-4">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Admin</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ 'Yes' if user.is_admin else 'No' }}</td>
+          <td>
+            {% if user.is_admin %}
+            <button
+              class="btn btn-warning btn-sm remove__btn"
+              onclick="confirmRemoveAdmin('{{ url_for('admin.remove_admin', user_id=user.id) }}')"
+            >
+              Remove Admin
+            </button>
+
+            {% else %}
+            <button
+              class="btn btn-primary btn-sm make-admin__btn"
+              onclick="confirmMakeAdmin('{{ url_for('admin.make_admin', user_id=user.id) }}')"
+            >
+              Make Admin
+            </button>
+            {% endif %}
+            <button
+              class="btn btn-danger btn-sm delete__btn"
+              onclick="confirmDeleteUser('{{ url_for('admin.delete_user', user_id=user.id) }}')"
+            >
+              Delete User
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- Table for Normal Admins -->
+    <h3 class="mt-4">Normal Admins</h3>
+    <table class="table table-striped mt-3 mb-4">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users if user.role == 'normal_admin' %}
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>
+            <button
+              class="btn btn-success btn-sm"
+              onclick="confirmPromote('{{ url_for('admin.promote_to_main_admin', user_id=user.id) }}')"
+            >
+              Promote to Main Admin
+            </button>
+            <button
+              class="btn btn-warning btn-sm"
+              onclick="confirmRemoveAdmin('{{ url_for('admin.remove_admin', user_id=user.id) }}')"
+            >
+              Remove Admin
+            </button>
+            <button
+              class="btn btn-danger btn-sm"
+              onclick="confirmDelete('{{ url_for('admin.delete_user', user_id=user.id) }}')"
+            >
+              Delete User
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- Table for Main Admins -->
+    <h3 class="mt-4">Main Admins</h3>
+    <table class="table table-striped mt-3 mb-4">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users if user.role == 'main_admin' %}
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>
+            <button
+              class="btn btn-warning btn-sm"
+              onclick="confirmDemote('{{ url_for('admin.demote_to_normal', user_id=user.id) }}')"
+            >
+              Demote to Normal Admin
+            </button>
+            <button
+              class="btn btn-danger btn-sm"
+              onclick="confirmDelete('{{ url_for('admin.delete_user', user_id=user.id) }}')"
+            >
+              Delete User
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- onclick="confirmDelete('{{ url_for('admin.delete_user', user_id=user.id) }}')"> -->
+  {% comment %} {% extends "base.html" %} {% block content %}
+  <div class="container">
+    <img
+      src="{{ url_for('static', filename='images/emailimg.png') }}"
+      style="height: 150px; width: 150px"
+    />
+    <h2>Email Confirmation</h2>
+    <img
+      src="{{ url_for('static', filename='images/astructs_house_image1.jpg') }}"
+    />
+    <h2>
+      Verrify your Email with
+      <img
+        src="{{ url_for('static', filename='images/emailimg.png') }}"
+        style="height: 50px; width: 50px"
+      />
+    </h2>
+    <h2>Hi {{ new_user.username }}</h2>
+    <p>
+      Welcome! Thanks for signing up. but your account is not yet activated. so
+      to get activated click on the button bellow.
+    </p>
+    <p>
+      <a class="btn btn-secondary" href="{{ confirm_url }}"
+        >{{ confirm_url }}</a
+      >
+    </p>
+    <p>
+      if the button does not work, copy and paste the link below into the
+      browser.
+    </p>
+    <p><a href="{{ confirm_url }}">{{ confirm_url }}</a></p>
+    <br />
+    <p>Cheers!</p>
+    <footer>
+      <div class="footer-bottom">
+        <p>©Copyright 2024 By Eze.Com</p>
+        <div class="social-icons">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-twitter"></i></a>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+        </div>
+      </div>
+    </footer>
+    <style>
+      .social-icons {
+        margin-top: 3%;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .social-icons a {
+        color: #00aaff;
+        margin-left: 10px;
+        text-decoration: none;
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(5px);
+        border-radius: 50%;
+        padding: 13px 10px 10px 10px;
+      }
+
+      .social-icons a:hover {
+        color: white;
+        background: #00aaff;
+      }
+
+      .bi {
+        font-size: 20px;
+      }
+    </style>
+  </div>
+  {% endblock %} {% endcomment %}
+</section>
+
+# def send_verification_email(email, link): # """ Helper function to send a
+verification email. """ # msg = Message("Email Verification",
+recipients=[email]) # msg.body = f"Please click the link to verify your email:
+{link}" # app.mail.send(msg) # @admin_blueprint.route("/inactive") #
+@login_required # def inactive(): # if current_user.is_confirmed: # return
+redirect(url_for("home.index")) # return render_template("admin/inactive.html")
+# @admin_blueprint.route("/resend") # @login_required # def
+resend_confirmation(): # if current_user.is_confirmed: # flash("Your account has
+already been confirmed.", "success") # return redirect(url_for("home.index")) #
+token = generate_token(current_user.email) # confirm_url =
+url_for("accounts.confirm_email", token=token, _external=True) # html =
+render_template("accounts/confirm_email.html", confirm_url=confirm_url) #
+subject = "Please confirm your email" # send_email(current_user.email, subject,
+html) # flash("A new confirmation email has been sent.", "success") # return
+redirect(url_for("accounts.inactive")) # @app.route('/confirm/<token
+  >') # def confirm_email(token): # from app import salt_key # Replace with your
+  salt key # result = confirm_token(token, salt_key) # if result == False or
+  result["status"] == "invalid": # flash("Invalid token. Please check your
+  link.", "danger") # return redirect(url_for('home')) # elif result["status"]
+  == "expired": # flash("Token has expired. Please request a new verification
+  email.", "warning") # return redirect(url_for('resend_confirmation')) # Route
+  for requesting a new token # elif result.get("status") == "error": # flash("An
+  error occurred. Please try again later.", "danger") # return
+  redirect(url_for('home')) # else: # email = result # The token is valid and
+  not expired # # Example: Activate user account # user =
+  User.query.filter_by(email=email).first_or_404() # if user.is_confirmed: #
+  flash("Account already confirmed. Please log in.", "info") # else: #
+  user.is_active = True # user.is_confirmed = True # user.confirmed_on =
+  datetime.now() # db.session.commit() # flash("Your account has been confirmed!
+  Please log in.", "success") # return redirect(url_for('login')) #
+  @admin_blueprint.route("/") # @login_required # @check_is_confirmed # def
+  home(): # return render_template("home/index.html") #
+  @admin_blueprint.route("/confirm/<token
+    >") # @login_required # def confirm_email(token): # if
+    current_user.is_confirmed: # flash("Account already confirmed.", "success")
+    # return redirect(url_for("home.index")) # email = app.confirm_token(token)
+    # user = User.query.filter_by(email=current_user.email).first_or_404() # if
+    user.email == email: # user.is_confirmed = True # user.confirmed_on =
+    datetime.now() # db.session.add(user) # db.session.commit() # flash("You
+    have confirmed your account. Thanks!", "success") # else: # flash("The
+    confirmation link is invalid or has expired.", "danger") # return
+    redirect(url_for("dashboard")) #
+    @admin_blueprint.route('/verify_email/<token
+      >') # def verify_email(token): # try: # email = serializer.loads(token,
+      salt="email-verification", max_age=3600) # Token expires after 1 hour #
+      except Exception: # flash("Invalid or expired verification link.",
+      "danger") # return redirect(url_for('admin.login')) # # Find the user and
+      mark them as verified # user = User.query.filter_by(email=email).first() #
+      if not user: # flash("User not found.", "danger") # return
+      redirect(url_for('admin.login')) # if user.is_confirmed: # flash("Email
+      already verified.", "info") # else: # user.is_confirmed = True #
+      db.session.commit() # flash("Email verified successfully! You can now log
+      in.", "success") # return redirect(url_for('admin.login')) #
+      @admin_blueprint.route('/login', methods=['GET', 'POST']) # def login(): #
+      if request.method == 'POST': # login_credential =
+      request.form.get('username') # This field will accept both username and
+      email # password = request.form.get('password') # username =
+      request.form.get('username') # # Query the user by username or email #
+      user = User.query.filter( # (User.username == login_credential) |
+      (User.email == login_credential) # ).first() # if user and
+      check_password_hash(user.password, password): # if user.is_confirmed: # if
+      user.is_active: # Ensure user is active # if user.is_admin: #
+      login_user(user) # # {user.role.capitalize()} # flash(f"Welcome Admin
+      {username}!", "success") # return redirect(url_for('admin.dashboard') +
+      "#users") # Redirect to admin dashboard # else: # flash("Access denied:
+      Not an admin user.", "danger") # else: # flash("Your account is inactive.
+      Please contact support.", "danger") # else: # flash("Please Confirm your
+      Account.", "danger") # return redirect(url_for('accounts.inactive')) #
+      else: # flash("Invalid email or password.", "danger") # return
+      render_template('admin/login.html')
+    </token></token
+  ></token
+>

@@ -1,0 +1,248 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+      }
+      .container {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+      }
+      .header {
+        text-align: center;
+        padding: 10px 0;
+      }
+      .header img {
+        max-width: 150px; /* Adjust the size as needed */
+      }
+      .content {
+        margin: 20px 0;
+      }
+      .footer {
+        text-align: center;
+        font-size: 12px;
+        color: #888;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <!-- Hosted image
+        <img
+          src="https://images.unsplash.com/photo-1464146072230-91cabc968266?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Company Logo"
+        />
+        <h1>Welcome to Our Service!</h1>
+      </div>
+      <div class="content">
+        <p>Hello {{ name }},</p>
+        <p>
+          We are excited to have you with us. Here’s how you can get started:
+        </p>
+        <ul>
+          <li>Visit your dashboard</li>
+          <li>Explore our features</li>
+          <li>Enjoy the journey!</li>
+        </ul>
+        <p>If you have any questions, feel free to reach out to us.</p>
+      </div>
+      <div class="footer">
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html> -->
+
+{% extends "base.html" %} {% block title %} Forgot password Page {% endblock %}
+
+<head>
+  <!-- SimpleMDE CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"
+  />
+</head>
+{% block content %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+  }
+
+  .header {
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .header img {
+    max-width: 150px;
+    /* Adjust the size as needed */
+  }
+
+  .content {
+    margin: 20px 0;
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    margin-top: 20px;
+  }
+
+  .spinner-border {
+    width: 3rem;
+    height: 3rem;
+  }
+</style>
+<div class="container">
+  <a
+    class="text-decoration-none d-flex align-items-center"
+    href="{{ url_for('admin.dashboard') + '#users'}}"
+    style="font-size: 18px; color: #ff512f; margin-top: 5px; margin-bottom: 9px"
+  >
+    <i class="bi bi-arrow-left" style="font-size: 19px; margin-right: 8px"></i>
+    Back to Dashboard
+  </a>
+
+  <form
+    method="POST"
+    action="{{ url_for('accounts.send_new_email', group=group) }}"
+  >
+    <h2>Send Email to {{ group }} Accounts</h2>
+    <label for="subject">Subject:</label>
+    <input
+      type="text"
+      name="subject"
+      id="subject"
+      class="form-control"
+      required
+    />
+
+    <!-- <label for="recipients">Recipients:</label>
+                <input type="text" name="recipients" id="recipients" class="form-control" placeholder="e.g., user1@example.com, user2@example.com" required> -->
+
+    <label for="email_content">Email Content:</label>
+    <textarea id="email_content" name="email_content"></textarea>
+    <a
+      href="https://froala.com/blog/editor/10-quick-tips-about-a-great-markdown-editor/"
+      target="_blank"
+      class="text-decoration-none"
+      >Click here to learn how to use this form
+    </a>
+
+    <button type="submit" class="btn btn-primary">Send Email</button>
+  </form>
+
+  <div id="loadingSpinner" class="d-none text-center mt-3">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p>Sending emails, please wait...</p>
+  </div>
+</div>
+
+<script>
+  const form = document.querySelector("form");
+  const loadingSpinner = document.getElementById("loadingSpinner");
+
+  form.addEventListener("submit", function (event) {
+    // Show the spinner
+    loadingSpinner.classList.remove("d-none");
+
+    // Optionally disable the submit button to prevent multiple submissions
+    const submitButton = form.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+  });
+</script>
+
+<!-- SimpleMDE JavaScript -->
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script>
+  // Initialize SimpleMDE editor
+  var simplemde = new SimpleMDE({
+    element: document.getElementById("email_content"),
+    autosave: true,
+    placeholder: "Compose your email using Markdown...",
+    spellChecker: true,
+    toolbar: [
+      "bold",
+      "italic",
+      "heading",
+      "|",
+      "quote",
+      "unordered-list",
+      "ordered-list",
+      "|",
+      "link",
+      "image",
+      "|",
+      "preview",
+      "side-by-side",
+      "fullscreen",
+    ],
+  });
+
+  function previewEmail() {
+    const content = simplemde.value(); // Get Markdown content
+    const previewDiv = document.getElementById("emailPreviewContent");
+
+    // Use a Markdown parser in JavaScript to preview (e.g., marked.js)
+    previewDiv.innerHTML = marked(content); // You need to include marked.js for this
+    document.getElementById("previewModal").style.display = "block";
+  }
+</script>
+
+{% endblock %}
+
+<!-- 
+# Welcome to Our Service!
+<img src="https://images.unsplash.com/photo-1464146072230-91cabc968266?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+     alt="Welcome Image" 
+     style="width: 100%; max-width: 500px; border-radius: 10px; margin: 20px 0;">
+### Hi {username},
+We are excited to have you with us. Here’s how you can get started:
+* Visit your dashboard
+* Explore our features
+* Enjoy the journey!
+
+If you have any questions, feel free to reach out to us.
+
+&copy; 2024 Your Company. All rights reserved.
+
+
+# Welcome to Our Service!
+<img src="https://images.unsplash.com/photo-1464146072230-91cabc968266?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Welcome Image" >
+### Hi {username},
+We are excited to have you with us. Here’s how you can get started:
+* Visit your dashboard
+* Explore our features
+* Enjoy the journey!
+
+If you have any questions, feel free to reach out to us.
+
+&copy; 2024 Your Company. All rights reserved.
+-->

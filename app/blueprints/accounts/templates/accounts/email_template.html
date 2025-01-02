@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f9f9f9;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      .email-container {
+        max-width: 600px;
+        margin: 20px auto;
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+      }
+
+      .email-header {
+        text-align: center;
+        background: #007bff;
+        color: #ffffff;
+        padding: 10px 20px;
+        border-radius: 5px 5px 0 0;
+      }
+
+      .email-body {
+        padding: 20px;
+      }
+
+      .email-footer {
+        text-align: center;
+        font-size: 12px;
+        color: #666;
+        margin-top: 20px;
+      }
+
+      .email-footer a {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="email-container">
+      <div class="email-header">
+        <h1>{{ subject }}</h1>
+      </div>
+      <div class="email-body">{{ body|safe }}</div>
+      <div class="email-footer">
+        &copy; {{ year }} Astructs. All rights reserved. <br />
+        <a href="https://Astructs.com">Visit our website</a>
+      </div>
+    </div>
+  </body>
+</html>
