@@ -5109,8 +5109,8 @@ input:focus {
     .about__us .home__btn-box .button-container {
         height: 32px !important;
         width: 120px !important;
-=======
-
+    }
+}
 /* For devices with a width of 600px and below (Mobiles) */
 @media (max-width: 600px) {
 
@@ -5118,7 +5118,6 @@ input:focus {
     .about__section .about {
         grid-template-columns: 1fr 2fr;
         column-gap: 5px;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .partner .partner__container {
@@ -5135,7 +5134,6 @@ input:focus {
         width: 130px !important;
         height: 130px !important;
     }
-<<<<<<< HEAD
 
     /* ---------------------------------------- */
 
@@ -5191,7 +5189,6 @@ input:focus {
 
     .services__section .service__container .service__card .services__text {
         font-size: 1em !important;
-=======
     /* ---------------------------------------- */
 
     /* Categories Section for mobile */
@@ -5201,27 +5198,19 @@ input:focus {
 
     .services__section .service__container .service__card img{
         width: 80px !important;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
 
     /* ---------------------------------------- */
-<<<<<<< HEAD
-
-=======
     
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     /* Portfolio Section for mobile */
     .portfolio__section .portfolio1 {
         grid-template-columns: repeat(3, 1fr) !important;
     }
 
-<<<<<<< HEAD
-    .portfolio__section .portfolio1 .project1 .text,
-    .text1 {
-=======
+    /* .portfolio__section .portfolio1 .project1 .text,
+    .text1 { */
     .portfolio__section .portfolio1 .project1 .text, .text1{
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
         margin-left: 0 !important;
         margin-bottom: 0 !important;
         font-size: 1.7em !important;
@@ -5275,30 +5264,23 @@ input:focus {
     }
 
     .portfolio .projects .location {
-<<<<<<< HEAD
         /* padding-top: 3em !important; */
         font-size: 0.9em !important;
-=======
         padding-top: 3em !important;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .portfolio__section .projects ul li p {
         font-size: 0.95em !important;
-<<<<<<< HEAD
         /* height: 50px !important;
         padding-bottom: 20px !important; */
-=======
         height: 50px !important;
         padding-bottom: 20px !important;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .portfolio .projects .project__type {
         font-size: 0.95em;
         /* height: 35px !important; */
     }
-<<<<<<< HEAD
 
     /* ---------------------------------------- */
 
@@ -5320,14 +5302,10 @@ input:focus {
         font-size: 0.8em !important;
     }
 
-
-=======
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     /* ---------------------------------------- */
 
     /* Video Section for mobile */
     .projects__cate .project__subtitle {
-<<<<<<< HEAD
         width: 100% !important;
         font-size: 1em !important;
     }
@@ -5356,13 +5334,11 @@ input:focus {
     .projecst__img-container {
         /* display: block !important; */
         width: 100% !important;
-=======
         width: 80% !important;
     }
 
     .projects__text-and-img__container {
         padding-left: 45px;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .category__heading {
@@ -5370,7 +5346,6 @@ input:focus {
         margin-bottom: 0;
     }
 
-<<<<<<< HEAD
     .project__category .projecst__img-container img {
         width: 300px !important;
         max-width: 300px !important;
@@ -5397,10 +5372,10 @@ input:focus {
 
     .projects__text-and-img__container .project__button .btn__icon i {
         font-size: 0.65em !important;
-=======
+    }
+
     .projecst__img-container {
         display: none;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .other__categories ul {
@@ -5411,7 +5386,6 @@ input:focus {
         margin-left: 0 !important;
     }
 
-<<<<<<< HEAD
     .other__categories .case {
         font-size: 0.7em !important;
         width: 100% !important;
@@ -5462,7 +5436,6 @@ input:focus {
     .other__categories .justify-content-between .project3 .button-container a {
         font-size: 0.9em !important;
     }
-=======
     
 
     .other__categories-container .categories__images {
@@ -5474,7 +5447,6 @@ input:focus {
         max-width: 270px !important;
     }
     
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
 
     .other__categories-container .categories__text {
         margin-top: 0;
@@ -5482,37 +5454,30 @@ input:focus {
 
     .other__categories-container {
         margin-left: 0;
-<<<<<<< HEAD
         padding-left: 20px !important;
-=======
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .categories__text .project__heading {
         margin-left: 0;
     }
 
-<<<<<<< HEAD
     .other__categories .other__categories-container .categories__text .button-container {
         width: 100px !important;
         max-width: 130px !important;
-=======
+    }
+
     .categories__text .button-container {
         width: 140px;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
         height: 38px;
         margin-left: 0;
     }
 
-<<<<<<< HEAD
     .other__categories .other__categories-container .categories__text .button-container .connect__btn {
         width: 120px !important;
         font-size: 0.75em !important;
         padding: 5px !important;
     }
 
-=======
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     .projects__cate .video__category .space {
         width: 360px;
         height: 257px;
@@ -5542,20 +5507,16 @@ input:focus {
 
     /* ---------------------------------------- */
 
-<<<<<<< HEAD
     .why__choose-section .choose__cards .choose__card {
         width: 250px !important;
     }
 
-=======
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     .why__choose-section .choose__text {
         margin-top: 0 !important;
     }
 
     .why__choose-section .choose__grid {
         margin-left: 0;
-<<<<<<< HEAD
         grid-template-columns: repeat(1, 1fr);
     }
 
@@ -5599,7 +5560,6 @@ input:focus {
 
     .FAQ .wrapper {
         margin-left: 27px !important;
-=======
     }
 
     .why__choose-section .container {
@@ -5624,7 +5584,6 @@ input:focus {
 
     .FAQ .wrapper {
         margin-left: 20px !important;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     /* Categories Section for mobile */
@@ -5650,23 +5609,21 @@ input:focus {
         margin-left: -20px !important;
     }
 
-<<<<<<< HEAD
     .blog__section .blog__container .blog__card {
         /* background: var(--dark-text); */
         width: 250px;
         height: 250px !important;
         max-height: 250px !important;
-=======
+    }
+
     .blog__card {
         /* background: var(--dark-text); */
         width: 250px;
         height: 300px;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
         border-radius: 10px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
-<<<<<<< HEAD
     .blog__container .blog__card img {
         /* background: var(--dark-text); */
         width: 250px;
@@ -5677,7 +5634,6 @@ input:focus {
         align-items: center !important;
     }
 
-=======
     .blog__card img {
         /* background: var(--dark-text); */
         width: 250px;
@@ -5707,7 +5663,6 @@ input:focus {
         transform: scale(1);
         filter: blur(0);
     }
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
 
     /* Portfolio Section for mobile */
     .portfolio__section .portfolio__container {
@@ -5722,11 +5677,8 @@ input:focus {
     }
 
     .wrapper .faq .accordion {
-<<<<<<< HEAD
         font-size: 1.2em !important;
-=======
         font-size:  1.2em !important;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
 
@@ -5748,7 +5700,6 @@ input:focus {
         margin-top: 5px;
     }
 
-<<<<<<< HEAD
     .testimonials .testimonials__header {
         font-size: 1.8em !important;
         margin-top: 2.5em !important;
@@ -5765,26 +5716,22 @@ input:focus {
         justify-self: center;
         margin-left: 0 !important;
         margin-right: 0 !important;
-=======
+    }
+
     .testimonials .testimonials__subheading {
         margin-left: 35px !important;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
 
     .testimonialBox .quote {
         position: absolute;
-<<<<<<< HEAD
         top: 20px !important;
-=======
         top: 20px  !important;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
         right: 48% !important;
         width: 40px !important;
         height: 40px !important;
     }
 
-<<<<<<< HEAD
     .swiper-container {
         justify-content: center !important;
         align-items: center !important;
@@ -5854,7 +5801,6 @@ input:focus {
 
 
 
-=======
     .testimonials .swiper-slide-active {
         width: 350px !important;
         margin-left: 7em !important;
@@ -5870,17 +5816,13 @@ input:focus {
         margin-left: -1em !important;
     }
 
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     .blog__section .justify-content-between {
         gap: 0 !important;
     }
 
     .blog__section .blog__container {
         grid-template-columns: repeat(2, 1fr) !important;
-<<<<<<< HEAD
         margin-bottom: 3% !important;
-=======
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .blog__section .justify-content-between {
@@ -5892,7 +5834,6 @@ input:focus {
         font-size: 1em !important;
     }
 
-<<<<<<< HEAD
     .blog__section .project3 .button-container {
         font-size: 0.8em !important;
     }
@@ -5902,7 +5843,8 @@ input:focus {
         font-size: 0.5em !important;
         color: white !important;
         margin-top: 0 !important;
-=======
+    }
+
     .blog__section .project3 .button-container{
         font-size: 0.8em !important;
     }
@@ -5915,16 +5857,12 @@ input:focus {
     .blog__section .blog__container .blog__card .text-box .blog_title {
         font-size: 0.8em !important;
         color: white !important;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .blog__section .blog__container .blog__card .text-box {
         width: 95% !important;
-<<<<<<< HEAD
         top: -11em !important;
         bottom: 4em !important;
-=======
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .blog__section .section__container .blog__container {
@@ -5938,7 +5876,6 @@ input:focus {
         margin-top: 0 !important;
     }
 
-<<<<<<< HEAD
     .contact .contact__button button {
         margin-top: 1.5em !important;
         margin-left: -16px !important;
@@ -5968,7 +5905,7 @@ input:focus {
         display: grid !important;
         width: 100% !important;
         grid-template-columns: repeat(2, 1fr) !important;
-=======
+    }
     .contact .btn__icon {
         margin-top: 1.5em !important;
         margin-left: -16px !important;
@@ -5976,7 +5913,6 @@ input:focus {
 
     .contact .btn__icon i {
         font-size: 1em !important;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .footer p {
@@ -5985,7 +5921,6 @@ input:focus {
         margin-top: 2em !important;
     }
 
-<<<<<<< HEAD
     .footer .footer-container .footer-section a {
         font-size: 0.8em !important;
     }
@@ -6005,28 +5940,22 @@ input:focus {
         font-size: 1em !important;
     }
 
-=======
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     .contact .contact__container .text__section .subheading {
         color: #d8d3d3 !important;
     }
 
-<<<<<<< HEAD
     .contact .heading {
         margin-left: 0 !important;
         justify-content: center;
         justify-self: center;
     }
-=======
 
 
     
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
 
 }
 
 /* for mobile on landscape and with upto 768px */
-<<<<<<< HEAD
 @media (min-width: 601px) and (max-width: 768px) {
 
     /* ------------------------> Hero Section <-------------------------- */
@@ -6111,9 +6040,10 @@ input:focus {
     .about__us .home__btn-box .connect__btn {
         font-size: 1.3em !important;
     }
-=======
+
+
+
 @media (max-width: 768px) {
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
 
     /* Partner Section for mobile */
 
@@ -6134,7 +6064,6 @@ input:focus {
 
     .extra__div {
         top: 34% !important;
-<<<<<<< HEAD
         left: 37% !important;
     }
 
@@ -6154,13 +6083,12 @@ input:focus {
     }
 
     /* ---------------------------------> Portfolio Section <--------------------------------- */
-=======
+/* =======
         left: 37% !important;  
-    }
+    } */
         
 
     /* Portfolio Section for mobile */
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     .portfolio__section .portfolio__container {
         grid-template-columns: repeat(2, 1fr) !important;
         column-gap: 3%;
@@ -6168,23 +6096,19 @@ input:focus {
         margin-left: 0 !important;
     }
 
-<<<<<<< HEAD
     .portfolio__section .container .projects .img__div img {
         width: 319px !important;
         max-width: 319px !important;
     }
-=======
     /* .portfolio .projects .location {
         padding-top: 3em !important;
         
     } */
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
 
     .portfolio__section .projects {
         height: 100% !important;
     }
-<<<<<<< HEAD
-=======
+
     .portfolio__section .projects ul li p {
         font-size: 1.5em !important; 
         margin-top: 0 !important;
@@ -6200,7 +6124,6 @@ input:focus {
         margin-top: 10px !important;
         /* height: 35px !important; */
     }
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
 
     .video__heading {
         margin-left: 8em !important;
@@ -6214,7 +6137,6 @@ input:focus {
         margin: 2% 0 0 24% !important;
     }
 
-<<<<<<< HEAD
     .projects__text-and-img__container {
         padding: 4em !important;
     }
@@ -6285,20 +6207,17 @@ input:focus {
 
     .other__categories .other__categories-container {
         padding-left: 20px !important;
-=======
     .category__subheading {
         font-size: 1.5em !important;
         width: 100% !important;
         margin-left: 4em !important;
         align-self: center;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .categories__images {
         margin-left: 0 !important;
     }
 
-<<<<<<< HEAD
     .video__category .space {
         margin-left: 35px !important;
     }
@@ -6413,15 +6332,13 @@ input:focus {
         width: 100% !important;
         margin-right: 0 !important;
         padding-right: 0 !important;
-=======
+    }
     .markdown-content {
         width: 80% !important;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
         padding-left: 0 !important;
         margin-left: 0 !important;
     }
 
-<<<<<<< HEAD
     /* ----------------------------> Testimonial Section <----------------------------*/
 
     .testimonials .testimonials__subheading {
@@ -6562,7 +6479,6 @@ input:focus {
     }
 
 
-=======
     .swiper-wrapper {
         padding-left: 2em !important;
         width: 80% !important;
@@ -6571,14 +6487,12 @@ input:focus {
     .swiper-pagination {
         margin-left: 0 !important;
     }
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
 }
 
 
 /* for Tablets and below 834px */
 @media (max-width: 834px) {
 
-<<<<<<< HEAD
     .hero .hero__container .moto__div .hore__description {
         font-size: 1.3em !important;
     }
@@ -6682,16 +6596,14 @@ input:focus {
         width: 100px !important;
         height: 100px !important;
     }
-=======
+
     /* Partner Section for mobile */
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
 
     .partner .partner__container {
         display: grid;
         column-gap: 10px;
         row-gap: 15px;
         grid-template-columns: repeat(4, 1fr);
-<<<<<<< HEAD
     }
 
     /* Portfolio Section for mobile */
@@ -6738,14 +6650,12 @@ input:focus {
         max-width: 834px !important;
     }
 
-=======
-        justify-content: center;
+        /* justify-content: center;
         text-align: center;
         align-items: center;
-    }
+    } */
 
     /* Portfolio Section for mobile */
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     .portfolio__section .portfolio__container {
         grid-template-columns: repeat(2, 1fr) !important;
         column-gap: 3%;
@@ -6762,14 +6672,11 @@ input:focus {
         text-align: center;
     }
 
-<<<<<<< HEAD
     .projects__text-and-img__container .projects__text_container {
         padding-left: 0 !important;
     }
 
     /* ----------------------------> Video Section <----------------------------*/
-=======
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     .video__heading {
         margin-left: 8em !important;
     }
@@ -6778,7 +6685,6 @@ input:focus {
         margin-left: 6em !important;
     }
 
-<<<<<<< HEAD
     .video__category .space {
         margin-left: 0 !important;
     }
@@ -6795,7 +6701,7 @@ input:focus {
 
     .other__categories .justify-content-between {
         width: 550px !important;
-=======
+    }
     .space {
         margin: 2% 0 0 24% !important;
     }
@@ -6805,14 +6711,12 @@ input:focus {
         width: 100% !important;
         margin-left: 4em !important;
         align-self: center;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .categories__images {
         margin-left: 0 !important;
     }
 
-<<<<<<< HEAD
     .projects__text-and-img__container {
         padding-left: 5em !important;
     }
@@ -6917,8 +6821,6 @@ input:focus {
         width: 300px !important;
     }
 
-=======
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     .markdown-content {
         width: 80% !important;
         padding-left: 0 !important;
@@ -7538,7 +7440,8 @@ input:focus {
 
     .footer .footer-bottom .social-icons a {
         font-size: 1em !important;
-=======
+    }
+
     .blog__container {
         grid-template-columns: repeat(3, 1fr);
         margin-left: -20px !important;
@@ -7546,7 +7449,7 @@ input:focus {
 
     .swiper-pagination {
         margin-left: -20px !important;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
+
     }
 }
 
@@ -7561,7 +7464,6 @@ input:focus {
         margin-left: -10px !important;
     }
 }
-<<<<<<< HEAD
 
 .footer p {
     color: white !important;
@@ -7574,5 +7476,4 @@ input:focus {
     /* font-size: 0.9em !important;
         margin-top: 2em !important; */
 }
-=======
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
+
