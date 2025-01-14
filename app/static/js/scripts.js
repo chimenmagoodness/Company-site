@@ -571,20 +571,7 @@ var swiper = new Swiper('.swiper-container', {
         el: '.swiper-pagination',
         clickable: true,
     },
-    breakpoints: {
-        1024: {
-            slidesPerView: 3, // 3 slides for desktops
-            spaceBetween: 30,
-        },
-        768: {
-            slidesPerView: 2, // 2 slides for tablets
-            spaceBetween: 20,
-        },
-        480: {
-            slidesPerView: 1, // 1 slide for mobile
-            spaceBetween: 10,
-        },
-    },
+    
 });
 
 

@@ -6,7 +6,7 @@ from flask import render_template, request, url_for, redirect, jsonify, flash, B
 from flask_login import login_required, current_user, login_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.models import User, Testimonial, Partner, Portfolio, VideoURL, CaseStudy, Blog, History, Code
-from app.app import db, app, generate_token, confirm_token, send_email, salt_key
+from app.app import db, app, generate_token, confirm_token, send_email, salt_key, mail
 from markdown import markdown
 import os
 
@@ -257,32 +257,52 @@ def send_new_email(group):
 
     return render_template('accounts/send_mails.html', group=group)
 
-# @accounts_blueprint.route('/send_individual_email', methods=['POST'])
-# def send_individual_email():
-#     # Get form data
-#     recipient_email = request.form.get('recipient_email')
-#     subject = request.form.get('subject')
-#     email_content_markdown = request.form.get('email_content')
+@accounts_blueprint.route('/contact', methods=['POST'])
+def contact_us():
+    from flask_mail import Message
+    fname = request.form.get('fname')
+    lname = request.form.get('lname')
+    email = request.form.get('email')
+    phone = request.form.get('phone')
+    question = request.form.get('question')
+    subject = f"{fname} Submited A New Contact Us Form"
+    recipient_email = "1stpassabite@gmail.com"
 
-#     # Validate inputs
-#     if not recipient_email or not subject or not email_content_markdown:
-#         flash("Recipient, subject, and email content are required.", "warning")
-#         return redirect(request.referrer)
+    html_body = f"""
+    <html>
+    <body>
+        <div st yle="fon t-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
+            <h2 style="color: #333;">{fname} Reached Out for Support or Inquiries</h2>
+            <p><strong>Name:</strong> {fname} {lname}</p>
+            <p><strong>Email:</strong> {email}</p>
+            <p><strong>Phone:</strong> {phone}</p>
+            <p><strong>Message:</strong></p>
+            <p style="background-color: #f9f9f9; padding: 10px; border-left: 4px solid #007bff;">
+                {question}
+            </p>
+        </div>
+    </body>
+     </html>
+    """
+    msg = Message(
+        subject=subject,
+        sender=app.config['MAIL_USERNAME'],
+        recipients=[recipient_email],  # Corrected to a list
+        html=html_body
+    )
 
-#     try:
-#         # Generate the HTML email content
-#         email_content_html = render_email(subject, email_content_markdown)
+    try:
+        mail.send(msg)
+        flash(f"Thank You for contacting Us, Email successfully sent!", "success")
+    except Exception as e:
+        flash(f"Error sending email: {str(e)}", "danger")
+            
+    return redirect(url_for('home.index') + '#contact')
 
-#         # Send the email to the specified recipient
-#         send_email(recipient_email, subject, email_content_html)
-
-#         username = current_user.username
-#         flash(f"Email sent successfully to {recipient_email}!", "success")
-#         log_action(username, f"Sent email to {recipient_email}.")
-#     except Exception as e:
-#         flash(f"An error occurred: {e}", "danger")
-
-#     return redirect(request.referrer)
+# @accounts_blueprint.route('/home', methods=['GET'])
+# def home():
+#     return render_template('home.html')
+    # yes but i have some questions for you, how much does it cost to build a 5 bedroom duplex in abuja?
 
 @accounts_blueprint.route('/send_individual_email', methods=['POST'])
 def send_individual_email():
@@ -319,6 +339,8 @@ def send_individual_email():
         flash(f"An error occurred: {e}", "danger")
 
     return redirect(request.referrer)
+
+
 
 def log_action(username, action):
     """ Helper function to log actions in the History table. """

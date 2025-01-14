@@ -459,6 +459,8 @@ p {
 
 
 
+
+
 /* For devices with a width of 768px and above (Tablets) */
 @media (max-width: 1024px) and (min-width: 768px) {
     body {
@@ -818,11 +820,7 @@ p {
 }
 
 
-<<<<<<< HEAD
-@media screen and (max-width: 480px) {
-=======
 @media (max-width: 480px) {
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     .navbar-nav {
         width: 100% !important;
     }
@@ -857,26 +855,12 @@ p {
         align-items: center !important;
         text-align: center !important;
         height: 3em !important;
-<<<<<<< HEAD
-        padding-left: 7px !important;
-        width: 100px !important;
-        max-width: 100px !important;
-=======
-
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .navbar .navbar-nav .admin a {
         margin-bottom: 5em !important;
         margin-top: 0 !important;
         text-align: center !important;
-<<<<<<< HEAD
-        font-size: 0.9em !important;
-        padding: 3px 0 3px 15px !important;
-        background: var(--primary-color) !important;
-        border-radius: 20px !important;
-=======
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .navbar-toggler-icon {
@@ -885,12 +869,9 @@ p {
 }
 
 @media (max-width: 600px) {
-<<<<<<< HEAD
-=======
     .navbar-nav {
         width: 100% !important;
     }
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
 
     .navbar {
         width: 100% !important;
@@ -907,56 +888,6 @@ p {
         margin-left: 0 !important;
     }
 
-<<<<<<< HEAD
-    .navbar .about-link {
-        font-size: 1.3em !important;
-    }
-
-    .navbar .navbar-collapse {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 auto !important;
-        justify-content: center !important;
-        align-items: center !important;
-        text-align: center !important;
-    }
-
-    .navbar .navbar-collapse .navbar-nav {
-        margin: 0 auto !important;
-        justify-content: center !important;
-        align-items: center !important;
-        text-align: center !important;
-    }
-
-    .navbar .navbar-nav .nav-item {
-        width: 100% !important;
-        margin: 0 auto !important;
-    }
-
-    .navbar .navbar-nav .nav-item .nav-link {
-        font-size: 1.3em !important;
-        width: 100% !important;
-        margin: 0 auto !important;
-    }
-
-    .navbar .navbar-collapse .navbar-nav .nav-item .admin {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-left: 0 !important;
-    }
-
-    .navbar .navbar-collapse .navbar-nav .nav-item .admin a {
-        width: 100% !important;
-        max-width: 100% !important;
-        gap: 1px !important;
-        margin-bottom: 5em !important;
-        margin-top: 0 !important;
-        text-align: left !important;
-    }
-
-    .navbar .navbar-collapse .navbar-nav .nav-item .admin span {
-        margin-top: 0 !important;
-=======
     .navbar-collapse {
         width: 100% !important;
         margin-left: 0 !important;
@@ -983,7 +914,6 @@ p {
         margin-bottom: 5em !important;
         margin-top: 0 !important;
         text-align: center !important;
->>>>>>> fdbb928cfd22dbbdffcb2585c1c54b39ad204900
     }
 
     .navbar-toggler-icon {
@@ -992,7 +922,6 @@ p {
     }
 }
 
-<<<<<<< HEAD
 
 @media (max-width: 768px) {
     .navbar-nav {
@@ -1053,6 +982,7 @@ p {
         /* margin-left: 0 !important; */
     }
 }
+
 
 
 @media (max-width: 834px) {
@@ -1133,27 +1063,14 @@ p {
         /* margin-left: 0 !important; */
     }
 
-    /* .navbar .navbar-nav .admin {
-        margin: 0 auto !important;
-        justify-content: center !important;
-        align-items: center !important;
-        text-align: center !important;
-        height: 2em !important;
-        width: 50% !important;
-    }
-
-    .navbar .navbar-nav .admin a {
-        margin-bottom: 5em !important;
-        margin-top: 0 !important;
-        text-align: center !important;
-        width: 100% !important;
-    } */
-
     .navbar-toggler-icon {
         margin-right: 0 !important;
         /* margin-left: 0 !important; */
     }
 }
+
+
+
 
 
 @media (max-width: 1024px) {
