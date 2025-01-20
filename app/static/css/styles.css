@@ -17,6 +17,8 @@
     src: url(BirdsOfParadisePersonalUseOnly-dX7X.ttf);
 }
 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
+
 body {
     background: var(--background-secondary-color);
     overflow-x: hidden;
@@ -5558,4 +5560,281 @@ input:focus {
     color: white !important;
     /* font-size: 0.9em !important;
         margin-top: 2em !important; */
+}
+
+
+/* Subscribe Section */
+.subscribe .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #F5F3F9; */
+}
+
+.Subscribe {
+    height: 250px;
+    padding: 30px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0 6px 10px 0 rgba(149, 144, 179, 0.15),
+        0 15px 50px 0 rgba(182, 182, 224, 0.10);
+}
+
+.Subscribe::after {
+    width: 150%;
+    height: 130px;
+    content: "";
+    z-index: 1;
+    position: absolute;
+    bottom: -20px;
+    left: -25%;
+    transform: rotate(-5deg);
+    background-color: #F9F9FC;
+    transition: transform 1s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.Subscribe h3 {
+    color: #4F20FF;
+    font-size: 22px;
+    margin-bottom: 15px;
+    transition: opacity 900ms 150ms cubic-bezier(0.2, 0, 0, 1), transform 900ms 150ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.Subscribe p {
+    color: #827C8C;
+    font-size: 15px;
+    line-height: 24px;
+    margin-bottom: 30px;
+    transition: opacity 900ms 100ms cubic-bezier(0.2, 0, 0, 1), transform 900ms 100ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.Subscribe form {
+    z-index: 2;
+    left: 20px;
+    width: 320px;
+    height: 46px;
+    bottom: 25px;
+    overflow: hidden;
+    position: absolute;
+    border-radius: 4px;
+    background: #FFFFFF;
+    box-shadow: 0 3px 6px 0 rgba(149, 144, 179, 0.20);
+    transition: transform 600ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.Subscribe form::after {
+    top: 0;
+    content: "";
+    width: 30px;
+    height: 100%;
+    right: 110px;
+    position: absolute;
+    background: linear-gradient(90deg, rgba(white, 0), rgba(white, 1))
+}
+
+.Subscribe form input[type=text] {
+    border: none;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    font-size: 15px;
+    padding: 0 110px 0 20px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.Subscribe form button {
+    top: 0;
+    right: 0;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    width: 110px;
+    border: none;
+    height: 100%;
+    color: #5224FF;
+    font-size: 15px;
+    position: absolute;
+    background-color: white;
+    transition: color 500ms;
+
+    &:hover {
+        color: #1A0373;
+    }
+}
+
+.Loading {
+    left: 0;
+    opacity: 0;
+    z-index: 0;
+    width: 100%;
+    bottom: 50px;
+    position: absolute;
+    text-align: center;
+    potiner-events: none;
+    transition: opacity 900ms 0s cubic-bezier(0.2, 0, 0, 1), transform 900ms 0s cubic-bezier(0.2, 0, 0, 1);
+
+    .LoadingDot {
+        width: 6px;
+        opacity: 0;
+        height: 6px;
+        margin: 0 1px;
+        border-radius: 50%;
+        display: inline-block;
+        background-color: #B6B6CF;
+    }
+
+    .LoadingDot:nth-child(1) {
+        animation: loading 2s 0ms infinite;
+    }
+
+    .LoadingDot:nth-child(2) {
+        animation: loading 2s 200ms infinite;
+    }
+
+    .LoadingDot:nth-child(3) {
+        animation: loading 2s 400ms infinite;
+    }
+
+    .LoadingDot:nth-child(4) {
+        animation: loading 2s 600ms infinite;
+    }
+
+    span {
+        color: #B6B6CF;
+        display: block;
+        font-size: 12px;
+        margin-top: 15px;
+    }
+}
+
+@keyframes loading {
+    0% {
+        opacity: 0;
+        transform: scale(0.5)
+    }
+
+    33% {
+        opacity: 1;
+        transform: scale(1)
+    }
+
+    66% {
+        opacity: 0;
+        transform: scale(0.5)
+    }
+}
+
+.Complete {
+    left: 0;
+    top: 50px;
+    width: 100%;
+    padding: 0 30px;
+    text-align: center;
+    position: absolute;
+
+    .Tick {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-bottom: 30px;
+        display: inline-block;
+        background-color: #4F20FF;
+
+        svg {
+            opacity: 0;
+            margin-top: 28px;
+            transform: scale(0.5);
+            transition: opacity, 400ms 500ms, transform 300ms 500ms cubic-bezier(0.2, 0, 0, 1.2);
+        }
+
+        opacity: 0;
+        transform: scale(.5);
+        transition: opacity 600ms 200ms,
+        transform 600ms 200ms;
+    }
+
+    h4 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        opacity: 0;
+        transform: translateY(-15px);
+        transition:
+            opacity 600ms 450ms,
+            transform 600ms 450ms;
+    }
+
+    span {
+        opacity: 0;
+        color: #827C8C;
+        display: block;
+        font-size: 14px;
+        transform: translateY(-15px);
+        transition:
+            opacity 600ms 400ms,
+            transform 600ms 400ms;
+    }
+}
+
+/* // loading state */
+.Subscribe--loading,
+.Subscribe--complete {
+    form {
+        transform: translateY(100px)
+    }
+
+    &::after {
+        transform: rotate(0) translateY(100px);
+    }
+
+    .Loading {
+        opacity: 1;
+        pointer-events: all
+    }
+}
+
+.Subscribe--complete {
+    .Loading {
+        opacity: 0;
+        transform: translateY(100px)
+    }
+
+    h3 {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+
+    p {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+
+    .Complete .Tick {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .Complete .Tick svg {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .Complete h4,
+    .Complete span {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.Container small {
+    width: 100%;
+    display: block;
+    color: #B6B6CF;
+    font-size: 14px;
+    padding: 0 30px;
+    line-height: 22px;
+    text-align: center;
 }

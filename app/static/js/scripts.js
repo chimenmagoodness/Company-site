@@ -640,5 +640,3 @@ $('#editTestimonialModal').on('show.bs.modal', function (event) {
 
 
 
-
-

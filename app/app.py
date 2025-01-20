@@ -27,11 +27,8 @@ load_dotenv()
 db = SQLAlchemy()
 
 
-
-# def create_app():
 app = Flask(__name__)
-# tinymce = TinyMCE()
-# tinymce.init_app(app)
+
 
 app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static/uploads')
 
@@ -40,47 +37,41 @@ migrate = Migrate(app, db)  # Set up Flask-Migrate
 login_manager = LoginManager(app)
 login_manager.login_view = 'users.login'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///astruct.db'
-import os
+# Database configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+
+# Security settings
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SECURITY_PASSWORD_SALT'] = os.getenv('SECURITY_PASSWORD_SALT')
 
 # Load the environment variable into Flask configuration
 app.config['SECURITY_PASSWORD_SALT'] = os.getenv('SECURITY_PASSWORD_SALT')
 
 
 salt_key = app.config.get("SECURITY_PASSWORD_SALT")
-# Mail Settings
 
-app.config['MAIL_DEFAULT_SENDER'] = "noreply@flask.com"
-app.config['MAIL_SERVER'] = "smtp.gmail.com"
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_DEBUG'] = False
-app.config['MAIL_USERNAME'] = "1stpassabite@gmail.com" # os.environ.get('EMAIL_USER')  # Use [] to access environment variables
-app.config['MAIL_PASSWORD'] = "pjwa fkzm uhud ycfp" # os.environ.get('EMAIL_PASSWORD')
+
+# Mail settings
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER', 'noreply@flask.com')
+app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
+app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 465))
+app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS', 'False').lower() == 'true'
+app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL', 'True').lower() == 'true'
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+
 mail = Mail(app)
+serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 from itsdangerous import URLSafeTimedSerializer
 
 def generate_token(email):
-    serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
     return serializer.dumps(email, salt=salt_key)
 
 
-# def confirm_token(token, expiration=3600):
-#     serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
-#     try:
-#         email = serializer.loads(
-#             token, salt=salt_key, max_age=expiration
-#         )
-#         return email
-#     except Exception:
-#         return False
 
 def confirm_token(token, salt_key, expiration=3600):
-    serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
     try:
         email = serializer.loads(
             token, salt=salt_key, max_age=expiration
@@ -114,6 +105,7 @@ def send_email(to, subject, template):
     )
     mail.send(msg)
     
+    
 # Initialize extensions
 db.init_app(app)
 login_manager.init_app(app)
@@ -130,9 +122,7 @@ from .blueprints.testimonials.views import testimonial_blueprint
 from .blueprints.videos.views import videos_blueprint
 from .blueprints.accounts.views import accounts_blueprint
 
-# @app.route('/')  
-# def index():
-#     return "This is the index route."
+
 
 app.register_blueprint(home_blueprint, url_prefix='/')
 app.register_blueprint(accounts_blueprint, url_prefix="/accounts")
@@ -211,7 +201,6 @@ class LinkTargetExtension(markdown.extensions.Extension):
 class LinkTargetProcessor(markdown.treeprocessors.Treeprocessor):
     def run(self, root):
         for element in root.iter('a'):
-            print(f'Processing link: {element.get("href")}')  # Debugging: Print links being processed
             element.set('target', '_blank')
             element.set('rel', 'noopener noreferrer')
 

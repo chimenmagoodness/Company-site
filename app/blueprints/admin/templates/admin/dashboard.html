@@ -994,9 +994,42 @@
                     {% endfor %}
                 </tbody>
             </table>
+
+
+    
+            <!-- Table for Newsletter Subscribers -->
+            <h3 class="text-center mt-4" id="newsletters">Newsletter Subscribers</h3>
+            <table class="table table-striped mt-4 mb-4" >
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                        <th>
+                            <button class="btn btn-primary btn-sm" onclick="sendNewsletterModal()">
+                                Send Newsletters
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for subscriber in subscribers %}
+                    <tr>
+                        <td>{{ subscriber.id }}</td>
+                        <td>
+                            {{ subscriber.email }}
+                            {% if not subscriber.is_subscribed %}
+                            <span style="color: red; font-size: 12px; font-weight: bold;">(Unsubscribed)</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
     
             <!-- Table for Normal Admins -->
-            <h3 class="mt-4">Normal Admins</h3>
+            <h3 class="text-center mt-4">Normal Admins</h3>
             <table class="table table-striped mt-3 mb-4">
                 <thead>
                     <tr>
@@ -1017,13 +1050,6 @@
                         <td>{{ user.position }}</td>
                         <td>{{ user.role }}</td>
                         <td>
-                            <!-- <button class="btn btn-success btn-sm"
-                                onclick="confirmPromote('{{ url_for('admin.promote_to_main_admin', user_id=user.id) }}')">
-                                Promote to Main Admin
-                            </button> -->
-                            <!-- <button class="btn btn-success btn-sm" onclick="openSendEmailModal('{{ user.email }}')">
-                                Send Email
-                            </button> -->
                             <button class="btn btn-success btn-sm" onclick="openSendEmailModal('{{ user.email }}', '{{ user.username }}')">
                                 Send Email
                             </button>
@@ -1055,7 +1081,7 @@
     
             <!-- Table for Main Admins -->
             {% if current_user.role == 'main_admin' %}
-            <h3 class="mt-4">Main Admins</h3>
+            <h3 class="text-center mt-4">Main Admins</h3>
             <table class="table table-striped mt-3 mb-4">
                 <thead>
                     <tr>
@@ -1127,6 +1153,25 @@
             </table>
         </div>
 
+        <div class="container p-4">
+            <h2 class="text-center p-4">Download all emails into a spreadsheet</h2>
+            {% if users | selectattr('role', 'equalto', 'main_admin') | list %}
+            <div class="row mb-3">
+                <div class="col-md-6 d-flex align-items-center justify-content-between">
+                    <div>
+                        <strong>
+                            <h3>Main Admin</h3>
+                        </strong>
+                    </div>
+                    <a href="{{ url_for('accounts.download_emails') }}" class="btn btn-success">
+                        Download Emails as CSV
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+
 
         <div class="container mt-4 pt-4">
             <h2 class="text-center pb-3">Manage Admin Codes</h2>
@@ -1165,6 +1210,43 @@
                 </div>
             {% endfor %}
         </div>
+
+
+        <!-- Send Newsletter Modal -->
+        <div class="modal fade" id="sendNewsletterModal" tabindex="-1" aria-labelledby="sendNewsletterModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="sendNewsletterModalLabel">Send Newsletters</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ url_for('accounts.send_newsletters') }}" >
+                            <label for="subject">Subject: of the Newsletter</label>
+                            <input type="text" name="subject" id="subject" class="form-control" required />
+        
+                            <label for="email_content">Email Content:</label>
+                            <textarea id="email_content" name="email_content" class="form-control" ></textarea>
+        
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Send Newsletters</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <script>
+            function sendNewsletterModal() {
+                const modal = new bootstrap.Modal(document.getElementById('sendNewsletterModal'));
+                modal.show();
+            }
+        </script>
+
 
         
         <!-- Authorization Modal for changing the admin codes -->        
@@ -1270,34 +1352,6 @@
             </a>
         </div>
 
-        
-        <!-- <div id="sendEmailModal" class="modal fade" tabindex="-1" aria-labelledby="sendEmailModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="POST" action="{{ url_for('accounts.send_individual_email') }}">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="sendEmailModalLabel">Send Email</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" name="recipient_email" id="recipientEmail">
-                            <div class="mb-3">
-                                <label for="emailSubject" class="form-label">Subject</label>
-                                <input type="text" class="form-control" id="emailSubject" name="subject" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="emailContent" class="form-label">Email Content</label>
-                                <textarea id="email_content" name="email_content" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Send Email</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> -->
 
         
         <div class="modal fade" id="sendEmailModal" tabindex="-1" aria-labelledby="sendEmailModalLabel" aria-hidden="true">
