@@ -1,3 +1,6 @@
 .env
 .codegpt*.pyc
 *.pyc
+.codegpt/
+app/static/css/css.css
+app/static/css/css2.css
