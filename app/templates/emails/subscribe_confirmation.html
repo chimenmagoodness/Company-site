@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .email-header {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+        .email-header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .email-body {
+            padding: 20px;
+        }
+        .email-body p {
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+        .email-body .highlight {
+            color: #3498db;
+            font-weight: bold;
+        }
+        .email-footer {
+            background-color: #f4f4f4;
+            padding: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+        .email-footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 12px 20px;
+            color: #ffffff;
+            background-color: #3498db;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 20px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>Welcome to Atructs</h1>
+        </div>
+        <div class="email-body">
+            <p>Dear <span class="highlight">{{email_handle}}</span>,</p>
+            <p>Thank you for subscribing to <strong>Atructs</strong> Newsletter. We're thrilled to have you on board!</p>
+            <p>At Atructs, we are committed to keeping you informed about the latest real estate listings, market insights, and exclusive offers tailored to your needs.</p>
+            <h3>Benefits of Subscribing?</h3>
+            <ul>
+                <li>Be the first to get any available offer.</li>
+                <li>Stay informed about our latest listings.</li>
+                <li>Get exclusive offers tailored to your needs.</li>
+                <li>Stand a chancnce to get 40% <strong style="color: #3498db;">DISCOUNT</strong> from us and lots more.</li>
+            </ul>
+            <p>
+                Feel free to <a href="mailto:support@atructs.com" style="color: #004080; text-decoration: underline;">contact us</a> if you have any questions or need assistance.
+            </p>
+            <a href="https://atructs.com" class="cta-button" style="color: white;">Visit Our Website</a>
+            <p style="margin-top: 20px;">We look forward to helping you find your dream property!</p>
+            <p>Warm regards,</p>
+            <p>The <strong>Atructs</strong> Team</p>
+        </div>
+        <div class="email-footer">
+            <p>&copy; {{ current_year }} Atructs. All rights reserved.</p>
+            <p><a href="{{ unsubscribe_url }}">Unsubscribe</a></p>
+        </div>
+    </div>
+</body>
+</html>

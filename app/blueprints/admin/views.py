@@ -5,25 +5,16 @@ from itsdangerous import URLSafeTimedSerializer
 from flask import render_template, request, url_for, redirect, jsonify, flash, Blueprint
 from flask_login import login_required, current_user, login_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.models import User, Testimonial, Partner, Portfolio, VideoURL, CaseStudy, Blog, History, Code
-from app.app import db, app, generate_token, confirm_token, send_email
+from app.models import User, Testimonial, Partner, Portfolio, VideoURL, CaseStudy, Blog, History, Code, Subscribe
+from app.app import db, app, generate_token, confirm_token, send_email, serializer
 import os
 
 
 admin_blueprint = Blueprint("admin", __name__, template_folder='templates')
 
-# app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # Example with Gmail
-# app.config['MAIL_PORT'] = 587
-# app.config['MAIL_USE_TLS'] = True
-# app.config['MAIL_USERNAME'] = 'switnextra@gmail.com'
-# app.config['MAIL_PASSWORD'] = "Switnex6058'"
-# app.config['MAIL_DEFAULT_SENDER'] = 'switnexxtra@gmail.com'
-# app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', '56b6f22c15e02bf842f660bb490d1d5e442e726926ee87153768c425f76dd505')
-# app.config['SECURITY_PASSWORD_SALT'] = os.getenv("SECURITY_PASSWORD_SALT", default="very-important")
-
 
 # mail = Mail(app)
-serializer = URLSafeTimedSerializer("56b6f22c15e02bf842f660bb490d1d5e442e726926ee87153768c425f76dd505")
+serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 with app.app_context():
     db.create_all()
@@ -90,9 +81,6 @@ def admin_register():
 
     return render_template('admin/register.html')
 
-# SECURITY_PASSWORD_SALT=1c80d180bdb2a48cbc2f689b38b234befbff9a35128403a1616344916610e2a0
-# EMAIL_USER=bernard02@gmail.com
-# EMAIL_PASSWORD="Switnex6058'"
 
 
 @admin_blueprint.route('/login', methods=['GET', 'POST'])
@@ -238,6 +226,7 @@ def dashboard():
     users = User.query.all()
     history = History.query.all()
     codes = Code.query.all()
+    subscribers = Subscribe.query.all()
 
     return render_template(
         'admin/dashboard.html',
@@ -250,7 +239,8 @@ def dashboard():
         users=users,
         user=current_user,
         history=history,
-        codes=codes
+        codes=codes,
+        subscribers=subscribers
     )
 
 @admin_blueprint.route('/users')
