@@ -16,12 +16,15 @@ admin_blueprint = Blueprint("admin", __name__, template_folder='templates')
 # mail = Mail(app)
 serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
+main_admin_code = os.getenv('main_admin_code')
+normal_admin_code = os.getenv('normal_admin_code')
+
 with app.app_context():
     db.create_all()
 
     # Create default codes if they don't exist
     if not Code.query.first():
-        default_codes = Code(main_admin_code=generate_password_hash("DEFAULT34548071"), normal_admin_code=generate_password_hash("DEFAULT1234567891"))
+        default_codes = Code(main_admin_code=generate_password_hash(main_admin_code), normal_admin_code=generate_password_hash(normal_admin_code))
         db.session.add(default_codes)
         db.session.commit()
 
