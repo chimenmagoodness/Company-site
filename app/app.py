@@ -40,6 +40,8 @@ login_manager.login_view = 'users.login'
 # Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 
+main_admin_code = os.getenv('main_admin_code')
+normal_admin_code = os.getenv('normal_admin_code')
 
 # Security settings
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
