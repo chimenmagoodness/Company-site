@@ -29,8 +29,8 @@ class User(db.Model, UserMixin):
     
 class Code(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    main_admin_code = db.Column(db.String(100), nullable=False, default="DEFAULT_MAIN_CODE")
-    normal_admin_code = db.Column(db.String(100), nullable=False, default="DEFAULT_NORMAL_CODE")
+    main_admin_code = db.Column(db.String(800), nullable=False, default="DEFAULT_MAIN_CODE")
+    normal_admin_code = db.Column(db.String(800), nullable=False, default="DEFAULT_NORMAL_CODE")
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 

@@ -37,8 +37,13 @@ migrate = Migrate(app, db)  # Set up Flask-Migrate
 login_manager = LoginManager(app)
 login_manager.login_view = 'users.login'
 
+# with app.app_context():  # Push the app context
+#     db.create_all()  # Create tables
+  
+  
 # Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('POSTGRES_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 main_admin_code = os.getenv('main_admin_code')
 normal_admin_code = os.getenv('normal_admin_code')

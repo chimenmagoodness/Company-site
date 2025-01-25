@@ -23,10 +23,10 @@ with app.app_context():
     db.create_all()
 
     # Create default codes if they don't exist
-    if not Code.query.first():
-        default_codes = Code(main_admin_code=generate_password_hash(main_admin_code), normal_admin_code=generate_password_hash(normal_admin_code))
-        db.session.add(default_codes)
-        db.session.commit()
+    # if not Code.query.first():
+    #     default_codes = Code(main_admin_code=generate_password_hash(main_admin_code), normal_admin_code=generate_password_hash(normal_admin_code))
+    #     db.session.add(default_codes)
+    #     db.session.commit()
 
 
 # --------------------------------------> Register User Admin <-----------------------------------
