@@ -42,7 +42,7 @@ login_manager.login_view = 'users.login'
   
   
 # Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('POSTGRES_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 main_admin_code = os.getenv('main_admin_code')
@@ -218,66 +218,4 @@ def slugify_filter(s):
     return re.sub(r'[^a-zA-Z0-9]+', '-', s).lower().strip('-')
 
 
-# User model
-# class User(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     email = db.Column(db.String(150), unique=True, nullable=False)
-#     name = db.Column(db.String(150), nullable=False)
-#     profile_pic = db.Column(db.String(300))
 
-# # Initialize OAuth
-# oauth = OAuth(app)
-
-# # Configure Google OAuth
-# app.config['GOOGLE_CLIENT_ID'] = 'your_google_client_id'
-# app.config['GOOGLE_CLIENT_SECRET'] = 'your_google_client_secret'
-
-# google = oauth.register(
-#     name='google',
-#     client_id=app.config['GOOGLE_CLIENT_ID'],
-#     client_secret=app.config['GOOGLE_CLIENT_SECRET'],
-#     access_token_url='https://oauth2.googleapis.com/token',
-#     authorize_url='https://accounts.google.com/o/oauth2/auth',
-#     api_base_url='https://www.googleapis.com/oauth2/v2/',
-#     client_kwargs={
-#         'scope': 'openid email profile'
-#     }
-# )
-
-# @app.route('/')
-# def index():
-#     user = session.get('user')
-#     if user:
-#         return f"Hello, {user['name']}! <a href='/logout'>Logout</a>"
-#     return '<a href="/login">Login with Google</a>'
-
-# @app.route('/login')
-# def login():
-#     redirect_uri = url_for('authorize', _external=True)
-#     return google.authorize_redirect(redirect_uri)
-
-# @app.route('/authorize')
-# def authorize():
-#     token = google.authorize_access_token()
-#     user_info = google.get('userinfo').json()
-
-#     # Check if user exists in the database
-#     user = User.query.filter_by(email=user_info['email']).first()
-#     if not user:
-#         # Create new user
-#         user = User(
-#             email=user_info['email'],
-#             name=user_info['name'],
-#             profile_pic=user_info['picture']
-#         )
-#         db.session.add(user)
-#         db.session.commit()
-
-#     # Store user info in session
-#     session['user'] = {
-#         'email': user.email,
-#         'name': user.name,
-#         'profile_pic': user.profile_pic
-#     }
-
-#     return redirect('/')
